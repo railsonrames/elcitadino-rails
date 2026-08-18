@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      user: "Usuário"
+      provider_profile: "Perfil do Prestador"
+      service: "Serviço"
+      appointment: "Agendamento"
+    attributes:
+      user:
+        name: "Nome Completo"
+        role: "Perfil"
+      service:
+        name: "Nome do Serviço"
+        duration: "Duração (minutos)"
+        price: "Preço"
+      appointment:
+        scheduled_at: "Data e Hora"
+        status: "Situação"
+        modality: "Modalidade"

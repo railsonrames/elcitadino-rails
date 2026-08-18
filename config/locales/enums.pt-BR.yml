@@ -1,0 +1,13 @@
+pt-BR:
+  enums:
+    appointment:
+      status:
+        pending: "Pendente"
+        confirmed: "Confirmado"
+        completed: "Concluído"
+        canceled: "Cancelado"
+      modality:
+        in_person: "Presencial"
+        online: "Online"
+        phone: "Telefone"
+        video: "Vídeo Chamada"

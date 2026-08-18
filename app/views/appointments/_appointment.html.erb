@@ -1,0 +1,30 @@
+<div id="<%= dom_id appointment %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Client:</strong>
+    <%= appointment.client_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Provider profile:</strong>
+    <%= appointment.provider_profile_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Service:</strong>
+    <%= appointment.service_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Scheduled at:</strong>
+    <%= appointment.scheduled_at %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= t("enums.appointment.status.#{appointment.status}") %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Modality:</strong>
+    <%= appointment.modality %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Notes:</strong>
+    <%= appointment.notes %>
+  </div>
+</div>
