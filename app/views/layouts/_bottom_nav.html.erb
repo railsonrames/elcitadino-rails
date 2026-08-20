@@ -1,0 +1,40 @@
+<%
+  tabs = if user_signed_in? && current_user.provider?
+    [
+      { path: current_user.provider_profile.present? ? dashboard_path : new_provider_profile_path, icon: :home, label: t("layouts.bottom_nav.dashboard") },
+      { path: appointments_path, icon: :calendar, label: t("layouts.bottom_nav.my_appointments") },
+      { path: edit_user_registration_path, icon: :user, label: t("layouts.bottom_nav.account") }
+    ]
+  elsif user_signed_in?
+    [
+      { path: providers_path, icon: :search, label: t("layouts.bottom_nav.browse_providers") },
+      { path: appointments_path, icon: :calendar, label: t("layouts.bottom_nav.my_appointments") },
+      { path: edit_user_registration_path, icon: :user, label: t("layouts.bottom_nav.account") }
+    ]
+  else
+    [
+      { path: providers_path, icon: :search, label: t("layouts.bottom_nav.browse_providers") },
+      { path: new_user_session_path, icon: :login, label: t("layouts.bottom_nav.sign_in") },
+      { path: new_user_registration_path, icon: :user, label: t("layouts.bottom_nav.sign_up") }
+    ]
+  end
+
+  icon_paths = {
+    home: "m4 11 8-7 8 7M6 10v9h5v-5h2v5h5v-9",
+    search: "M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm10 3-4.3-4.3",
+    calendar: "M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z",
+    user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8c0-3.3 3.1-6 7-6s7 2.7 7 6",
+    login: "M15 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4M10 17l5-5-5-5M15 12H3"
+  }
+%>
+<nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 flex items-stretch z-20">
+  <% tabs.each do |tab| %>
+    <% active = current_page?(tab[:path]) %>
+    <%= link_to tab[:path], class: "flex-1 flex flex-col items-center gap-0.5 py-2.5 text-xs font-medium #{active ? "text-blue-600" : "text-gray-500"}" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+        <path d="<%= icon_paths[tab[:icon]] %>" />
+      </svg>
+      <%= tab[:label] %>
+    <% end %>
+  <% end %>
+</nav>

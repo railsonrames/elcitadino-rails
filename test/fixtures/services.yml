@@ -1,15 +1,20 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   provider_profile: one
-  name: MyString
-  description: MyText
-  duration: 1
-  price: 9.99
+  name: Corte de Cabelo
+  description: Corte tradicional com máquina e tesoura.
+  duration: 30
+  price: 15.00
 
 two:
   provider_profile: two
-  name: MyString
-  description: MyText
-  duration: 1
-  price: 9.99
+  name: Massagem Relaxante
+  description: Sessão de 60 minutos.
+  duration: 60
+  price: 45.00
+
+unbooked:
+  provider_profile: one
+  name: Barba
+  description: Aparar e desenhar a barba.
+  duration: 20
+  price: 10.00

@@ -1,5 +1,18 @@
 pt-BR:
   enums:
+    user:
+      role:
+        client: "Cliente"
+        provider: "Prestador"
+    provider_profile:
+      category:
+        beleza: "Beleza & Estética"
+        bem_estar: "Bem-Estar"
+        fitness: "Fitness"
+        casa: "Casa & Lar"
+        educacao: "Educação"
+        tecnologia: "Tecnologia"
+        outros: "Outros"
     appointment:
       status:
         pending: "Pendente"

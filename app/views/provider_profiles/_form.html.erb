@@ -1,0 +1,38 @@
+<%= form_with(model: provider_profile, url: provider_profile_path, class: "contents") do |form| %>
+  <% if provider_profile.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(provider_profile.errors.count, "error") %> <%= t("provider_profiles.form.prevented_save") %></h2>
+
+      <ul class="list-disc ml-6">
+        <% provider_profile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :bio %>
+    <%= form.textarea :bio, rows: 4, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :address %>
+    <%= form.text_field :address, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :city %>
+    <%= form.text_field :city, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :category %>
+    <%= form.select :category, ProviderCategory::SLUGS.map { |slug| [t("enums.provider_profile.category.#{slug}"), slug] },
+          { prompt: t("provider_profiles.form.select_category") }, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit t("provider_profiles.form.submit"), class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

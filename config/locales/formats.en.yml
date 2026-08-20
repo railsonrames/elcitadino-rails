@@ -1,0 +1,8 @@
+# The app's market is Spain (EUR), regardless of UI language, so override
+# Rails' locale-default currency unit ("$" for en, "R$" for pt-BR).
+en:
+  number:
+    currency:
+      format:
+        unit: "€"
+        format: "%u%n"

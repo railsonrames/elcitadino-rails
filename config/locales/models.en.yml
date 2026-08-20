@@ -1,0 +1,28 @@
+en:
+  activerecord:
+    models:
+      user: "User"
+      provider_profile: "Provider Profile"
+      service: "Service"
+      appointment: "Appointment"
+    attributes:
+      user:
+        name: "Full Name"
+        role: "Role"
+      provider_profile:
+        bio: "About you"
+        address: "Address"
+        city: "City"
+        category: "Category"
+      service:
+        name: "Service Name"
+        description: "Description"
+        duration: "Duration (minutes)"
+        price: "Price"
+      appointment:
+        client: "Client"
+        service: "Service"
+        scheduled_at: "Date and Time"
+        status: "Status"
+        modality: "Modality"
+        notes: "Notes"

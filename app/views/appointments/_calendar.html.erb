@@ -1,0 +1,32 @@
+<div class="border border-gray-200 rounded-2xl p-4 mb-4">
+  <div class="flex items-center justify-between mb-3">
+    <%= link_to date_url.call(calendar_month - 1.month),
+          data: { turbo_frame: "booking_panel" }, class: "p-1.5 rounded-full hover:bg-gray-100", "aria-label": t(".previous_month") do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m15 18-6-6 6-6" /></svg>
+    <% end %>
+    <p class="font-medium capitalize"><%= l(calendar_month, format: "%B %Y") %></p>
+    <%= link_to date_url.call(calendar_month + 1.month),
+          data: { turbo_frame: "booking_panel" }, class: "p-1.5 rounded-full hover:bg-gray-100", "aria-label": t(".next_month") do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m9 18 6-6-6-6" /></svg>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-7 gap-y-1 text-center text-xs text-gray-400 mb-1">
+    <% I18n.t("date.abbr_day_names").each do |day_name| %>
+      <div><%= day_name %></div>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-7 gap-y-1 text-center text-sm">
+    <% calendar_weeks(calendar_month).flatten(1).each do |date, in_month| %>
+      <% within_range = in_month && date >= Date.current && date <= Date.current + AppointmentsController::MAX_BOOKING_DAYS_AHEAD %>
+      <% if within_range && provider_profile.open_on?(date, modality) %>
+        <%= link_to date.day, date_url.call(date),
+              data: { turbo_frame: "booking_panel" },
+              class: "mx-auto flex items-center justify-center w-8 h-8 rounded-full #{date == selected_date ? "bg-blue-600 text-white font-bold" : "hover:bg-gray-100"}" %>
+      <% else %>
+        <span class="mx-auto flex items-center justify-center w-8 h-8 text-gray-300"><%= date.day %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

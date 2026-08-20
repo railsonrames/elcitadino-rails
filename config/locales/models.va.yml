@@ -1,0 +1,28 @@
+va:
+  activerecord:
+    models:
+      user: "Usuari"
+      provider_profile: "Perfil de Prestador"
+      service: "Servici"
+      appointment: "Cita"
+    attributes:
+      user:
+        name: "Nom Complet"
+        role: "Perfil"
+      provider_profile:
+        bio: "Sobre tu"
+        address: "Adreça"
+        city: "Ciutat"
+        category: "Categoria"
+      service:
+        name: "Nom del Servici"
+        description: "Descripció"
+        duration: "Duració (minuts)"
+        price: "Preu"
+      appointment:
+        client: "Client"
+        service: "Servici"
+        scheduled_at: "Data i Hora"
+        status: "Estat"
+        modality: "Modalitat"
+        notes: "Notes"

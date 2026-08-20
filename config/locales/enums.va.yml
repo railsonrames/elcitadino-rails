@@ -1,0 +1,26 @@
+va:
+  enums:
+    user:
+      role:
+        client: "Client"
+        provider: "Prestador"
+    provider_profile:
+      category:
+        beleza: "Bellea"
+        bem_estar: "Benestar"
+        fitness: "Fitness"
+        casa: "Casa"
+        educacao: "Educació"
+        tecnologia: "Tecnologia"
+        outros: "Altres"
+    appointment:
+      status:
+        pending: "Pendent"
+        confirmed: "Confirmada"
+        completed: "Completada"
+        canceled: "Cancel·lada"
+      modality:
+        in_person: "Presencial"
+        online: "En línia"
+        phone: "Telèfon"
+        video: "Videotrucada"

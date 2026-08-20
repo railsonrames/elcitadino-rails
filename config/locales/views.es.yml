@@ -1,0 +1,143 @@
+es:
+  errors:
+    clients_only: "Solo los clientes pueden hacer esto."
+    providers_only: "Solo los proveedores pueden hacer esto."
+    no_provider_profile: "Completa primero tu perfil de proveedor."
+  layouts:
+    navbar:
+      browse_providers: "Buscar proveedores"
+      dashboard: "Panel"
+      complete_profile: "Completar perfil"
+      my_appointments: "Mis citas"
+      account: "Mi cuenta"
+      sign_out: "Salir"
+      sign_in: "Entrar"
+      sign_up: "Registrarse"
+    bottom_nav:
+      browse_providers: "Buscar"
+      dashboard: "Panel"
+      my_appointments: "Citas"
+      account: "Perfil"
+      sign_in: "Entrar"
+      sign_up: "Registrarse"
+  providers:
+    index:
+      title: "Proveedores"
+      search_placeholder: "¿Qué servicio necesitas?"
+      all_categories: "Todos"
+      none_found: "No se encontraron proveedores."
+    show:
+      back: "Volver"
+      services: "Servicios"
+      book: "Reservar"
+      no_services: "Este proveedor aún no ha registrado servicios."
+      sign_in_to_book: "Inicia sesión para reservar una cita."
+      sign_in: "Entrar"
+      badge_pricing: "Precios transparentes"
+      badge_fast_confirmation: "Confirmación rápida"
+      badge_easy_cancellation: "Cancelación fácil"
+  appointments:
+    new:
+      title: "Reservar con %{provider}"
+      back: "Volver"
+    calendar:
+      previous_month: "Mes anterior"
+      next_month: "Mes siguiente"
+    slots:
+      slots_for: "Horarios disponibles el %{date}"
+      no_slots: "No hay horarios disponibles este día."
+      slot_status:
+        booked: "Horario ya ocupado"
+        closed: "Fuera del horario de atención"
+        past: "Horario ya pasado"
+    form:
+      prevented_save: "impidieron que se guardara esta cita:"
+      submit: "Confirmar cita"
+    create:
+      success: "Cita creada correctamente."
+    update:
+      success: "Cita actualizada correctamente."
+      rescheduled: "Cita reprogramada correctamente."
+      invalid_transition: "No se pudo actualizar la cita."
+    index:
+      title: "Citas"
+      show: "Ver"
+      none_found: "No se encontraron citas."
+    show:
+      title: "Detalles de la Cita"
+      cancel: "Cancelar"
+      confirm_cancel: "¿Seguro que quieres cancelar?"
+      confirm: "Confirmar"
+      complete: "Completar"
+      reschedule: "Reprogramar"
+      back: "Volver"
+    reschedule:
+      title: "Reprogramar Cita"
+      back: "Volver"
+      submit: "Confirmar nueva fecha"
+  services:
+    form:
+      prevented_save: "impidieron que se guardara este servicio:"
+      submit: "Guardar servicio"
+    service:
+      edit: "Editar"
+      destroy: "Eliminar"
+      confirm_destroy: "¿Estás seguro?"
+    create:
+      success: "Servicio creado correctamente."
+    update:
+      success: "Servicio actualizado correctamente."
+    destroy:
+      success: "Servicio eliminado correctamente."
+    new:
+      title: "Nuevo Servicio"
+      back: "Volver al perfil"
+    edit:
+      title: "Editar Servicio"
+      back: "Volver al perfil"
+  provider_profiles:
+    form:
+      prevented_save: "impidieron que se guardara el perfil:"
+      submit: "Guardar perfil"
+      select_category: "Selecciona una categoría"
+    new:
+      title: "Completa tu perfil de proveedor"
+      subtitle: "Esta información se mostrará a tus clientes."
+    create:
+      success: "Perfil creado correctamente."
+    edit:
+      title: "Editar Perfil"
+      my_services: "Mis servicios"
+      new_service: "Nuevo servicio"
+      no_services: "Aún no has registrado ningún servicio."
+      back_to_dashboard: "Volver al panel"
+    update:
+      success: "Perfil actualizado correctamente."
+  dashboard:
+    show:
+      title: "Mi Agenda"
+      monthly_revenue: "Ingresos del mes"
+      edit_profile: "Editar mi perfil y servicios"
+    calendar:
+      previous_month: "Mes anterior"
+      next_month: "Mes siguiente"
+    day_agenda:
+      blocked: "Este día está bloqueado."
+      unblock: "Desbloquear"
+      confirm: "Confirmar"
+      complete: "Completar"
+      reschedule: "Reprogramar"
+      cancel: "Cancelar"
+      confirm_cancel: "¿Seguro que quieres cancelar?"
+      block: "Bloquear este día"
+      block_and_reschedule: "Bloquear y reprogramar automáticamente"
+      confirm_block_and_reschedule: "Las citas de este día se reprogramarán automáticamente en los próximos horarios disponibles. ¿Continuar?"
+      empty: "No hay citas este día."
+      empty_past: "No hay citas este día."
+  provider_time_offs:
+    create:
+      success: "Día bloqueado correctamente."
+      invalid_date: "Fecha inválida."
+      reschedule_failed: "No se pudo reprogramar automáticamente la cita de %{service} — no hay horarios disponibles en los próximos 60 días. Reprográmala manualmente antes de bloquear este día."
+    destroy:
+      unblocked: "Día desbloqueado correctamente."

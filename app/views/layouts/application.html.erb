@@ -10,8 +10,8 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= tag.meta name: "service-worker-path", content: pwa_service_worker_path %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -23,8 +23,19 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <%= render "layouts/navbar" %>
+
+    <main class="container mx-auto mt-10 px-5 pb-20 md:pb-10">
+      <% if notice.present? %>
+        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-md inline-block"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </main>
+
+    <%= render "layouts/bottom_nav" %>
   </body>
 </html>

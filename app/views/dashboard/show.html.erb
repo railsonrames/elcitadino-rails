@@ -1,0 +1,18 @@
+<% content_for :title, t(".title") %>
+
+<div class="w-full max-w-2xl">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="font-bold text-3xl"><%= t(".title") %></h1>
+    <div class="text-right">
+      <p class="text-xs text-gray-500"><%= t(".monthly_revenue") %></p>
+      <p class="font-bold text-lg"><%= number_to_currency(@monthly_revenue) %></p>
+    </div>
+  </div>
+
+  <%= turbo_frame_tag "dashboard_panel" do %>
+    <%= render "calendar", calendar_month: @calendar_month, selected_date: @selected_date, appointment_dates: @appointment_dates, blocked_dates: @blocked_dates %>
+    <%= render "day_agenda", selected_date: @selected_date, day_appointments: @day_appointments, blocking_time_off: @blocking_time_off %>
+  <% end %>
+
+  <%= link_to t(".edit_profile"), edit_provider_profile_path, class: "text-sm text-blue-600 hover:underline mt-6 inline-block" %>
+</div>

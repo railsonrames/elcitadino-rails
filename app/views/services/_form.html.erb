@@ -1,7 +1,7 @@
-<%= form_with(model: service, class: "contents") do |form| %>
+<%= form_with(model: service, url: service.persisted? ? provider_profile_service_path(service) : provider_profile_services_path, class: "contents") do |form| %>
   <% if service.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(service.errors.count, "error") %> prohibited this service from being saved:</h2>
+      <h2><%= pluralize(service.errors.count, "error") %> <%= t("services.form.prevented_save") %></h2>
 
       <ul class="list-disc ml-6">
         <% service.errors.each do |error| %>
@@ -12,31 +12,26 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :provider_profile_id %>
-    <%= form.text_field :provider_profile_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": service.errors[:provider_profile_id].none?, "border-red-400 focus:outline-red-600": service.errors[:provider_profile_id].any?}] %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": service.errors[:name].none?, "border-red-400 focus:outline-red-600": service.errors[:name].any?}] %>
+    <%= form.text_field :name, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :description %>
-    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": service.errors[:description].none?, "border-red-400 focus:outline-red-600": service.errors[:description].any?}] %>
+    <%= form.textarea :description, rows: 4, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :duration %>
-    <%= form.number_field :duration, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": service.errors[:duration].none?, "border-red-400 focus:outline-red-600": service.errors[:duration].any?}] %>
+    <%= form.number_field :duration, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :price %>
-    <%= form.text_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": service.errors[:price].none?, "border-red-400 focus:outline-red-600": service.errors[:price].any?}] %>
+    <%= form.text_field :price, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit t("services.form.submit"), class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

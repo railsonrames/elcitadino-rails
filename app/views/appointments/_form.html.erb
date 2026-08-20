@@ -1,7 +1,7 @@
-<%= form_with(model: appointment, class: "contents") do |form| %>
+<%= form_with(model: appointment, url: provider_appointments_path(provider_profile), class: "contents") do |form| %>
   <% if appointment.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+      <h2><%= pluralize(appointment.errors.count, "error") %> <%= t("appointments.form.prevented_save") %></h2>
 
       <ul class="list-disc ml-6">
         <% appointment.errors.each do |error| %>
@@ -11,42 +11,42 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :client_id %>
-    <%= form.text_field :client_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:client_id].none?, "border-red-400 focus:outline-red-600": appointment.errors[:client_id].any?}] %>
+  <%= form.hidden_field :service_id %>
+  <%= form.hidden_field :scheduled_at, data: { booking_target: "scheduledAt" } %>
+
+  <div class="border border-gray-200 rounded-2xl p-4 my-5 flex justify-between items-center">
+    <div>
+      <p class="font-medium"><%= service.name %></p>
+      <p class="text-sm text-gray-500"><%= service.duration %> min</p>
+    </div>
+    <p class="font-bold text-lg"><%= number_to_currency(service.price) %></p>
   </div>
 
-  <div class="my-5">
-    <%= form.label :provider_profile_id %>
-    <%= form.text_field :provider_profile_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:provider_profile_id].none?, "border-red-400 focus:outline-red-600": appointment.errors[:provider_profile_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :service_id %>
-    <%= form.text_field :service_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:service_id].none?, "border-red-400 focus:outline-red-600": appointment.errors[:service_id].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :scheduled_at %>
-    <%= form.datetime_field :scheduled_at, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:scheduled_at].none?, "border-red-400 focus:outline-red-600": appointment.errors[:scheduled_at].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :status %>
-    <%= form.number_field :status, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:status].none?, "border-red-400 focus:outline-red-600": appointment.errors[:status].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :modality %>
-    <%= form.number_field :modality, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:modality].none?, "border-red-400 focus:outline-red-600": appointment.errors[:modality].any?}] %>
-  </div>
+  <% if provider_profile.modality_dependent? %>
+    <%= form.hidden_field :modality, value: modality %>
+  <% else %>
+    <div class="my-5">
+      <p class="font-medium mb-2"><%= Appointment.human_attribute_name(:modality) %></p>
+      <div class="flex flex-wrap gap-2">
+        <% Appointment.modalities.keys.each do |modality_option| %>
+          <label class="cursor-pointer">
+            <%= form.radio_button :modality, modality_option, class: "peer sr-only" %>
+            <span class="block rounded-full border border-gray-300 px-4 py-1.5 text-sm peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600">
+              <%= t("enums.appointment.modality.#{modality_option}") %>
+            </span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="my-5">
     <%= form.label :notes %>
-    <%= form.textarea :notes, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": appointment.errors[:notes].none?, "border-red-400 focus:outline-red-600": appointment.errors[:notes].any?}] %>
+    <%= form.textarea :notes, rows: 3, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit t("appointments.form.submit"), disabled: appointment.scheduled_at.blank?, data: { booking_target: "submit" },
+          class: "w-full rounded-full px-3.5 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

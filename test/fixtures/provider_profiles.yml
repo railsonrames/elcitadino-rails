@@ -1,15 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  user: one
-  bio: MyText
-  address: MyString
-  city: MyString
-  category: MyString
+  user: provider_one
+  bio: Especialista em cortes clássicos.
+  address: Rua das Flores, 123
+  city: Alicante
+  category: beleza
 
 two:
-  user: two
-  bio: MyText
-  address: MyString
-  city: MyString
-  category: MyString
+  user: provider_two
+  bio: Massagens relaxantes e terapêuticas.
+  address: Avenida do Mar, 45
+  city: Valência
+  category: bem_estar

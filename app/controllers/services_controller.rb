@@ -1,70 +1,52 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: %i[ show edit update destroy ]
+  before_action :set_provider_profile
+  before_action :set_service, only: [ :edit, :update, :destroy ]
 
-  # GET /services or /services.json
-  def index
-    @services = Service.all
-  end
-
-  # GET /services/1 or /services/1.json
-  def show
-  end
-
-  # GET /services/new
   def new
-    @service = Service.new
+    @service = @provider_profile.services.build
   end
 
-  # GET /services/1/edit
+  def create
+    @service = @provider_profile.services.build(service_params)
+
+    if @service.save
+      redirect_to edit_provider_profile_path, notice: t(".success")
+    else
+      render :new, status: :unprocessable_content
+    end
+  end
+
   def edit
   end
 
-  # POST /services or /services.json
-  def create
-    @service = Service.new(service_params)
-
-    respond_to do |format|
-      if @service.save
-        format.html { redirect_to @service, notice: "Service was successfully created." }
-        format.json { render :show, status: :created, location: @service }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @service.errors, status: :unprocessable_content }
-      end
-    end
-  end
-
-  # PATCH/PUT /services/1 or /services/1.json
   def update
-    respond_to do |format|
-      if @service.update(service_params)
-        format.html { redirect_to @service, notice: "Service was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @service }
-      else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @service.errors, status: :unprocessable_content }
-      end
+    if @service.update(service_params)
+      redirect_to edit_provider_profile_path, notice: t(".success")
+    else
+      render :edit, status: :unprocessable_content
     end
   end
 
-  # DELETE /services/1 or /services/1.json
   def destroy
-    @service.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to services_path, notice: "Service was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+    if @service.destroy
+      redirect_to edit_provider_profile_path, notice: t(".success")
+    else
+      redirect_to edit_provider_profile_path, alert: @service.errors.full_messages.to_sentence
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_service
-      @service = Service.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def service_params
-      params.expect(service: [ :provider_profile_id, :name, :description, :duration, :price ])
-    end
+  def set_provider_profile
+    @provider_profile = current_user.provider_profile
+    redirect_to new_provider_profile_path, alert: t("errors.no_provider_profile") unless @provider_profile
+  end
+
+  def set_service
+    @service = @provider_profile.services.find(params[:id])
+  end
+
+  def service_params
+    params.expect(service: [ :name, :description, :duration, :price ])
+  end
 end

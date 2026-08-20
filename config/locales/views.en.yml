@@ -1,0 +1,143 @@
+en:
+  errors:
+    clients_only: "Only clients can do that."
+    providers_only: "Only providers can do that."
+    no_provider_profile: "Complete your provider profile first."
+  layouts:
+    navbar:
+      browse_providers: "Browse providers"
+      dashboard: "Dashboard"
+      complete_profile: "Complete profile"
+      my_appointments: "My appointments"
+      account: "My account"
+      sign_out: "Sign out"
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+    bottom_nav:
+      browse_providers: "Search"
+      dashboard: "Dashboard"
+      my_appointments: "Bookings"
+      account: "Profile"
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+  providers:
+    index:
+      title: "Providers"
+      search_placeholder: "What service do you need?"
+      all_categories: "All"
+      none_found: "No providers found."
+    show:
+      back: "Back"
+      services: "Services"
+      book: "Book"
+      no_services: "This provider hasn't added any services yet."
+      sign_in_to_book: "Sign in to book an appointment."
+      sign_in: "Sign in"
+      badge_pricing: "Transparent pricing"
+      badge_fast_confirmation: "Fast confirmation"
+      badge_easy_cancellation: "Easy cancellation"
+  appointments:
+    new:
+      title: "Book with %{provider}"
+      back: "Back"
+    calendar:
+      previous_month: "Previous month"
+      next_month: "Next month"
+    slots:
+      slots_for: "Available times on %{date}"
+      no_slots: "No available times on this day."
+      slot_status:
+        booked: "Already booked"
+        closed: "Outside working hours"
+        past: "Already past"
+    form:
+      prevented_save: "prevented this appointment from being saved:"
+      submit: "Confirm appointment"
+    create:
+      success: "Appointment created successfully."
+    update:
+      success: "Appointment updated successfully."
+      rescheduled: "Appointment rescheduled successfully."
+      invalid_transition: "Could not update the appointment."
+    index:
+      title: "Appointments"
+      show: "View"
+      none_found: "No appointments found."
+    show:
+      title: "Appointment Details"
+      cancel: "Cancel"
+      confirm_cancel: "Are you sure you want to cancel?"
+      confirm: "Confirm"
+      complete: "Complete"
+      reschedule: "Reschedule"
+      back: "Back"
+    reschedule:
+      title: "Reschedule Appointment"
+      back: "Back"
+      submit: "Confirm new date"
+  services:
+    form:
+      prevented_save: "prevented this service from being saved:"
+      submit: "Save service"
+    service:
+      edit: "Edit"
+      destroy: "Delete"
+      confirm_destroy: "Are you sure?"
+    create:
+      success: "Service created successfully."
+    update:
+      success: "Service updated successfully."
+    destroy:
+      success: "Service removed successfully."
+    new:
+      title: "New Service"
+      back: "Back to profile"
+    edit:
+      title: "Edit Service"
+      back: "Back to profile"
+  provider_profiles:
+    form:
+      prevented_save: "prevented this profile from being saved:"
+      submit: "Save profile"
+      select_category: "Select a category"
+    new:
+      title: "Complete your provider profile"
+      subtitle: "This information will be shown to your clients."
+    create:
+      success: "Profile created successfully."
+    edit:
+      title: "Edit Profile"
+      my_services: "My services"
+      new_service: "New service"
+      no_services: "You haven't added any services yet."
+      back_to_dashboard: "Back to dashboard"
+    update:
+      success: "Profile updated successfully."
+  dashboard:
+    show:
+      title: "My Schedule"
+      monthly_revenue: "Monthly revenue"
+      edit_profile: "Edit my profile and services"
+    calendar:
+      previous_month: "Previous month"
+      next_month: "Next month"
+    day_agenda:
+      blocked: "This day is blocked."
+      unblock: "Unblock"
+      confirm: "Confirm"
+      complete: "Complete"
+      reschedule: "Reschedule"
+      cancel: "Cancel"
+      confirm_cancel: "Are you sure you want to cancel?"
+      block: "Block this day"
+      block_and_reschedule: "Block and reschedule automatically"
+      confirm_block_and_reschedule: "This day's appointments will be automatically moved to their next available slot. Continue?"
+      empty: "No appointments on this day."
+      empty_past: "No appointments on this day."
+  provider_time_offs:
+    create:
+      success: "Day blocked successfully."
+      invalid_date: "Invalid date."
+      reschedule_failed: "Couldn't automatically reschedule the %{service} appointment — no available slot in the next 60 days. Reschedule it manually before blocking this day."
+    destroy:
+      unblocked: "Day unblocked successfully."

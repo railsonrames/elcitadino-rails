@@ -1,0 +1,24 @@
+<% content_for :title, t(".title") %>
+
+<div class="w-full max-w-md">
+  <h1 class="font-bold text-4xl mb-6"><%= t(".title") %></h1>
+
+  <%= render "form", provider_profile: @provider_profile %>
+
+  <div class="flex justify-between items-center mt-10 mb-4">
+    <h2 class="font-bold text-2xl"><%= t(".my_services") %></h2>
+    <%= link_to t(".new_service"), new_provider_profile_service_path, class: "rounded-md px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium" %>
+  </div>
+
+  <div class="space-y-3">
+    <% if @provider_profile.services.any? %>
+      <% @provider_profile.services.each do |service| %>
+        <%= render service %>
+      <% end %>
+    <% else %>
+      <p class="text-gray-500"><%= t(".no_services") %></p>
+    <% end %>
+  </div>
+
+  <%= link_to t(".back_to_dashboard"), dashboard_path, class: "inline-block mt-6 text-sm text-blue-600 hover:underline" %>
+</div>

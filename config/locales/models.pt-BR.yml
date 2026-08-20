@@ -9,11 +9,20 @@ pt-BR:
       user:
         name: "Nome Completo"
         role: "Perfil"
+      provider_profile:
+        bio: "Sobre você"
+        address: "Endereço"
+        city: "Cidade"
+        category: "Categoria"
       service:
         name: "Nome do Serviço"
+        description: "Descrição"
         duration: "Duração (minutos)"
         price: "Preço"
       appointment:
+        client: "Cliente"
+        service: "Serviço"
         scheduled_at: "Data e Hora"
         status: "Situação"
         modality: "Modalidade"
+        notes: "Observações"

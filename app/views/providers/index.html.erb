@@ -1,0 +1,45 @@
+<% content_for :title, t(".title") %>
+
+<div class="w-full max-w-2xl mx-auto">
+  <h1 class="font-bold text-2xl mb-4"><%= t(".title") %></h1>
+
+  <%= form_with url: providers_path, method: :get, data: { turbo_action: "replace" } do %>
+    <% if params[:category].present? %>
+      <%= hidden_field_tag :category, params[:category] %>
+    <% end %>
+    <div class="relative">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+        <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
+      </svg>
+      <%= text_field_tag :q, params[:q], placeholder: t(".search_placeholder"),
+            class: "w-full shadow-sm rounded-full border border-gray-300 focus:outline-blue-600 pl-11 pr-4 py-3" %>
+    </div>
+  <% end %>
+
+  <div class="flex gap-2 overflow-x-auto mt-4 pb-1 -mx-1 px-1">
+    <%= link_to t(".all_categories"), providers_path(q: params[:q]),
+          class: "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium #{params[:category].blank? ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}" %>
+    <% ProviderCategory::SLUGS.each do |slug| %>
+      <%= link_to t("enums.provider_profile.category.#{slug}"), providers_path(category: slug, q: params[:q]),
+            class: "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium #{params[:category] == slug ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}" %>
+    <% end %>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-4 mt-6">
+    <% if @provider_profiles.any? %>
+      <% @provider_profiles.each do |provider_profile| %>
+        <%= link_to provider_path(provider_profile), class: "flex items-center gap-4 border border-gray-200 rounded-2xl p-4 hover:border-blue-400 hover:shadow-sm transition" do %>
+          <%= render "shared/category_avatar", category: provider_profile.category %>
+          <div class="min-w-0">
+            <h2 class="font-bold truncate"><%= provider_profile.user.name %></h2>
+            <p class="text-sm text-gray-500 truncate">
+              <%= t("enums.provider_profile.category.#{provider_profile.category}") %> &middot; <%= provider_profile.city %>
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p class="text-center col-span-full my-10 text-gray-500"><%= t(".none_found") %></p>
+    <% end %>
+  </div>
+</div>

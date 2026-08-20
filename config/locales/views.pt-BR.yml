@@ -1,0 +1,143 @@
+pt-BR:
+  errors:
+    clients_only: "Apenas clientes podem fazer isso."
+    providers_only: "Apenas prestadores podem fazer isso."
+    no_provider_profile: "Complete seu perfil de prestador primeiro."
+  layouts:
+    navbar:
+      browse_providers: "Buscar prestadores"
+      dashboard: "Painel"
+      complete_profile: "Completar perfil"
+      my_appointments: "Meus agendamentos"
+      account: "Minha conta"
+      sign_out: "Sair"
+      sign_in: "Entrar"
+      sign_up: "Cadastrar"
+    bottom_nav:
+      browse_providers: "Buscar"
+      dashboard: "Painel"
+      my_appointments: "Citas"
+      account: "Perfil"
+      sign_in: "Entrar"
+      sign_up: "Cadastrar"
+  providers:
+    index:
+      title: "Prestadores"
+      search_placeholder: "Que serviço você precisa?"
+      all_categories: "Todos"
+      none_found: "Nenhum prestador encontrado."
+    show:
+      back: "Voltar"
+      services: "Serviços"
+      book: "Agendar"
+      no_services: "Este prestador ainda não cadastrou serviços."
+      sign_in_to_book: "Entre na sua conta para agendar um horário."
+      sign_in: "Entrar"
+      badge_pricing: "Preços transparentes"
+      badge_fast_confirmation: "Confirmação rápida"
+      badge_easy_cancellation: "Cancelamento fácil"
+  appointments:
+    new:
+      title: "Agendar com %{provider}"
+      back: "Voltar"
+    calendar:
+      previous_month: "Mês anterior"
+      next_month: "Próximo mês"
+    slots:
+      slots_for: "Horários disponíveis em %{date}"
+      no_slots: "Nenhum horário disponível neste dia."
+      slot_status:
+        booked: "Horário já ocupado"
+        closed: "Fora do horário de atendimento"
+        past: "Horário já passou"
+    form:
+      prevented_save: "impediram que este agendamento fosse salvo:"
+      submit: "Confirmar agendamento"
+    create:
+      success: "Agendamento criado com sucesso."
+    update:
+      success: "Agendamento atualizado com sucesso."
+      rescheduled: "Agendamento remarcado com sucesso."
+      invalid_transition: "Não foi possível atualizar o agendamento."
+    index:
+      title: "Agendamentos"
+      show: "Ver"
+      none_found: "Nenhum agendamento encontrado."
+    show:
+      title: "Detalhes do Agendamento"
+      cancel: "Cancelar"
+      confirm_cancel: "Tem certeza que deseja cancelar?"
+      confirm: "Confirmar"
+      complete: "Concluir"
+      reschedule: "Remarcar"
+      back: "Voltar"
+    reschedule:
+      title: "Remarcar Agendamento"
+      back: "Voltar"
+      submit: "Confirmar nova data"
+  services:
+    form:
+      prevented_save: "impediram que este serviço fosse salvo:"
+      submit: "Salvar serviço"
+    service:
+      edit: "Editar"
+      destroy: "Excluir"
+      confirm_destroy: "Tem certeza?"
+    create:
+      success: "Serviço criado com sucesso."
+    update:
+      success: "Serviço atualizado com sucesso."
+    destroy:
+      success: "Serviço removido com sucesso."
+    new:
+      title: "Novo Serviço"
+      back: "Voltar ao perfil"
+    edit:
+      title: "Editar Serviço"
+      back: "Voltar ao perfil"
+  provider_profiles:
+    form:
+      prevented_save: "impediram que o perfil fosse salvo:"
+      submit: "Salvar perfil"
+      select_category: "Selecione uma categoria"
+    new:
+      title: "Complete seu perfil de prestador"
+      subtitle: "Essas informações serão exibidas para seus clientes."
+    create:
+      success: "Perfil criado com sucesso."
+    edit:
+      title: "Editar Perfil"
+      my_services: "Meus serviços"
+      new_service: "Novo serviço"
+      no_services: "Você ainda não cadastrou nenhum serviço."
+      back_to_dashboard: "Voltar ao painel"
+    update:
+      success: "Perfil atualizado com sucesso."
+  dashboard:
+    show:
+      title: "Minha Agenda"
+      monthly_revenue: "Receita do mês"
+      edit_profile: "Editar meu perfil e serviços"
+    calendar:
+      previous_month: "Mês anterior"
+      next_month: "Próximo mês"
+    day_agenda:
+      blocked: "Este dia está bloqueado."
+      unblock: "Desbloquear"
+      confirm: "Confirmar"
+      complete: "Concluir"
+      reschedule: "Remarcar"
+      cancel: "Cancelar"
+      confirm_cancel: "Tem certeza que deseja cancelar?"
+      block: "Bloquear este dia"
+      block_and_reschedule: "Bloquear e remarcar automaticamente"
+      confirm_block_and_reschedule: "Os agendamentos deste dia serão remarcados automaticamente para os próximos horários disponíveis. Continuar?"
+      empty: "Nenhum agendamento neste dia."
+      empty_past: "Nenhum agendamento neste dia."
+  provider_time_offs:
+    create:
+      success: "Dia bloqueado com sucesso."
+      invalid_date: "Data inválida."
+      reschedule_failed: "Não foi possível remarcar automaticamente o agendamento de %{service} — nenhum horário disponível nos próximos 60 dias. Remarque manualmente antes de bloquear este dia."
+    destroy:
+      unblocked: "Dia desbloqueado com sucesso."

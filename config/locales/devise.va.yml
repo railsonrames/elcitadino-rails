@@ -1,0 +1,84 @@
+# Best-effort Valencian (va) translation of the Devise strings actually
+# reachable in this app (registerable/database_authenticatable/recoverable/
+# rememberable/validatable only — no confirmable/lockable, so those keys are
+# intentionally omitted). Adapted from the gem's Catalan (ca) strings —
+# have a native speaker proofread before shipping to production.
+va:
+  activerecord:
+    attributes:
+      user:
+        current_password: Contrasenya actual
+        email: Adreça electrònica
+        password: Contrasenya
+        password_confirmation: Confirmar contrasenya
+        remember_me: Recorda'm
+    models:
+      user:
+        one: Usuari
+        other: Usuaris
+  devise:
+    failure:
+      already_authenticated: Ja has iniciat sessió.
+      invalid: "%{authentication_keys} o contrasenya invàlids."
+      not_found_in_database: "%{authentication_keys} o contrasenya invàlids."
+      timeout: "La teua sessió ha caducat. Per favor, torna a iniciar sessió."
+      unauthenticated: Has d'iniciar sessió o registrar-te abans de continuar.
+    mailer:
+      password_change:
+        greeting: "Hola, %{recipient}!"
+        message: Et contactem per a avisar-te que la teua contrasenya ha sigut modificada.
+        subject: Contrasenya modificada
+      reset_password_instructions:
+        action: Canviar la meua contrasenya
+        greeting: "Hola %{recipient}!"
+        instruction: "Algú ha sol·licitat un enllaç per a canviar la teua contrasenya. Pots fer-ho des de l'enllaç següent."
+        instruction_2: "Si tu no ho has sol·licitat, per favor ignora este correu."
+        instruction_3: La teua contrasenya no canviarà fins que no acccedisques a l'enllaç i en crees una de nova.
+        subject: Instruccions per a restablir la contrasenya
+    passwords:
+      edit:
+        change_my_password: Canviar la meua contrasenya
+        change_your_password: Canviar la teua contrasenya
+        confirm_new_password: Confirmar la nova contrasenya
+        new_password: Nova contrasenya
+      new:
+        forgot_your_password: "Has oblidat la teua contrasenya?"
+        send_me_reset_password_instructions: Enviar-me instruccions per a restablir la contrasenya
+      no_token: "Només pots accedir a esta pàgina des d'un correu de recuperació de contrasenya."
+      send_instructions: Rebràs en breu un correu amb instruccions per a restablir la teua contrasenya.
+      send_paranoid_instructions: "Si la teua adreça existix a la base de dades, rebràs un correu amb un enllaç per a restablir la contrasenya."
+      updated: La teua contrasenya s'ha canviat correctament. Has iniciat sessió.
+      updated_not_active: La teua contrasenya s'ha canviat correctament.
+    registrations:
+      destroyed: El teu compte ha sigut cancel·lat correctament. Esperem tornar a veure't prompte!
+      edit:
+        are_you_sure: "Estàs segur?"
+        cancel_my_account: Cancel·lar el meu compte
+        leave_blank_if_you_don_t_want_to_change_it: deixa-ho en blanc si no vols canviar-ho
+        title: "Editar %{resource}"
+        unhappy: Descontent
+        update: Actualitzar
+        we_need_your_current_password_to_confirm_your_changes: necessitem la teua contrasenya actual per a confirmar els canvis
+      new:
+        sign_up: Registrar-se
+      signed_up: T'has registrat correctament.
+      updated: El teu compte s'ha actualitzat correctament.
+    sessions:
+      already_signed_out: Sessió tancada correctament.
+      new:
+        sign_in: Iniciar sessió
+      signed_in: Sessió iniciada correctament.
+      signed_out: Sessió tancada correctament.
+    shared:
+      links:
+        forgot_your_password: "Has oblidat la teua contrasenya?"
+        sign_in: Iniciar sessió
+        sign_up: Registrar-se
+      minimum_password_length:
+        one: "(mínim %{count} caràcter)"
+        other: "(mínim de %{count} caràcters)"
+  errors:
+    messages:
+      not_saved:
+        one: "1 error ha impedit guardar %{resource}:"
+        other: "%{count} errors han impedit guardar %{resource}:"

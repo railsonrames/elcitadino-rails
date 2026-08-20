@@ -1,0 +1,28 @@
+es:
+  activerecord:
+    models:
+      user: "Usuario"
+      provider_profile: "Perfil de Proveedor"
+      service: "Servicio"
+      appointment: "Cita"
+    attributes:
+      user:
+        name: "Nombre Completo"
+        role: "Perfil"
+      provider_profile:
+        bio: "Sobre ti"
+        address: "Dirección"
+        city: "Ciudad"
+        category: "Categoría"
+      service:
+        name: "Nombre del Servicio"
+        description: "Descripción"
+        duration: "Duración (minutos)"
+        price: "Precio"
+      appointment:
+        client: "Cliente"
+        service: "Servicio"
+        scheduled_at: "Fecha y Hora"
+        status: "Estado"
+        modality: "Modalidad"
+        notes: "Notas"

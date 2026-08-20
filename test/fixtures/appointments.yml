@@ -1,19 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  client: one
+  client: client_one
   provider_profile: one
   service: one
-  scheduled_at: 2026-08-06 17:17:16
-  status: 1
+  scheduled_at: <%= 3.days.from_now.change(hour: 10, min: 0, sec: 0) %>
+  status: 0
   modality: 1
-  notes: MyText
+  notes: Primeira vez no salão.
 
 two:
-  client: two
+  client: client_two
   provider_profile: two
   service: two
-  scheduled_at: 2026-08-06 17:17:16
-  status: 1
+  scheduled_at: <%= 5.days.from_now.change(hour: 11, min: 0, sec: 0) %>
+  status: 0
   modality: 1
-  notes: MyText
+  notes: Cliente recorrente.

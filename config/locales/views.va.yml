@@ -1,0 +1,143 @@
+va:
+  errors:
+    clients_only: "Només els clients poden fer això."
+    providers_only: "Només els prestadors poden fer això."
+    no_provider_profile: "Completa primer el teu perfil de prestador."
+  layouts:
+    navbar:
+      browse_providers: "Buscar prestadors"
+      dashboard: "Panell"
+      complete_profile: "Completar perfil"
+      my_appointments: "Les meues cites"
+      account: "El meu compte"
+      sign_out: "Eixir"
+      sign_in: "Entrar"
+      sign_up: "Registrar-se"
+    bottom_nav:
+      browse_providers: "Buscar"
+      dashboard: "Panell"
+      my_appointments: "Cites"
+      account: "Perfil"
+      sign_in: "Entrar"
+      sign_up: "Registrar-se"
+  providers:
+    index:
+      title: "Prestadors"
+      search_placeholder: "Quin servici necessites?"
+      all_categories: "Tots"
+      none_found: "No s'han trobat prestadors."
+    show:
+      back: "Tornar"
+      services: "Servicis"
+      book: "Reservar"
+      no_services: "Este prestador encara no ha afegit servicis."
+      sign_in_to_book: "Inicia sessió per a reservar una cita."
+      sign_in: "Entrar"
+      badge_pricing: "Preus transparents"
+      badge_fast_confirmation: "Confirmació ràpida"
+      badge_easy_cancellation: "Cancel·lació fàcil"
+  appointments:
+    new:
+      title: "Reservar amb %{provider}"
+      back: "Tornar"
+    calendar:
+      previous_month: "Mes anterior"
+      next_month: "Mes seguent"
+    slots:
+      slots_for: "Horaris disponibles el %{date}"
+      no_slots: "No hi ha horaris disponibles este dia."
+      slot_status:
+        booked: "Horari ja ocupat"
+        closed: "Fora de l'horari d'atenció"
+        past: "Horari ja passat"
+    form:
+      prevented_save: "han impedit guardar esta cita:"
+      submit: "Confirmar cita"
+    create:
+      success: "Cita creada correctament."
+    update:
+      success: "Cita actualitzada correctament."
+      rescheduled: "Cita remarcada correctament."
+      invalid_transition: "No s'ha pogut actualitzar la cita."
+    index:
+      title: "Cites"
+      show: "Vore"
+      none_found: "No s'han trobat cites."
+    show:
+      title: "Detalls de la Cita"
+      cancel: "Cancel·lar"
+      confirm_cancel: "Segur que vols cancel·lar-la?"
+      confirm: "Confirmar"
+      complete: "Completar"
+      reschedule: "Remarcar"
+      back: "Tornar"
+    reschedule:
+      title: "Remarcar Cita"
+      back: "Tornar"
+      submit: "Confirmar nova data"
+  services:
+    form:
+      prevented_save: "han impedit guardar este servici:"
+      submit: "Guardar servici"
+    service:
+      edit: "Editar"
+      destroy: "Eliminar"
+      confirm_destroy: "Estàs segur?"
+    create:
+      success: "Servici creat correctament."
+    update:
+      success: "Servici actualitzat correctament."
+    destroy:
+      success: "Servici eliminat correctament."
+    new:
+      title: "Nou Servici"
+      back: "Tornar al perfil"
+    edit:
+      title: "Editar Servici"
+      back: "Tornar al perfil"
+  provider_profiles:
+    form:
+      prevented_save: "han impedit guardar el perfil:"
+      submit: "Guardar perfil"
+      select_category: "Selecciona una categoria"
+    new:
+      title: "Completa el teu perfil de prestador"
+      subtitle: "Esta informació es mostrarà als teus clients."
+    create:
+      success: "Perfil creat correctament."
+    edit:
+      title: "Editar Perfil"
+      my_services: "Els meus servicis"
+      new_service: "Nou servici"
+      no_services: "Encara no has afegit cap servici."
+      back_to_dashboard: "Tornar al panell"
+    update:
+      success: "Perfil actualitzat correctament."
+  dashboard:
+    show:
+      title: "La Meua Agenda"
+      monthly_revenue: "Ingressos del mes"
+      edit_profile: "Editar el meu perfil i servicis"
+    calendar:
+      previous_month: "Mes anterior"
+      next_month: "Mes seguent"
+    day_agenda:
+      blocked: "Este dia està bloquejat."
+      unblock: "Desbloquejar"
+      confirm: "Confirmar"
+      complete: "Completar"
+      reschedule: "Remarcar"
+      cancel: "Cancel·lar"
+      confirm_cancel: "Segur que vols cancel·lar-la?"
+      block: "Bloquejar este dia"
+      block_and_reschedule: "Bloquejar i remarcar automàticament"
+      confirm_block_and_reschedule: "Les cites d'este dia es remarcaran automàticament als pròxims horaris disponibles. Continuar?"
+      empty: "No hi ha cites este dia."
+      empty_past: "No hi ha cites este dia."
+  provider_time_offs:
+    create:
+      success: "Dia bloquejat correctament."
+      invalid_date: "Data invàlida."
+      reschedule_failed: "No s'ha pogut remarcar automàticament la cita de %{service} — no hi ha horaris disponibles en els pròxims 60 dies. Remarca-la manualment abans de bloquejar este dia."
+    destroy:
+      unblocked: "Dia desbloquejat correctament."

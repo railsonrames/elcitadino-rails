@@ -1,30 +1,33 @@
 <div id="<%= dom_id appointment %>" class="w-full sm:w-auto my-5 space-y-5">
+  <% if current_user.provider? %>
+    <div>
+      <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:client) %>:</strong>
+      <%= appointment.client.name %>
+    </div>
+  <% else %>
+    <div>
+      <strong class="block font-medium mb-1"><%= ProviderProfile.model_name.human %>:</strong>
+      <%= appointment.provider_profile.user.name %>
+    </div>
+  <% end %>
   <div>
-    <strong class="block font-medium mb-1">Client:</strong>
-    <%= appointment.client_id %>
+    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:service) %>:</strong>
+    <%= appointment.service.name %>
   </div>
   <div>
-    <strong class="block font-medium mb-1">Provider profile:</strong>
-    <%= appointment.provider_profile_id %>
+    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:scheduled_at) %>:</strong>
+    <%= l(appointment.scheduled_at) %>
   </div>
   <div>
-    <strong class="block font-medium mb-1">Service:</strong>
-    <%= appointment.service_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Scheduled at:</strong>
-    <%= appointment.scheduled_at %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Status:</strong>
+    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:status) %>:</strong>
     <%= t("enums.appointment.status.#{appointment.status}") %>
   </div>
   <div>
-    <strong class="block font-medium mb-1">Modality:</strong>
-    <%= appointment.modality %>
+    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:modality) %>:</strong>
+    <%= t("enums.appointment.modality.#{appointment.modality}") %>
   </div>
   <div>
-    <strong class="block font-medium mb-1">Notes:</strong>
+    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:notes) %>:</strong>
     <%= appointment.notes %>
   </div>
 </div>

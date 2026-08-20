@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_06_151716) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_19_123229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -29,6 +29,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_06_151716) do
     t.index ["service_id"], name: "index_appointments_on_service_id"
   end
 
+  create_table "provider_availabilities", force: :cascade do |t|
+    t.bigint "provider_profile_id", null: false
+    t.integer "day_of_week", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.integer "modality"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_profile_id", "day_of_week"], name: "idx_on_provider_profile_id_day_of_week_5d79966b03"
+    t.index ["provider_profile_id"], name: "index_provider_availabilities_on_provider_profile_id"
+  end
+
   create_table "provider_profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "bio"
@@ -38,6 +50,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_06_151716) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_provider_profiles_on_user_id"
+  end
+
+  create_table "provider_time_offs", force: :cascade do |t|
+    t.bigint "provider_profile_id", null: false
+    t.date "starts_on", null: false
+    t.date "ends_on", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_profile_id", "starts_on", "ends_on"], name: "idx_on_provider_profile_id_starts_on_ends_on_f08c0918aa"
+    t.index ["provider_profile_id"], name: "index_provider_time_offs_on_provider_profile_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -68,6 +91,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_06_151716) do
   add_foreign_key "appointments", "provider_profiles"
   add_foreign_key "appointments", "services"
   add_foreign_key "appointments", "users", column: "client_id"
+  add_foreign_key "provider_availabilities", "provider_profiles"
   add_foreign_key "provider_profiles", "users"
+  add_foreign_key "provider_time_offs", "provider_profiles"
   add_foreign_key "services", "provider_profiles"
 end
