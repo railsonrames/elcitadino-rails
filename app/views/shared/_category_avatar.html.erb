@@ -1,10 +1,16 @@
 <%
   size ||= "md"
+  image ||= nil
   size_classes = { "sm" => "w-12 h-12", "md" => "w-14 h-14", "lg" => "w-20 h-20" }.fetch(size)
   icon_classes = { "sm" => "w-6 h-6", "md" => "w-7 h-7", "lg" => "w-10 h-10" }.fetch(size)
+  variant_dims = { "sm" => [ 96, 96 ], "md" => [ 112, 112 ], "lg" => [ 160, 160 ] }.fetch(size)
 %>
-<div class="<%= size_classes %> rounded-full flex items-center justify-center shrink-0 <%= ProviderCategory.color_classes(category) %>">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="<%= icon_classes %>">
-    <path d="<%= ProviderCategory.icon_path(category) %>" />
-  </svg>
-</div>
+<% if image&.attached? %>
+  <%= image_tag image.variant(resize_to_limit: variant_dims), class: "#{size_classes} rounded-full object-cover shrink-0" %>
+<% else %>
+  <div class="<%= size_classes %> rounded-full flex items-center justify-center shrink-0 <%= ProviderCategory.color_classes(category) %>">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="<%= icon_classes %>">
+      <path d="<%= ProviderCategory.icon_path(category) %>" />
+    </svg>
+  </div>
+<% end %>

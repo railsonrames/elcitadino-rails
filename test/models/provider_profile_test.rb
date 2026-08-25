@@ -10,6 +10,16 @@ class ProviderProfileTest < ActiveSupport::TestCase
     assert_empty @provider_profile.available_slots(date: Date.yesterday, service: @service)
   end
 
+  test "allow_client_reschedule? defaults to true" do
+    assert @provider_profile.allow_client_reschedule?
+  end
+
+  test "allow_client_reschedule? reflects the persisted value once changed" do
+    @provider_profile.update!(allow_client_reschedule: false)
+
+    assert_not @provider_profile.allow_client_reschedule?
+  end
+
   test "available_slots excludes any slot overlapping an existing appointment" do
     appointment = appointments(:one)
     date = appointment.scheduled_at.to_date
@@ -69,18 +79,18 @@ class ProviderProfileTest < ActiveSupport::TestCase
 
   test "available_slots filters by modality when the provider has modality-scoped rules" do
     tuesday = Date.tomorrow.next_occurring(:tuesday)
-    @provider_profile.availabilities.create!(day_of_week: tuesday.wday, start_time: "09:00", end_time: "12:00", modality: "video")
+    @provider_profile.availabilities.create!(day_of_week: tuesday.wday, start_time: "09:00", end_time: "12:00", modality: "online")
     @provider_profile.availabilities.create!(day_of_week: tuesday.wday, start_time: "16:00", end_time: "21:00", modality: "in_person")
 
-    video_slots = @provider_profile.available_slots(date: tuesday, service: @service, modality: "video").map { |s| s.strftime("%H:%M") }
+    online_slots = @provider_profile.available_slots(date: tuesday, service: @service, modality: "online").map { |s| s.strftime("%H:%M") }
     in_person_slots = @provider_profile.available_slots(date: tuesday, service: @service, modality: "in_person").map { |s| s.strftime("%H:%M") }
 
-    assert_includes video_slots, "09:00"
-    assert_not_includes video_slots, "16:00"
+    assert_includes online_slots, "09:00"
+    assert_not_includes online_slots, "16:00"
     assert_includes in_person_slots, "16:00"
     assert_not_includes in_person_slots, "09:00"
     assert @provider_profile.modality_dependent?
-    assert_equal %w[video in_person], @provider_profile.configured_modalities
+    assert_equal %w[online in_person], @provider_profile.configured_modalities
   end
 
   test "day_schedule marks out-of-hours slots as closed instead of omitting them" do
@@ -128,5 +138,89 @@ class ProviderProfileTest < ActiveSupport::TestCase
     @provider_profile.time_offs.create!(starts_on: monday, ends_on: monday + 90.days)
 
     assert_nil @provider_profile.next_available_slot(after: monday, service: @service, search_days: 10)
+  end
+
+  test "available_slots ignores the provider's general hours once a service has its own rules" do
+    monday = Date.tomorrow.next_occurring(:monday)
+    wednesday = monday.next_occurring(:wednesday)
+    @service.availabilities.create!(day_of_week: monday.wday, start_time: "09:00", end_time: "10:00")
+
+    monday_slots = @provider_profile.available_slots(date: monday, service: @service)
+    wednesday_slots = @provider_profile.available_slots(date: wednesday, service: @service)
+
+    assert_includes monday_slots.map { |s| s.strftime("%H:%M") }, "09:00"
+    assert_empty wednesday_slots, "a day the service has no rule for should be closed, not fall back to the provider's hours"
+  end
+
+  test "next_available_slot_near picks the exact original time on the first day it's free" do
+    monday = Date.tomorrow.next_occurring(:monday)
+    @provider_profile.availabilities.create!(day_of_week: monday.wday, start_time: "09:00", end_time: "18:00")
+
+    slot = @provider_profile.next_available_slot_near(after: monday, original_time: monday.in_time_zone.change(hour: 14), service: @service)
+
+    assert_equal "14:00", slot.strftime("%H:%M")
+    assert_equal monday, slot.to_date
+  end
+
+  test "next_available_slot_near picks the closest slot within two positions when the exact time is booked" do
+    monday = Date.tomorrow.next_occurring(:monday)
+    @provider_profile.availabilities.create!(day_of_week: monday.wday, start_time: "09:00", end_time: "18:00")
+    @provider_profile.appointments.create!(
+      client: users(:client_one), service: @service, modality: "in_person", scheduled_at: monday.in_time_zone.change(hour: 14)
+    )
+
+    slot = @provider_profile.next_available_slot_near(after: monday, original_time: monday.in_time_zone.change(hour: 14), service: @service)
+
+    assert_equal monday, slot.to_date
+    assert_includes [ "13:30", "14:30" ], slot.strftime("%H:%M")
+  end
+
+  test "next_available_slot_near falls back to the nearest date once the proximity window is exhausted" do
+    monday = Date.tomorrow.next_occurring(:monday)
+    far_day = monday + 10.days
+    @provider_profile.time_offs.create!(starts_on: monday, ends_on: far_day - 1.day)
+    @provider_profile.availabilities.create!(day_of_week: far_day.wday, start_time: "09:00", end_time: "10:00")
+
+    slot = @provider_profile.next_available_slot_near(after: monday, original_time: monday.in_time_zone.change(hour: 14), service: @service)
+
+    assert_equal far_day, slot.to_date
+    assert_equal "09:00", slot.strftime("%H:%M")
+  end
+
+  test "near returns providers within radius ordered by distance, excluding ones with no coordinates" do
+    close = provider_profiles(:one)
+    close.update_columns(latitude: 38.35, longitude: -0.48) # ~1km from the search point
+    far = provider_profiles(:two)
+    far.update_columns(latitude: 41.38, longitude: 2.17) # Barcelona — well outside the default radius
+    ProviderProfile.where.not(id: [ close.id, far.id ]).update_all(latitude: nil, longitude: nil)
+
+    results = ProviderProfile.near(38.3452, -0.4810)
+
+    assert_equal [ close ], results
+  end
+
+  test "creating a profile with an address enqueues a geocoding job" do
+    user = User.create!(name: "Novo", email: "novo.geocode@example.com", password: "password123", role: :provider)
+
+    assert_enqueued_with(job: GeocodeProviderProfileJob) do
+      ProviderProfile.create!(user: user, bio: "Bio", address: "Rua Teste, 1", city: "Alicante", category: "beleza")
+    end
+  end
+
+  test "setting latitude/longitude directly does not enqueue a geocoding job" do
+    user = User.create!(name: "Novo", email: "novo.geocode2@example.com", password: "password123", role: :provider)
+
+    assert_no_enqueued_jobs(only: GeocodeProviderProfileJob) do
+      ProviderProfile.create!(
+        user: user, bio: "Bio", address: "Rua Teste, 1", city: "Alicante", category: "beleza",
+        latitude: 38.35, longitude: -0.48
+      )
+    end
+  end
+
+  test "updating an unrelated attribute does not enqueue a geocoding job" do
+    assert_no_enqueued_jobs(only: GeocodeProviderProfileJob) do
+      @provider_profile.update!(bio: "Nova bio")
+    end
   end
 end

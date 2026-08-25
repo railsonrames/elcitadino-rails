@@ -10,8 +10,8 @@ module Elcitadino
 
     config.autoload_lib(ignore: %w[assets tasks])
 
-    config.i18n.available_locales = [ :"pt-BR", :es, :en, :va ]
-    config.i18n.default_locale = :"pt-BR"
+    config.i18n.available_locales = [ :es, :en, :va, :"pt-BR" ]
+    config.i18n.default_locale = :es
     # Valenciano falls back to Spanish first (closer language), then to the
     # app's most complete locale.
     config.i18n.fallbacks = { va: [ :es, :"pt-BR" ], es: [ :"pt-BR" ], en: [ :"pt-BR" ] }

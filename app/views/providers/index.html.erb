@@ -3,33 +3,66 @@
 <div class="w-full max-w-2xl mx-auto">
   <h1 class="font-bold text-2xl mb-4"><%= t(".title") %></h1>
 
-  <%= form_with url: providers_path, method: :get, data: { turbo_action: "replace" } do %>
-    <% if params[:category].present? %>
-      <%= hidden_field_tag :category, params[:category] %>
-    <% end %>
-    <div class="relative">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-        <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
-      </svg>
-      <%= text_field_tag :q, params[:q], placeholder: t(".search_placeholder"),
-            class: "w-full shadow-sm rounded-full border border-gray-300 focus:outline-blue-600 pl-11 pr-4 py-3" %>
-    </div>
-  <% end %>
+  <div class="flex items-center gap-2">
+    <div data-controller="modal" class="shrink-0">
+      <button type="button" data-action="modal#open" aria-label="<%= t(".filters_button") %>"
+            class="rounded-full border border-gray-300 p-3 hover:bg-gray-50 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+        </svg>
+      </button>
 
-  <div class="flex gap-2 overflow-x-auto mt-4 pb-1 -mx-1 px-1">
-    <%= link_to t(".all_categories"), providers_path(q: params[:q]),
-          class: "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium #{params[:category].blank? ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}" %>
-    <% ProviderCategory::SLUGS.each do |slug| %>
-      <%= link_to t("enums.provider_profile.category.#{slug}"), providers_path(category: slug, q: params[:q]),
-            class: "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium #{params[:category] == slug ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}" %>
+      <dialog data-modal-target="dialog" class="fixed inset-y-0 left-0 h-full w-72 max-w-[85vw] m-0 rounded-none rounded-r-2xl p-6 backdrop:bg-black/40">
+        <%= render "filters_drawer" %>
+      </dialog>
+    </div>
+
+    <%= form_with url: providers_path, method: :get, data: { turbo_action: "replace" }, class: "flex-1" do %>
+      <% if params[:category].present? %>
+        <%= hidden_field_tag :category, params[:category] %>
+      <% end %>
+      <div class="relative">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+          <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
+        </svg>
+        <%= text_field_tag :q, params[:q], placeholder: t(".search_placeholder"),
+              class: "w-full shadow-sm rounded-full border border-gray-300 focus:outline-blue-600 pl-11 pr-10 py-3" %>
+        <% if params[:q].present? %>
+          <%= link_to providers_path(category: params[:category]), "aria-label": t(".clear_search"),
+                class: "absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+              <circle cx="12" cy="12" r="10" /><path d="m15 9-6 6M9 9l6 6" />
+            </svg>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
+
+  <details class="mt-4 border border-gray-200 rounded-2xl" data-controller="map" data-action="toggle->map#toggled"
+        data-map-nearby-url-value="<%= nearby_providers_path %>"
+        data-map-google-maps-api-key-value="<%= Rails.application.credentials.dig(:google_maps, :api_key) %>"
+        data-map-permission-denied-value="<%= t(".location_permission_denied") %>"
+        data-map-unsupported-value="<%= t(".location_unsupported") %>"
+        data-map-not-configured-value="<%= t(".location_not_configured") %>"
+        data-map-loading-value="<%= t(".location_loading") %>">
+    <summary class="cursor-pointer p-4 font-medium list-none flex items-center gap-2 [&::-webkit-details-marker]:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+      </svg>
+      <%= t(".location_section_title") %>
+    </summary>
+    <div class="p-4 pt-0">
+      <p data-map-target="message" class="text-sm text-gray-500"><%= t(".location_loading") %></p>
+      <div data-map-target="container" class="hidden h-64 rounded-xl bg-gray-100 mt-2"></div>
+    </div>
+  </details>
 
   <div class="grid sm:grid-cols-2 gap-4 mt-6">
     <% if @provider_profiles.any? %>
       <% @provider_profiles.each do |provider_profile| %>
         <%= link_to provider_path(provider_profile), class: "flex items-center gap-4 border border-gray-200 rounded-2xl p-4 hover:border-blue-400 hover:shadow-sm transition" do %>
-          <%= render "shared/category_avatar", category: provider_profile.category %>
+          <%= render "shared/category_avatar", category: provider_profile.category, image: provider_profile.logo %>
           <div class="min-w-0">
             <h2 class="font-bold truncate"><%= provider_profile.user.name %></h2>
             <p class="text-sm text-gray-500 truncate">

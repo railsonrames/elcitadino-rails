@@ -1,31 +1,35 @@
 va:
   errors:
-    clients_only: "Només els clients poden fer això."
     providers_only: "Només els prestadors poden fer això."
     no_provider_profile: "Completa primer el teu perfil de prestador."
+    reschedule_not_allowed: "No es pot remarcar esta cita."
   layouts:
     navbar:
-      browse_providers: "Buscar prestadors"
+      notifications: "Notificacions"
+      no_notifications_yet: "No hi ha notificacions per ara."
+      browse_providers: "Cercar"
       dashboard: "Panell"
       complete_profile: "Completar perfil"
-      my_appointments: "Les meues cites"
+      my_appointments: "Cites"
       account: "El meu compte"
       sign_out: "Eixir"
-      sign_in: "Entrar"
-      sign_up: "Registrar-se"
-    bottom_nav:
-      browse_providers: "Buscar"
-      dashboard: "Panell"
-      my_appointments: "Cites"
-      account: "Perfil"
       sign_in: "Entrar"
       sign_up: "Registrar-se"
   providers:
     index:
       title: "Prestadors"
       search_placeholder: "Quin servici necessites?"
+      clear_search: "Netejar cerca"
       all_categories: "Tots"
       none_found: "No s'han trobat prestadors."
+      filters_button: "Filtres"
+      filters_drawer_title: "Filtres"
+      more_filters_coming: "Més filtres pròximament."
+      location_section_title: "Cercar per ubicació"
+      location_permission_denied: "No s'ha pogut obtindre la teua ubicació. Comprova els permisos del navegador."
+      location_unsupported: "El teu navegador no admet geolocalització."
+      location_not_configured: "La busca per mapa encara no està disponible."
+      location_loading: "Obtenint la teua ubicació..."
     show:
       back: "Tornar"
       services: "Servicis"
@@ -52,6 +56,8 @@ va:
         past: "Horari ja passat"
     form:
       prevented_save: "han impedit guardar esta cita:"
+      phone_number_label: "El teu telèfon"
+      phone_number_hint: "Opcional — per si vols que el prestador et puga telefonar."
       submit: "Confirmar cita"
     create:
       success: "Cita creada correctament."
@@ -63,10 +69,20 @@ va:
       title: "Cites"
       show: "Vore"
       none_found: "No s'han trobat cites."
+      my_appointments: "Les meues cites"
+      client_appointments: "Cites dels meus clients"
+    card:
+      confirm: "Confirmar"
+      complete: "Completar"
+      reschedule: "Remarcar"
+      cancel: "Cancel·lar"
+      confirm_cancel: "Segur que vols cancel·lar-la?"
+      keep: "Mantindre"
     show:
       title: "Detalls de la Cita"
       cancel: "Cancel·lar"
       confirm_cancel: "Segur que vols cancel·lar-la?"
+      keep: "Mantindre"
       confirm: "Confirmar"
       complete: "Completar"
       reschedule: "Remarcar"
@@ -79,6 +95,18 @@ va:
     form:
       prevented_save: "han impedit guardar este servici:"
       submit: "Guardar servici"
+      photo_label: "Foto del servici"
+      photo_hint: "Opcional — ajuda al client a entendre el servici."
+      video_call_link_label: "Enllaç de la videotrucada"
+      video_call_link_hint: "S'usa en les cites online d'este servici. Opcional."
+      phone_number_label: "Telèfon per a atenció telefònica"
+      phone_number_hint: "S'usa en les cites per telèfon d'este servici. Opcional."
+      modalities:
+        title: "Modalitats d'atenció"
+        help: "Tria com es pot prestar este servici. El client només podrà triar entre estes opcions."
+      availability_windows:
+        title: "Horaris d'este servici"
+        help: "Defineix dies i horaris específics per a este servici. Deixa un dia en blanc per a tancar-lo — si no defineixes cap dia, el servici seguix l'horari general del teu perfil."
     service:
       edit: "Editar"
       destroy: "Eliminar"
@@ -100,6 +128,8 @@ va:
       prevented_save: "han impedit guardar el perfil:"
       submit: "Guardar perfil"
       select_category: "Selecciona una categoria"
+      logo_label: "Logo del negoci"
+      logo_hint: "Apareixerà en el teu perfil i en els marcadors del mapa."
     new:
       title: "Completa el teu perfil de prestador"
       subtitle: "Esta informació es mostrarà als teus clients."
@@ -111,13 +141,57 @@ va:
       new_service: "Nou servici"
       no_services: "Encara no has afegit cap servici."
       back_to_dashboard: "Tornar al panell"
+      settings: "Configuració"
     update:
       success: "Perfil actualitzat correctament."
+  provider_settings:
+    edit:
+      title: "Configuració del Prestador"
+      weekly_schedule: "Horari General"
+      allow_client_reschedule: "Els clients poden remarcar"
+      allow_client_reschedule_help: "Permet que el propi client trie un nou horari per a una cita existent."
+      submit: "Guardar configuració"
+      back: "Tornar al perfil"
+    update:
+      success: "Configuració guardada correctament."
+  provider_schedules:
+    edit:
+      title: "Horari General"
+      help: "Defineix l'horari per defecte del teu negoci. Un servici amb horari propi configurat usa el seu en el seu lloc."
+      back: "Tornar"
+      submit: "Guardar horari"
+    update:
+      success: "Horari guardat correctament."
+  notification_preferences:
+    edit:
+      title: "Notificacions"
+      notify_whatsapp: "Notificacions per WhatsApp"
+      notify_whatsapp_help: "Avisos sobre noves cites i cancel·lacions."
+      notify_push: "Notificacions push"
+      notify_push_help: "A l'app instal·lada (PWA) i mitjançant la campaneta al lloc web."
+      notify_email: "Notificacions per correu"
+      notify_email_help: "Resum de cites per correu electrònic."
+      submit: "Guardar preferències"
+      back: "Tornar al perfil"
+    update:
+      success: "Preferències guardades correctament."
+  profile:
+    security:
+      title: "Seguretat"
+      change_password: "Canviar contrasenya"
+      back: "Tornar al perfil"
+    password:
+      title: "Canviar Contrasenya"
+      update: "Actualitzar contrasenya"
+      we_need_your_current_password_to_confirm_your_changes: "necessitem la teua contrasenya actual per a confirmar els canvis"
+      back: "Tornar"
   dashboard:
     show:
       title: "La Meua Agenda"
       monthly_revenue: "Ingressos del mes"
+      toggle_revenue: "Mostrar/amagar valor"
       edit_profile: "Editar el meu perfil i servicis"
+      settings: "Configuració"
     calendar:
       previous_month: "Mes anterior"
       next_month: "Mes seguent"
@@ -132,8 +206,17 @@ va:
       block: "Bloquejar este dia"
       block_and_reschedule: "Bloquejar i remarcar automàticament"
       confirm_block_and_reschedule: "Les cites d'este dia es remarcaran automàticament als pròxims horaris disponibles. Continuar?"
+      keep: "Mantindre"
       empty: "No hi ha cites este dia."
       empty_past: "No hi ha cites este dia."
+      block_range:
+        trigger: "Bloquejar un període"
+        title: "Bloquejar període"
+        help: "Les cites existents en el període es remarcaran automàticament als horaris disponibles més pròxims."
+        start_date: "Data inicial"
+        end_date: "Data final"
+        cancel: "Cancel·lar"
+        submit: "Bloquejar període"
   provider_time_offs:
     create:
       success: "Dia bloquejat correctament."
@@ -141,3 +224,14 @@ va:
       reschedule_failed: "No s'ha pogut remarcar automàticament la cita de %{service} — no hi ha horaris disponibles en els pròxims 60 dies. Remarca-la manualment abans de bloquejar este dia."
     destroy:
       unblocked: "Dia desbloquejat correctament."
+  shared:
+    weekly_hours_grid:
+      repeat_modal:
+        title: "Repetir este horari?"
+        help: "Aplicar també als altres dies marcats a baix:"
+        apply: "Aplicar"
+        skip: "No, gràcies"
+      presets:
+        weekdays: "Dilluns a divendres"
+        weekdays_saturday: "Dilluns a dissabte"
+        all_week: "Tots els dies"

@@ -25,4 +25,10 @@
   <% end %>
 
   <%= render "devise/shared/links" %>
+
+  <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+    <p class="text-sm text-gray-500 mb-3"><%= t(".no_account_yet") %></p>
+    <%= link_to t("devise.shared.links.sign_up"), new_user_registration_path,
+          class: "block w-full rounded-full px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium" %>
+  </div>
 </div>

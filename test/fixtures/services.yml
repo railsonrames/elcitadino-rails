@@ -4,6 +4,7 @@ one:
   description: Corte tradicional com máquina e tesoura.
   duration: 30
   price: 15.00
+  modalities: ["in_person"]
 
 two:
   provider_profile: two
@@ -11,6 +12,7 @@ two:
   description: Sessão de 60 minutos.
   duration: 60
   price: 45.00
+  modalities: ["in_person"]
 
 unbooked:
   provider_profile: one
@@ -18,3 +20,4 @@ unbooked:
   description: Aparar e desenhar a barba.
   duration: 20
   price: 10.00
+  modalities: ["in_person"]

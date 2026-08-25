@@ -2,19 +2,19 @@ class AppointmentsController < ApplicationController
   include DateParams
 
   ALLOWED_STATUS_TRANSITIONS = {
-    "client" => %w[canceled],
-    "provider" => %w[confirmed canceled completed]
+    client: %w[canceled],
+    provider: %w[confirmed canceled completed]
   }.freeze
 
   MAX_BOOKING_DAYS_AHEAD = 60
 
   before_action :set_provider_profile, only: [ :new, :create ]
-  before_action :require_client_role, only: [ :new, :create ]
   before_action :set_appointment, only: [ :show, :update, :reschedule ]
-  before_action :require_provider_role, only: [ :reschedule ]
+  before_action :require_reschedule_permission, only: [ :reschedule ]
 
   def index
-    @appointments = visible_appointments.order(scheduled_at: :desc)
+    @own_appointments = current_user.appointments.order(scheduled_at: :desc)
+    @client_appointments = current_user.provider_profile ? current_user.provider_profile.appointments.order(scheduled_at: :desc) : Appointment.none
   end
 
   def show
@@ -22,10 +22,8 @@ class AppointmentsController < ApplicationController
 
   def new
     service = @provider_profile.services.find(params[:service_id])
-    modality = requested_modality(params[:modality])
-    build_attrs = { service_id: service.id }
-    build_attrs[:modality] = modality if modality.present?
-    @appointment = @provider_profile.appointments.build(build_attrs)
+    modality = requested_modality(service, params[:modality])
+    @appointment = @provider_profile.appointments.build(service_id: service.id, modality: modality)
     load_booking_context(service, parse_date(params[:date]), modality)
   end
 
@@ -63,12 +61,22 @@ class AppointmentsController < ApplicationController
     @provider_profile = ProviderProfile.find(params[:provider_id])
   end
 
-  def require_client_role
-    redirect_to root_path, alert: t("errors.clients_only") unless current_user.client?
+  def require_reschedule_permission
+    redirect_to @appointment, alert: t("errors.reschedule_not_allowed") unless can_reschedule?(@appointment)
   end
 
-  def require_provider_role
-    redirect_to root_path, alert: t("errors.providers_only") unless current_user.provider?
+  # Viewpoint on a given appointment comes from the relationship to that
+  # appointment, never the account's own role — a provider account can also
+  # be the client on someone else's booking, and must be treated as a
+  # client there, not as a provider.
+  def viewpoint(appointment)
+    return :provider if appointment.provider_profile.user_id == current_user.id
+    :client if appointment.client_id == current_user.id
+  end
+
+  def can_reschedule?(appointment)
+    return true if viewpoint(appointment) == :provider
+    viewpoint(appointment) == :client && appointment.status.in?(%w[pending confirmed]) && appointment.provider_profile.allow_client_reschedule?
   end
 
   def update_status
@@ -80,7 +88,7 @@ class AppointmentsController < ApplicationController
   end
 
   def update_schedule
-    if current_user.provider? && @appointment.update(scheduled_at: schedule_param)
+    if can_reschedule?(@appointment) && @appointment.update(scheduled_at: schedule_param)
       redirect_to @appointment, notice: t(".rescheduled")
     else
       redirect_to @appointment, alert: t(".invalid_transition")
@@ -89,35 +97,33 @@ class AppointmentsController < ApplicationController
 
   def load_booking_context(service, date, modality, exclude: nil)
     @service = service
-    @modality = requested_modality(modality)
+    @modality = requested_modality(service, modality)
     @selected_date = clamp_date(date || Date.tomorrow)
     @calendar_month = @selected_date.beginning_of_month
     @day_schedule = @provider_profile.day_schedule(date: @selected_date, service: service, modality: @modality, exclude: exclude)
   end
 
-  def requested_modality(modality)
-    return nil unless @provider_profile.modality_dependent?
-    modality.presence_in(@provider_profile.configured_modalities) || @provider_profile.configured_modalities.first
+  # A service always offers at least one modality (validated), so this
+  # always resolves to a real value — never nil — which matters downstream:
+  # day_schedule/time_windows_for only filters ProviderAvailability rules by
+  # modality when one is given, so an unresolved nil would wrongly include
+  # rules scoped to modalities this service doesn't even offer.
+  def requested_modality(service, modality)
+    modality.presence_in(service.modalities) || service.modalities.first
   end
 
   def clamp_date(date)
     date.clamp(Date.current, Date.current + MAX_BOOKING_DAYS_AHEAD)
   end
 
-  def visible_appointments
-    if current_user.client?
-      current_user.appointments
-    else
-      current_user.provider_profile&.appointments || Appointment.none
-    end
-  end
-
   def set_appointment
-    @appointment = visible_appointments.find(params[:id])
+    scope = Appointment.where(client: current_user)
+    scope = scope.or(Appointment.where(provider_profile: current_user.provider_profile)) if current_user.provider_profile
+    @appointment = scope.find(params[:id])
   end
 
   def appointment_params
-    params.expect(appointment: [ :service_id, :scheduled_at, :modality, :notes ])
+    params.expect(appointment: [ :service_id, :scheduled_at, :modality, :notes, :phone_number ])
   end
 
   def schedule_param
@@ -129,6 +135,6 @@ class AppointmentsController < ApplicationController
   end
 
   def allowed_status?(status)
-    ALLOWED_STATUS_TRANSITIONS.fetch(current_user.role, []).include?(status)
+    ALLOWED_STATUS_TRANSITIONS.fetch(viewpoint(@appointment), []).include?(status)
   end
 end

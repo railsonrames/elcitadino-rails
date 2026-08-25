@@ -1,0 +1,19 @@
+en:
+  devise:
+    sessions:
+      new:
+        no_account_yet: "Don't have an account yet?"
+    registrations:
+      new:
+        full_name_label: "Full name"
+        company_name_label: "Company name"
+      edit:
+        back: "Back"
+        security: "Security"
+        notifications: "Notifications"
+        provider_settings: "Provider Settings"
+        delete_modal_title: "Delete your account?"
+        delete_modal_warning: "This action is irreversible. All your data, appointments, and history will be permanently removed."
+        delete_modal_support: "If it's for another reason, you can reach our support at %{email}."
+        delete_modal_keep: "Keep my account"
+        delete_modal_confirm: "Yes, delete my account"

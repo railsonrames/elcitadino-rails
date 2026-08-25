@@ -1,11 +1,20 @@
-<nav class="w-full border-b border-gray-200 px-5 py-4 flex flex-wrap items-center justify-between gap-4">
-  <%= link_to root_path, class: "font-bold text-xl flex items-center gap-1.5" do %>
-    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-    ElCitadino
-  <% end %>
+<nav class="w-full border-b border-gray-200 px-5 py-4">
+  <div class="flex items-center justify-between gap-4">
+    <%= link_to root_path, class: "font-bold text-xl flex items-center gap-1.5 shrink-0" do %>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+      ElCitadino
+    <% end %>
 
-  <div class="flex flex-wrap items-center gap-4 text-sm font-medium">
-    <div class="hidden md:flex items-center gap-4">
+    <div class="flex items-center gap-1">
+      <% if user_signed_in? %>
+        <%= render "shared/notification_bell" %>
+      <% end %>
+      <%= render "shared/locale_switcher" %>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-end gap-4 text-sm font-medium mt-3">
+    <div class="flex flex-wrap items-center gap-4">
       <% if user_signed_in? %>
         <% if current_user.client? %>
           <%= link_to t(".browse_providers"), providers_path, class: "hover:underline" %>
@@ -16,7 +25,8 @@
         <% end %>
         <%= link_to t(".my_appointments"), appointments_path, class: "hover:underline" %>
       <% else %>
-        <%= link_to t(".sign_in"), new_user_session_path, class: "hover:underline" %>
+        <%# Mobile already gets a sign-in CTA button on the right; desktop pairs this with the sign-up CTA there. %>
+        <%= link_to t(".sign_in"), new_user_session_path, class: "hidden md:inline-block hover:underline" %>
       <% end %>
     </div>
 
@@ -24,14 +34,9 @@
       <%= link_to t(".account"), edit_user_registration_path, class: "hover:underline" %>
       <%= button_to t(".sign_out"), destroy_user_session_path, method: :delete, class: "hover:underline cursor-pointer font-medium" %>
     <% else %>
-      <%= link_to t(".sign_up"), new_user_registration_path, class: "rounded-full px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white" %>
+      <%# Mobile prioritizes sign-in (sign-up is reachable from there, styled as a CTA); desktop keeps the sign-up button as before. %>
+      <%= link_to t(".sign_in"), new_user_session_path, class: "md:hidden rounded-full px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white" %>
+      <%= link_to t(".sign_up"), new_user_registration_path, class: "hidden md:inline-block rounded-full px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white" %>
     <% end %>
-
-    <div class="flex items-center gap-2 border-l border-gray-200 pl-4">
-      <% I18n.available_locales.each do |locale| %>
-        <%= link_to locale.to_s, url_for(params.to_unsafe_h.merge(locale: locale)),
-              class: "uppercase #{"font-bold" if I18n.locale == locale}" %>
-      <% end %>
-    </div>
   </div>
 </nav>

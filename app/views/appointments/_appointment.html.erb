@@ -1,5 +1,5 @@
 <div id="<%= dom_id appointment %>" class="w-full sm:w-auto my-5 space-y-5">
-  <% if current_user.provider? %>
+  <% if appointment_provider_view?(appointment) %>
     <div>
       <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:client) %>:</strong>
       <%= appointment.client.name %>
@@ -26,6 +26,28 @@
     <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:modality) %>:</strong>
     <%= t("enums.appointment.modality.#{appointment.modality}") %>
   </div>
+  <% if appointment.service.video_call_link.present? %>
+    <div>
+      <strong class="block font-medium mb-1"><%= Service.human_attribute_name(:video_call_link) %>:</strong>
+      <% if (safe_link = appointment.service.safe_video_call_link) %>
+        <%= link_to safe_link, safe_link, class: "text-blue-600 hover:underline break-all" %>
+      <% else %>
+        <%= appointment.service.video_call_link %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if appointment.service.phone_number.present? %>
+    <div>
+      <strong class="block font-medium mb-1"><%= Service.human_attribute_name(:phone_number) %>:</strong>
+      <%= appointment.service.phone_number %>
+    </div>
+  <% end %>
+  <% if appointment.phone_number.present? %>
+    <div>
+      <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:phone_number) %>:</strong>
+      <%= appointment.phone_number %>
+    </div>
+  <% end %>
   <div>
     <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:notes) %>:</strong>
     <%= appointment.notes %>

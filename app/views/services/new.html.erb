@@ -1,9 +1,9 @@
 <% content_for :title, t(".title") %>
 
 <div class="md:w-2/3 w-full">
+  <%= render "shared/back_link", path: edit_provider_profile_path, label: t(".back") %>
+
   <h1 class="font-bold text-4xl mb-6"><%= t(".title") %></h1>
 
   <%= render "form", service: @service %>
-
-  <%= link_to t(".back"), edit_provider_profile_path, class: "inline-block mt-4 text-sm text-blue-600 hover:underline" %>
 </div>

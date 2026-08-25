@@ -1,31 +1,35 @@
 es:
   errors:
-    clients_only: "Solo los clientes pueden hacer esto."
     providers_only: "Solo los proveedores pueden hacer esto."
     no_provider_profile: "Completa primero tu perfil de proveedor."
+    reschedule_not_allowed: "No es posible reprogramar esta cita."
   layouts:
     navbar:
-      browse_providers: "Buscar proveedores"
-      dashboard: "Panel"
-      complete_profile: "Completar perfil"
-      my_appointments: "Mis citas"
-      account: "Mi cuenta"
-      sign_out: "Salir"
-      sign_in: "Entrar"
-      sign_up: "Registrarse"
-    bottom_nav:
+      notifications: "Notificaciones"
+      no_notifications_yet: "No hay notificaciones por ahora."
       browse_providers: "Buscar"
       dashboard: "Panel"
+      complete_profile: "Completar perfil"
       my_appointments: "Citas"
-      account: "Perfil"
+      account: "Mi cuenta"
+      sign_out: "Salir"
       sign_in: "Entrar"
       sign_up: "Registrarse"
   providers:
     index:
       title: "Proveedores"
       search_placeholder: "¿Qué servicio necesitas?"
+      clear_search: "Limpiar búsqueda"
       all_categories: "Todos"
       none_found: "No se encontraron proveedores."
+      filters_button: "Filtros"
+      filters_drawer_title: "Filtros"
+      more_filters_coming: "Más filtros próximamente."
+      location_section_title: "Buscar por ubicación"
+      location_permission_denied: "No se pudo obtener tu ubicación. Verifica los permisos del navegador."
+      location_unsupported: "Tu navegador no admite geolocalización."
+      location_not_configured: "La búsqueda por mapa aún no está disponible."
+      location_loading: "Obteniendo tu ubicación..."
     show:
       back: "Volver"
       services: "Servicios"
@@ -52,6 +56,8 @@ es:
         past: "Horario ya pasado"
     form:
       prevented_save: "impidieron que se guardara esta cita:"
+      phone_number_label: "Tu teléfono"
+      phone_number_hint: "Opcional — por si quieres que el proveedor pueda llamarte."
       submit: "Confirmar cita"
     create:
       success: "Cita creada correctamente."
@@ -63,10 +69,20 @@ es:
       title: "Citas"
       show: "Ver"
       none_found: "No se encontraron citas."
+      my_appointments: "Mis citas"
+      client_appointments: "Citas de mis clientes"
+    card:
+      confirm: "Confirmar"
+      complete: "Completar"
+      reschedule: "Reprogramar"
+      cancel: "Cancelar"
+      confirm_cancel: "¿Seguro que quieres cancelar?"
+      keep: "Mantener"
     show:
       title: "Detalles de la Cita"
       cancel: "Cancelar"
       confirm_cancel: "¿Seguro que quieres cancelar?"
+      keep: "Mantener"
       confirm: "Confirmar"
       complete: "Completar"
       reschedule: "Reprogramar"
@@ -79,6 +95,18 @@ es:
     form:
       prevented_save: "impidieron que se guardara este servicio:"
       submit: "Guardar servicio"
+      photo_label: "Foto del servicio"
+      photo_hint: "Opcional — ayuda al cliente a entender el servicio."
+      video_call_link_label: "Enlace de la videollamada"
+      video_call_link_hint: "Se usa en las citas online de este servicio. Opcional."
+      phone_number_label: "Teléfono de atención telefónica"
+      phone_number_hint: "Se usa en las citas por teléfono de este servicio. Opcional."
+      modalities:
+        title: "Modalidades de atención"
+        help: "Elige cómo se puede prestar este servicio. El cliente solo podrá elegir entre estas opciones."
+      availability_windows:
+        title: "Horarios de este servicio"
+        help: "Define días y horarios específicos para este servicio. Deja un día en blanco para cerrarlo — si no defines ningún día, el servicio sigue el horario general de tu perfil."
     service:
       edit: "Editar"
       destroy: "Eliminar"
@@ -100,6 +128,8 @@ es:
       prevented_save: "impidieron que se guardara el perfil:"
       submit: "Guardar perfil"
       select_category: "Selecciona una categoría"
+      logo_label: "Logo del negocio"
+      logo_hint: "Aparecerá en tu perfil y en los marcadores del mapa."
     new:
       title: "Completa tu perfil de proveedor"
       subtitle: "Esta información se mostrará a tus clientes."
@@ -111,13 +141,57 @@ es:
       new_service: "Nuevo servicio"
       no_services: "Aún no has registrado ningún servicio."
       back_to_dashboard: "Volver al panel"
+      settings: "Configuración"
     update:
       success: "Perfil actualizado correctamente."
+  provider_settings:
+    edit:
+      title: "Configuración del Proveedor"
+      weekly_schedule: "Horario General"
+      allow_client_reschedule: "Los clientes pueden reprogramar"
+      allow_client_reschedule_help: "Permite que el propio cliente elija un nuevo horario para una cita existente."
+      submit: "Guardar configuración"
+      back: "Volver al perfil"
+    update:
+      success: "Configuración guardada correctamente."
+  provider_schedules:
+    edit:
+      title: "Horario General"
+      help: "Define el horario predeterminado de tu negocio. Un servicio con horario propio configurado usa el suyo en su lugar."
+      back: "Volver"
+      submit: "Guardar horario"
+    update:
+      success: "Horario guardado correctamente."
+  notification_preferences:
+    edit:
+      title: "Notificaciones"
+      notify_whatsapp: "Notificaciones por WhatsApp"
+      notify_whatsapp_help: "Avisos sobre nuevas citas y cancelaciones."
+      notify_push: "Notificaciones push"
+      notify_push_help: "En la app instalada (PWA) y mediante la campana en el sitio."
+      notify_email: "Notificaciones por e-mail"
+      notify_email_help: "Resumen de citas por correo electrónico."
+      submit: "Guardar preferencias"
+      back: "Volver al perfil"
+    update:
+      success: "Preferencias guardadas correctamente."
+  profile:
+    security:
+      title: "Seguridad"
+      change_password: "Cambiar contraseña"
+      back: "Volver al perfil"
+    password:
+      title: "Cambiar Contraseña"
+      update: "Actualizar contraseña"
+      we_need_your_current_password_to_confirm_your_changes: "necesitamos tu contraseña actual para confirmar los cambios"
+      back: "Volver"
   dashboard:
     show:
       title: "Mi Agenda"
       monthly_revenue: "Ingresos del mes"
+      toggle_revenue: "Mostrar/ocultar valor"
       edit_profile: "Editar mi perfil y servicios"
+      settings: "Configuración"
     calendar:
       previous_month: "Mes anterior"
       next_month: "Mes siguiente"
@@ -132,8 +206,17 @@ es:
       block: "Bloquear este día"
       block_and_reschedule: "Bloquear y reprogramar automáticamente"
       confirm_block_and_reschedule: "Las citas de este día se reprogramarán automáticamente en los próximos horarios disponibles. ¿Continuar?"
+      keep: "Mantener"
       empty: "No hay citas este día."
       empty_past: "No hay citas este día."
+      block_range:
+        trigger: "Bloquear un período"
+        title: "Bloquear período"
+        help: "Las citas existentes en el período se reprogramarán automáticamente a los horarios disponibles más cercanos."
+        start_date: "Fecha inicial"
+        end_date: "Fecha final"
+        cancel: "Cancelar"
+        submit: "Bloquear período"
   provider_time_offs:
     create:
       success: "Día bloqueado correctamente."
@@ -141,3 +224,14 @@ es:
       reschedule_failed: "No se pudo reprogramar automáticamente la cita de %{service} — no hay horarios disponibles en los próximos 60 días. Reprográmala manualmente antes de bloquear este día."
     destroy:
       unblocked: "Día desbloqueado correctamente."
+  shared:
+    weekly_hours_grid:
+      repeat_modal:
+        title: "¿Repetir horario?"
+        help: "Aplicar también a los demás días marcados abajo:"
+        apply: "Aplicar"
+        skip: "No, gracias"
+      presets:
+        weekdays: "Lunes a viernes"
+        weekdays_saturday: "Lunes a sábado"
+        all_week: "Todos los días"

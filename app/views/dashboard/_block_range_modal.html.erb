@@ -1,0 +1,31 @@
+<%# locals: selected_date %>
+<div data-controller="modal">
+  <button type="button" data-action="modal#open" class="text-sm text-blue-600 hover:underline cursor-pointer">
+    <%= t("dashboard.day_agenda.block_range.trigger") %>
+  </button>
+
+  <dialog data-modal-target="dialog" class="rounded-2xl p-6 max-w-sm w-[90vw] m-auto backdrop:bg-black/40">
+    <h3 class="font-bold text-lg mb-3"><%= t("dashboard.day_agenda.block_range.title") %></h3>
+    <p class="text-sm text-gray-500 mb-4"><%= t("dashboard.day_agenda.block_range.help") %></p>
+
+    <%= form_with url: provider_profile_time_offs_path, method: :post, class: "space-y-3" do |form| %>
+      <div>
+        <%= form.label :start_date, t("dashboard.day_agenda.block_range.start_date") %>
+        <%= form.date_field :start_date, value: selected_date.iso8601, min: Date.current.iso8601,
+              class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-1 w-full" %>
+      </div>
+      <div>
+        <%= form.label :end_date, t("dashboard.day_agenda.block_range.end_date") %>
+        <%= form.date_field :end_date, value: selected_date.iso8601, min: Date.current.iso8601,
+              class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-1 w-full" %>
+      </div>
+      <div class="flex gap-2 justify-end pt-2">
+        <button type="button" data-action="modal#close" class="rounded-md px-3.5 py-2 bg-gray-100 hover:bg-gray-200 font-medium cursor-pointer">
+          <%= t("dashboard.day_agenda.block_range.cancel") %>
+        </button>
+        <%= form.submit t("dashboard.day_agenda.block_range.submit"),
+              class: "rounded-md px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+      </div>
+    <% end %>
+  </dialog>
+</div>

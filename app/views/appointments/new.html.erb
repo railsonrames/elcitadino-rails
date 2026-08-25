@@ -1,18 +1,15 @@
 <% content_for :title, t(".title", provider: @provider_profile.user.name) %>
 
 <div class="w-full max-w-md mx-auto" data-controller="booking">
-  <%= link_to provider_path(@provider_profile), class: "inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 mb-4" do %>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m15 18-6-6 6-6" /></svg>
-    <%= t(".back") %>
-  <% end %>
+  <%= render "shared/back_link", path: provider_path(@provider_profile), label: t(".back") %>
 
   <h1 class="font-bold text-2xl mb-1"><%= t(".title", provider: @provider_profile.user.name) %></h1>
   <p class="text-gray-500 mb-6"><%= @service.name %></p>
 
   <%= turbo_frame_tag "booking_panel" do %>
-    <% if @provider_profile.modality_dependent? %>
+    <% if @service.modalities.size > 1 %>
       <div class="flex gap-2 mb-4">
-        <% @provider_profile.configured_modalities.each do |modality| %>
+        <% @service.modalities.each do |modality| %>
           <%= link_to t("enums.appointment.modality.#{modality}"),
                 new_provider_appointment_path(@provider_profile, service_id: @service.id, modality: modality, date: @selected_date.iso8601),
                 data: { turbo_frame: "booking_panel" },

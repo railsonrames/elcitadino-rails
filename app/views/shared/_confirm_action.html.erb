@@ -1,0 +1,17 @@
+<%# locals: trigger_label, path, method, title, warning, confirm_label, cancel_label, button_class, params: {} %>
+<% params ||= {} %>
+<div data-controller="modal" class="inline-block">
+  <button type="button" data-action="modal#open" class="<%= button_class %>"><%= trigger_label %></button>
+
+  <dialog data-modal-target="dialog" class="rounded-2xl p-6 max-w-sm w-[90vw] m-auto backdrop:bg-black/40">
+    <h3 class="font-bold text-lg mb-3"><%= title %></h3>
+    <p class="text-sm text-gray-700 mb-5"><%= warning %></p>
+    <div class="flex gap-2 justify-end">
+      <button type="button" data-action="modal#close" class="rounded-md px-3.5 py-2 bg-gray-100 hover:bg-gray-200 font-medium cursor-pointer">
+        <%= cancel_label %>
+      </button>
+      <%= button_to confirm_label, path, method: method, params: params,
+            class: "rounded-md px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-medium cursor-pointer" %>
+    </div>
+  </dialog>
+</div>

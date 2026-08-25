@@ -22,21 +22,13 @@
     <p class="font-bold text-lg"><%= number_to_currency(service.price) %></p>
   </div>
 
-  <% if provider_profile.modality_dependent? %>
-    <%= form.hidden_field :modality, value: modality %>
-  <% else %>
+  <%= form.hidden_field :modality, value: modality %>
+
+  <% if modality == "phone" %>
     <div class="my-5">
-      <p class="font-medium mb-2"><%= Appointment.human_attribute_name(:modality) %></p>
-      <div class="flex flex-wrap gap-2">
-        <% Appointment.modalities.keys.each do |modality_option| %>
-          <label class="cursor-pointer">
-            <%= form.radio_button :modality, modality_option, class: "peer sr-only" %>
-            <span class="block rounded-full border border-gray-300 px-4 py-1.5 text-sm peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600">
-              <%= t("enums.appointment.modality.#{modality_option}") %>
-            </span>
-          </label>
-        <% end %>
-      </div>
+      <%= form.label :phone_number, t("appointments.form.phone_number_label") %>
+      <p class="text-sm text-gray-500 mb-2"><%= t("appointments.form.phone_number_hint") %></p>
+      <%= form.telephone_field :phone_number, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
     </div>
   <% end %>
 

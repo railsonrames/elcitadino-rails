@@ -1,0 +1,14 @@
+<h2 class="font-bold text-lg mb-4"><%= t("providers.index.filters_drawer_title") %></h2>
+
+<div class="space-y-1">
+  <%= link_to t("providers.index.all_categories"), providers_path(q: params[:q]),
+        class: "block rounded-lg px-3 py-2 text-sm font-medium #{params[:category].blank? ? "bg-blue-600 text-white" : "hover:bg-gray-100 text-gray-700"}" %>
+  <% ProviderCategory::SLUGS.each do |slug| %>
+    <%= link_to t("enums.provider_profile.category.#{slug}"), providers_path(category: slug, q: params[:q]),
+          class: "block rounded-lg px-3 py-2 text-sm font-medium #{params[:category] == slug ? "bg-blue-600 text-white" : "hover:bg-gray-100 text-gray-700"}" %>
+  <% end %>
+</div>
+
+<div class="mt-6 pt-6 border-t border-gray-200 opacity-50">
+  <p class="text-sm"><%= t("providers.index.more_filters_coming") %></p>
+</div>

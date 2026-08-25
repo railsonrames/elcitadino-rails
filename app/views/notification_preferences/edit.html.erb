@@ -1,0 +1,22 @@
+<% content_for :title, t(".title") %>
+
+<div class="w-full max-w-md">
+  <%= render "shared/back_link", path: edit_user_registration_path, label: t(".back") %>
+
+  <h1 class="font-bold text-3xl mb-6"><%= t(".title") %></h1>
+
+  <%= form_with(model: @preference, url: notification_preference_path, method: :patch, class: "contents") do |form| %>
+    <div class="divide-y divide-gray-200 border-y border-gray-200">
+      <%= render "shared/toggle", form: form, field: :notify_whatsapp,
+            label: t(".notify_whatsapp"), helper_text: t(".notify_whatsapp_help") %>
+      <%= render "shared/toggle", form: form, field: :notify_push,
+            label: t(".notify_push"), helper_text: t(".notify_push_help") %>
+      <%= render "shared/toggle", form: form, field: :notify_email,
+            label: t(".notify_email"), helper_text: t(".notify_email_help") %>
+    </div>
+
+    <div class="inline mt-6">
+      <%= form.submit t(".submit"), class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

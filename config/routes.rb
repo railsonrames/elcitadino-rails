@@ -6,18 +6,26 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   scope "(:locale)", locale: /pt-BR|es|en|va/ do
-    devise_for :users
+    devise_for :users, controllers: { registrations: "users/registrations" }
 
     root "providers#index"
 
     resources :providers, only: [ :index, :show ] do
+      collection { get :nearby }
       resources :appointments, only: [ :new, :create ]
     end
 
     resource :provider_profile, only: [ :new, :create, :edit, :update ] do
       resources :services, only: [ :new, :create, :edit, :update, :destroy ]
       resources :time_offs, only: [ :create, :destroy ], controller: "provider_time_offs"
+      resource :setting, only: [ :edit, :update ], controller: "provider_settings"
+      resource :schedule, only: [ :edit, :update ], controller: "provider_schedules"
     end
+
+    resource :notification_preference, only: [ :edit, :update ]
+
+    get "profile/security", to: "profile#security", as: :profile_security
+    get "profile/security/password", to: "profile#password", as: :profile_security_password
 
     resource :dashboard, controller: "dashboard", only: [ :show ]
 

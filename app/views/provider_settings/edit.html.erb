@@ -1,0 +1,22 @@
+<% content_for :title, t(".title") %>
+
+<div class="w-full max-w-md">
+  <%= render "shared/back_link", path: edit_user_registration_path, label: t(".back") %>
+
+  <h1 class="font-bold text-3xl mb-6"><%= t(".title") %></h1>
+
+  <div class="border-t border-gray-200 mb-8">
+    <%= render "shared/nav_row", path: edit_provider_profile_schedule_path, label: t(".weekly_schedule") %>
+  </div>
+
+  <%= form_with(model: @provider_profile, url: provider_profile_setting_path, method: :patch, class: "contents") do |form| %>
+    <div class="divide-y divide-gray-200 border-y border-gray-200">
+      <%= render "shared/toggle", form: form, field: :allow_client_reschedule,
+            label: t(".allow_client_reschedule"), helper_text: t(".allow_client_reschedule_help") %>
+    </div>
+
+    <div class="inline mt-6">
+      <%= form.submit t(".submit"), class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

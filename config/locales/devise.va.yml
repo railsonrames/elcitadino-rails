@@ -55,18 +55,30 @@ va:
         are_you_sure: "Estàs segur?"
         cancel_my_account: Cancel·lar el meu compte
         leave_blank_if_you_don_t_want_to_change_it: deixa-ho en blanc si no vols canviar-ho
+        back: "Tornar"
         title: "Editar %{resource}"
         unhappy: Descontent
         update: Actualitzar
         we_need_your_current_password_to_confirm_your_changes: necessitem la teua contrasenya actual per a confirmar els canvis
+        security: "Seguretat"
+        notifications: "Notificacions"
+        provider_settings: "Configuració del Prestador"
+        delete_modal_title: "Eliminar el teu compte?"
+        delete_modal_warning: "Esta acció és irreversible. Totes les teues dades, cites i historial s'eliminaran permanentment."
+        delete_modal_support: "Si el motiu és un altre, pots contactar amb el nostre suport a %{email}."
+        delete_modal_keep: "Mantindre el meu compte"
+        delete_modal_confirm: "Sí, eliminar el meu compte"
       new:
         sign_up: Registrar-se
+        full_name_label: "Nom complet"
+        company_name_label: "Nom de l'empresa"
       signed_up: T'has registrat correctament.
       updated: El teu compte s'ha actualitzat correctament.
     sessions:
       already_signed_out: Sessió tancada correctament.
       new:
         sign_in: Iniciar sessió
+        no_account_yet: "Encara no tens un compte?"
       signed_in: Sessió iniciada correctament.
       signed_out: Sessió tancada correctament.
     shared:

@@ -16,7 +16,7 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:client_one)
     get appointments_url
     assert_response :success
-    assert_match @appointment.notes, response.body
+    assert_match @appointment.service.name, response.body
   end
 
   test "provider cannot access another provider's appointment" do
@@ -41,12 +41,82 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to appointment_url(appointment)
   end
 
-  test "booking as a provider is rejected" do
+  test "a provider can book an appointment with a different provider" do
+    sign_in users(:provider_two)
+
+    assert_difference("Appointment.count") do
+      post provider_appointments_url(@provider_profile), params: {
+        appointment: { service_id: @service.id, scheduled_at: 2.days.from_now.change(hour: 10, min: 0, sec: 0), modality: "in_person" }
+      }
+    end
+
+    assert_equal users(:provider_two), Appointment.last.client
+  end
+
+  test "a provider cannot book an appointment with themselves" do
     sign_in users(:provider_one)
 
     assert_no_difference("Appointment.count") do
       post provider_appointments_url(@provider_profile), params: {
         appointment: { service_id: @service.id, scheduled_at: 2.days.from_now.change(hour: 10, min: 0, sec: 0), modality: "in_person" }
+      }
+    end
+  end
+
+  test "a provider cannot confirm their own appointment booked as a client (viewpoint must not follow account role)" do
+    appointment = @provider_profile.appointments.create!(
+      client: users(:provider_two), service: @service, modality: "in_person",
+      scheduled_at: 3.days.from_now.next_occurring(:monday).change(hour: 10, min: 0, sec: 0)
+    )
+
+    sign_in users(:provider_two)
+    patch appointment_url(appointment), params: { appointment: { status: "confirmed" } }
+
+    assert_not appointment.reload.confirmed?
+  end
+
+  test "booking with a modality the service doesn't offer is rejected" do
+    sign_in users(:client_one)
+
+    assert_no_difference("Appointment.count") do
+      post provider_appointments_url(@provider_profile), params: {
+        appointment: { service_id: @service.id, scheduled_at: 2.days.from_now.change(hour: 10, min: 0, sec: 0), modality: "online" }
+      }
+    end
+  end
+
+  test "booking by phone without a phone number succeeds (the client's own number is optional)" do
+    sign_in users(:client_one)
+    @service.update!(modalities: [ "phone" ])
+
+    assert_difference("Appointment.count") do
+      post provider_appointments_url(@provider_profile), params: {
+        appointment: { service_id: @service.id, scheduled_at: 2.days.from_now.change(hour: 10, min: 0, sec: 0), modality: "phone" }
+      }
+    end
+  end
+
+  test "booking by phone with a phone number succeeds" do
+    sign_in users(:client_one)
+    @service.update!(modalities: [ "phone" ])
+
+    post provider_appointments_url(@provider_profile), params: {
+      appointment: {
+        service_id: @service.id, scheduled_at: 2.days.from_now.change(hour: 10, min: 0, sec: 0),
+        modality: "phone", phone_number: "+34 600 000 000"
+      }
+    }
+
+    assert_equal "+34 600 000 000", Appointment.last.phone_number
+  end
+
+  test "booking online without a video call link succeeds" do
+    sign_in users(:client_one)
+    @service.update!(modalities: [ "online" ])
+
+    assert_difference("Appointment.count") do
+      post provider_appointments_url(@provider_profile), params: {
+        appointment: { service_id: @service.id, scheduled_at: 2.days.from_now.change(hour: 10, min: 0, sec: 0), modality: "online" }
       }
     end
   end
@@ -87,12 +157,6 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
     assert @appointment.reload.canceled?
   end
 
-  test "reschedule is provider-only" do
-    sign_in users(:client_one)
-    get reschedule_appointment_url(@appointment)
-    assert_redirected_to root_url
-  end
-
   test "reschedule renders the calendar for the owning provider" do
     sign_in users(:provider_one)
     get reschedule_appointment_url(@appointment)
@@ -109,11 +173,29 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal new_time.to_i, @appointment.reload.scheduled_at.to_i
   end
 
-  test "client cannot reschedule an appointment" do
+  test "client can reschedule when the provider allows it (default)" do
+    sign_in users(:client_one)
+    assert @provider_profile.allow_client_reschedule?, "provider setting should default to allowed"
+
+    get reschedule_appointment_url(@appointment)
+    assert_response :success
+
+    new_time = 4.days.from_now.change(hour: 12, min: 0, sec: 0)
+    patch appointment_url(@appointment), params: { appointment: { scheduled_at: new_time } }
+
+    assert_redirected_to appointment_url(@appointment)
+    assert_equal new_time.to_i, @appointment.reload.scheduled_at.to_i
+  end
+
+  test "client cannot reschedule when the provider has disabled it" do
+    @provider_profile.update!(allow_client_reschedule: false)
     sign_in users(:client_one)
     original_time = @appointment.scheduled_at
-    new_time = 4.days.from_now.change(hour: 12, min: 0, sec: 0)
 
+    get reschedule_appointment_url(@appointment)
+    assert_redirected_to appointment_url(@appointment)
+
+    new_time = 4.days.from_now.change(hour: 12, min: 0, sec: 0)
     patch appointment_url(@appointment), params: { appointment: { scheduled_at: new_time } }
 
     assert_equal original_time.to_i, @appointment.reload.scheduled_at.to_i

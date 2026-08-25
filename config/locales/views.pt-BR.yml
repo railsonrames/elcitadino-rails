@@ -1,31 +1,35 @@
 pt-BR:
   errors:
-    clients_only: "Apenas clientes podem fazer isso."
     providers_only: "Apenas prestadores podem fazer isso."
     no_provider_profile: "Complete seu perfil de prestador primeiro."
+    reschedule_not_allowed: "Não é possível remarcar este agendamento."
   layouts:
     navbar:
-      browse_providers: "Buscar prestadores"
+      notifications: "Notificações"
+      no_notifications_yet: "Nenhuma notificação por enquanto."
+      browse_providers: "Pesquisar"
       dashboard: "Painel"
       complete_profile: "Completar perfil"
-      my_appointments: "Meus agendamentos"
+      my_appointments: "Agendamentos"
       account: "Minha conta"
       sign_out: "Sair"
-      sign_in: "Entrar"
-      sign_up: "Cadastrar"
-    bottom_nav:
-      browse_providers: "Buscar"
-      dashboard: "Painel"
-      my_appointments: "Citas"
-      account: "Perfil"
       sign_in: "Entrar"
       sign_up: "Cadastrar"
   providers:
     index:
       title: "Prestadores"
       search_placeholder: "Que serviço você precisa?"
+      clear_search: "Limpar pesquisa"
       all_categories: "Todos"
       none_found: "Nenhum prestador encontrado."
+      filters_button: "Filtros"
+      filters_drawer_title: "Filtros"
+      more_filters_coming: "Mais filtros em breve."
+      location_section_title: "Buscar por localização"
+      location_permission_denied: "Não foi possível obter sua localização. Verifique as permissões do navegador."
+      location_unsupported: "Seu navegador não suporta localização."
+      location_not_configured: "A busca por mapa ainda não está disponível."
+      location_loading: "Obtendo sua localização..."
     show:
       back: "Voltar"
       services: "Serviços"
@@ -52,6 +56,8 @@ pt-BR:
         past: "Horário já passou"
     form:
       prevented_save: "impediram que este agendamento fosse salvo:"
+      phone_number_label: "Seu telefone"
+      phone_number_hint: "Opcional — se quiser que o prestador possa te ligar."
       submit: "Confirmar agendamento"
     create:
       success: "Agendamento criado com sucesso."
@@ -63,10 +69,20 @@ pt-BR:
       title: "Agendamentos"
       show: "Ver"
       none_found: "Nenhum agendamento encontrado."
+      my_appointments: "Meus agendamentos"
+      client_appointments: "Agendamentos dos meus clientes"
+    card:
+      confirm: "Confirmar"
+      complete: "Concluir"
+      reschedule: "Remarcar"
+      cancel: "Cancelar"
+      confirm_cancel: "Tem certeza que deseja cancelar?"
+      keep: "Manter"
     show:
       title: "Detalhes do Agendamento"
       cancel: "Cancelar"
       confirm_cancel: "Tem certeza que deseja cancelar?"
+      keep: "Manter"
       confirm: "Confirmar"
       complete: "Concluir"
       reschedule: "Remarcar"
@@ -79,6 +95,18 @@ pt-BR:
     form:
       prevented_save: "impediram que este serviço fosse salvo:"
       submit: "Salvar serviço"
+      photo_label: "Foto do serviço"
+      photo_hint: "Opcional — ajuda o cliente a entender o serviço."
+      video_call_link_label: "Link da videochamada"
+      video_call_link_hint: "Usado nos agendamentos online deste serviço. Opcional."
+      phone_number_label: "Telefone para atendimento por telefone"
+      phone_number_hint: "Usado nos agendamentos por telefone deste serviço. Opcional."
+      modalities:
+        title: "Modalidades de atendimento"
+        help: "Escolha como este serviço pode ser prestado. O cliente só poderá escolher entre estas opções."
+      availability_windows:
+        title: "Horários deste serviço"
+        help: "Defina dias e horários específicos para este serviço. Deixe um dia em branco para fechá-lo — se nenhum dia for definido, o serviço segue o horário geral do seu perfil."
     service:
       edit: "Editar"
       destroy: "Excluir"
@@ -100,6 +128,8 @@ pt-BR:
       prevented_save: "impediram que o perfil fosse salvo:"
       submit: "Salvar perfil"
       select_category: "Selecione uma categoria"
+      logo_label: "Logo do negócio"
+      logo_hint: "Aparecerá no seu perfil e nos marcadores do mapa."
     new:
       title: "Complete seu perfil de prestador"
       subtitle: "Essas informações serão exibidas para seus clientes."
@@ -111,13 +141,57 @@ pt-BR:
       new_service: "Novo serviço"
       no_services: "Você ainda não cadastrou nenhum serviço."
       back_to_dashboard: "Voltar ao painel"
+      settings: "Configurações"
     update:
       success: "Perfil atualizado com sucesso."
+  provider_settings:
+    edit:
+      title: "Configurações do Prestador"
+      weekly_schedule: "Horário Geral"
+      allow_client_reschedule: "Clientes podem remarcar"
+      allow_client_reschedule_help: "Permite que o próprio cliente escolha um novo horário para um agendamento existente."
+      submit: "Salvar configurações"
+      back: "Voltar ao perfil"
+    update:
+      success: "Configurações salvas com sucesso."
+  provider_schedules:
+    edit:
+      title: "Horário Geral"
+      help: "Define o horário padrão do seu negócio. Um serviço com horário próprio configurado usa o dele no lugar deste."
+      back: "Voltar"
+      submit: "Salvar horário"
+    update:
+      success: "Horário salvo com sucesso."
+  notification_preferences:
+    edit:
+      title: "Notificações"
+      notify_whatsapp: "Notificações por WhatsApp"
+      notify_whatsapp_help: "Avisos sobre novos agendamentos e cancelamentos."
+      notify_push: "Notificações push"
+      notify_push_help: "No app instalado (PWA) e pelo sino no site."
+      notify_email: "Notificações por e-mail"
+      notify_email_help: "Resumo de agendamentos por e-mail."
+      submit: "Salvar preferências"
+      back: "Voltar ao perfil"
+    update:
+      success: "Preferências salvas com sucesso."
+  profile:
+    security:
+      title: "Segurança"
+      change_password: "Trocar senha"
+      back: "Voltar ao perfil"
+    password:
+      title: "Trocar Senha"
+      update: "Atualizar senha"
+      we_need_your_current_password_to_confirm_your_changes: "precisamos da sua senha atual para confirmar as mudanças"
+      back: "Voltar"
   dashboard:
     show:
       title: "Minha Agenda"
       monthly_revenue: "Receita do mês"
+      toggle_revenue: "Mostrar/ocultar valor"
       edit_profile: "Editar meu perfil e serviços"
+      settings: "Configurações"
     calendar:
       previous_month: "Mês anterior"
       next_month: "Próximo mês"
@@ -132,8 +206,17 @@ pt-BR:
       block: "Bloquear este dia"
       block_and_reschedule: "Bloquear e remarcar automaticamente"
       confirm_block_and_reschedule: "Os agendamentos deste dia serão remarcados automaticamente para os próximos horários disponíveis. Continuar?"
+      keep: "Manter"
       empty: "Nenhum agendamento neste dia."
       empty_past: "Nenhum agendamento neste dia."
+      block_range:
+        trigger: "Bloquear um período"
+        title: "Bloquear período"
+        help: "Os agendamentos existentes no período serão remarcados automaticamente para os horários disponíveis mais próximos."
+        start_date: "Data inicial"
+        end_date: "Data final"
+        cancel: "Cancelar"
+        submit: "Bloquear período"
   provider_time_offs:
     create:
       success: "Dia bloqueado com sucesso."
@@ -141,3 +224,14 @@ pt-BR:
       reschedule_failed: "Não foi possível remarcar automaticamente o agendamento de %{service} — nenhum horário disponível nos próximos 60 dias. Remarque manualmente antes de bloquear este dia."
     destroy:
       unblocked: "Dia desbloqueado com sucesso."
+  shared:
+    weekly_hours_grid:
+      repeat_modal:
+        title: "Repetir horário?"
+        help: "Aplicar também para os outros dias marcados abaixo:"
+        apply: "Aplicar"
+        skip: "Não, obrigado"
+      presets:
+        weekdays: "Segunda a sexta"
+        weekdays_saturday: "Segunda a sábado"
+        all_week: "Todos os dias"

@@ -1,0 +1,39 @@
+<%# Flag emoji render inconsistently across platforms (Windows in particular
+    has historically shown the country-code letters instead of the actual
+    flag glyph), so every locale gets a small hand-drawn SVG instead —
+    consistent rendering everywhere, no font/OS dependency. %>
+<% case locale.to_s %>
+<% when "pt-BR" %>
+  <svg viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" class="w-5 h-3.5 rounded-sm shrink-0" aria-hidden="true">
+    <rect width="20" height="14" fill="#009739" />
+    <path d="M10 2 L18 7 L10 12 L2 7 Z" fill="#FEDD00" />
+    <circle cx="10" cy="7" r="3" fill="#012169" />
+  </svg>
+<% when "es" %>
+  <svg viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" class="w-5 h-3.5 rounded-sm shrink-0" aria-hidden="true">
+    <rect width="20" height="14" fill="#AA151B" />
+    <rect y="3.5" width="20" height="7" fill="#F1BF00" />
+  </svg>
+<% when "en" %>
+  <svg viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" class="w-5 h-3.5 rounded-sm shrink-0" aria-hidden="true">
+    <rect width="20" height="14" fill="#FFFFFF" />
+    <rect y="0" width="20" height="1.08" fill="#B22234" />
+    <rect y="2.15" width="20" height="1.08" fill="#B22234" />
+    <rect y="4.31" width="20" height="1.08" fill="#B22234" />
+    <rect y="6.46" width="20" height="1.08" fill="#B22234" />
+    <rect y="8.62" width="20" height="1.08" fill="#B22234" />
+    <rect y="10.77" width="20" height="1.08" fill="#B22234" />
+    <rect y="12.92" width="20" height="1.08" fill="#B22234" />
+    <rect width="8" height="7.5" fill="#3C3B6E" />
+  </svg>
+<% else %>
+  <svg viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" class="w-5 h-3.5 rounded-sm shrink-0" aria-hidden="true">
+    <rect width="20" height="14" fill="#FFD200" />
+    <rect y="1.56" width="20" height="1.56" fill="#DA121A" />
+    <rect y="4.67" width="20" height="1.56" fill="#DA121A" />
+    <rect y="7.78" width="20" height="1.56" fill="#DA121A" />
+    <rect y="10.89" width="20" height="1.56" fill="#DA121A" />
+    <path d="M0 0 L8 7 L0 14 Z" fill="#1D428A" />
+    <path d="M2.5 5.5 L4 4 L5.5 5.5 L5 7 L3 7 Z" fill="#FFD200" />
+  </svg>
+<% end %>

@@ -11,6 +11,15 @@
     </div>
   <% end %>
 
+  <div class="my-5 flex items-center gap-4">
+    <%= render "shared/category_avatar", category: service.provider_profile.category, image: service.photo, size: "lg" %>
+    <div class="flex-1">
+      <%= form.label :photo, t("services.form.photo_label") %>
+      <p class="text-sm text-gray-500 mb-2"><%= t("services.form.photo_hint") %></p>
+      <%= form.file_field :photo, accept: "image/*", class: "block w-full text-sm" %>
+    </div>
+  </div>
+
   <div class="my-5">
     <%= form.label :name %>
     <%= form.text_field :name, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
@@ -29,6 +38,46 @@
   <div class="my-5">
     <%= form.label :price %>
     <%= form.text_field :price, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <p class="font-medium"><%= t("services.form.modalities.title") %></p>
+    <p class="text-sm text-gray-500 mb-3"><%= t("services.form.modalities.help") %></p>
+
+    <div class="flex flex-wrap gap-2">
+      <% Appointment.modalities.each_key do |modality| %>
+        <label class="cursor-pointer">
+          <%= check_box_tag "service[modalities][]", modality, service.modalities.include?(modality),
+                id: "service_modalities_#{modality}", class: "peer sr-only" %>
+          <span class="block rounded-full border border-gray-300 px-4 py-1.5 text-sm peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600">
+            <%= t("enums.appointment.modality.#{modality}") %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <% if service.modalities.include?("online") %>
+    <div class="my-5">
+      <%= form.label :video_call_link, t("services.form.video_call_link_label") %>
+      <p class="text-sm text-gray-500 mb-2"><%= t("services.form.video_call_link_hint") %></p>
+      <%= form.text_field :video_call_link, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% end %>
+
+  <% if service.modalities.include?("phone") %>
+    <div class="my-5">
+      <%= form.label :phone_number, t("services.form.phone_number_label") %>
+      <p class="text-sm text-gray-500 mb-2"><%= t("services.form.phone_number_hint") %></p>
+      <%= form.telephone_field :phone_number, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <p class="font-medium"><%= t("services.form.availability_windows.title") %></p>
+    <p class="text-sm text-gray-500 mb-3"><%= t("services.form.availability_windows.help") %></p>
+
+    <%= render "shared/weekly_hours_grid", availabilities: service.availabilities, field_name_prefix: "service[availability_windows]" %>
   </div>
 
   <div class="inline">

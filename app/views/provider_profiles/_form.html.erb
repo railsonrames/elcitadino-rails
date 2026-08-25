@@ -11,6 +11,15 @@
     </div>
   <% end %>
 
+  <div class="my-5 flex items-center gap-4">
+    <%= render "shared/category_avatar", category: provider_profile.category, image: provider_profile.logo, size: "lg" %>
+    <div class="flex-1">
+      <%= form.label :logo, t("provider_profiles.form.logo_label") %>
+      <p class="text-sm text-gray-500 mb-2"><%= t("provider_profiles.form.logo_hint") %></p>
+      <%= form.file_field :logo, accept: "image/*", class: "block w-full text-sm" %>
+    </div>
+  </div>
+
   <div class="my-5">
     <%= form.label :bio %>
     <%= form.textarea :bio, rows: 4, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>

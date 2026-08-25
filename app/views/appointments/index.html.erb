@@ -3,16 +3,43 @@
 <div class="w-full">
   <h1 class="font-bold text-4xl mb-6"><%= t(".title") %></h1>
 
-  <div id="appointments" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @appointments.any? %>
-      <% @appointments.each do |appointment| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render appointment %>
-          <%= link_to t(".show"), appointment, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-        </div>
-      <% end %>
+  <section class="<%= "mb-10" if current_user.provider_profile %>">
+    <% if current_user.provider_profile %>
+      <h2 class="font-bold text-xl mb-4"><%= t(".my_appointments") %></h2>
+    <% end %>
+
+    <% if @own_appointments.any? %>
+      <div class="space-y-3">
+        <% @own_appointments.each do |appointment| %>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+            <div class="flex-1"><%= render "card", appointment: appointment, viewpoint: :client %></div>
+            <%= link_to t(".show"), appointment,
+                  class: "shrink-0 text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium text-sm" %>
+          </div>
+        <% end %>
+      </div>
     <% else %>
       <p class="text-center my-10"><%= t(".none_found") %></p>
     <% end %>
-  </div>
+  </section>
+
+  <% if current_user.provider_profile %>
+    <section>
+      <h2 class="font-bold text-xl mb-4"><%= t(".client_appointments") %></h2>
+
+      <% if @client_appointments.any? %>
+        <div class="space-y-3">
+          <% @client_appointments.each do |appointment| %>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+              <div class="flex-1"><%= render "card", appointment: appointment, viewpoint: :provider %></div>
+              <%= link_to t(".show"), appointment,
+                    class: "shrink-0 text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium text-sm" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-center my-10"><%= t(".none_found") %></p>
+      <% end %>
+    </section>
+  <% end %>
 </div>

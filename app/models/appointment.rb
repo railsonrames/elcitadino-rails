@@ -4,11 +4,14 @@ class Appointment < ApplicationRecord
   belongs_to :service
 
   enum :status, { pending: 0, confirmed: 1, completed: 2, canceled: 3 }, default: :pending
-  enum :modality, { in_person: 0, online: 1, phone: 2, video: 3 }, default: :in_person
+  # "video" was retired as a separate value — it's the same as "online",
+  # just with a video-call link attached (see video_call_link below).
+  enum :modality, { in_person: 0, online: 1, phone: 2 }, default: :in_person
 
   validates :scheduled_at, presence: true
+  validates :modality, inclusion: { in: ->(appointment) { appointment.service.modalities } }, if: -> { service.present? }
   validate :scheduled_at_cannot_be_in_the_past
-  validate :client_must_be_client
+  validate :client_cannot_book_own_provider_profile
   validate :no_overlapping_appointments, if: -> { scheduled_at.present? && provider_profile.present? }
   validate :scheduled_at_within_provider_availability, if: -> { scheduled_at.present? && provider_profile.present? && service.present? }
 
@@ -27,8 +30,8 @@ class Appointment < ApplicationRecord
     end
   end
 
-  def client_must_be_client
-    errors.add(:client, "deve ter o perfil de cliente") unless client&.client?
+  def client_cannot_book_own_provider_profile
+    errors.add(:client, "não pode agendar consigo mesmo") if provider_profile&.user_id == client_id
   end
 
   def scheduled_at_within_provider_availability
@@ -37,7 +40,7 @@ class Appointment < ApplicationRecord
       return
     end
 
-    windows = provider_profile.time_windows_for(scheduled_at.to_date, modality)
+    windows = provider_profile.time_windows_for(scheduled_at.to_date, modality, service: service)
     fits = windows.any? do |start_hm, end_hm|
       window_start = scheduled_at.in_time_zone.change(hour: start_hm[0], min: start_hm[1])
       window_end = scheduled_at.in_time_zone.change(hour: end_hm[0], min: end_hm[1])

@@ -1,0 +1,22 @@
+# Small addendum to devise-i18n's own pt-BR.yml (gem-provided) — only the
+# custom keys this app added on top of Devise's stock registrations/edit
+# view (the "Segurança" heading + the delete-account confirmation modal).
+pt-BR:
+  devise:
+    sessions:
+      new:
+        no_account_yet: "Ainda não tem uma conta?"
+    registrations:
+      new:
+        full_name_label: "Nome completo"
+        company_name_label: "Nome da empresa"
+      edit:
+        back: "Voltar"
+        security: "Segurança"
+        notifications: "Notificações"
+        provider_settings: "Configurações do Prestador"
+        delete_modal_title: "Excluir sua conta?"
+        delete_modal_warning: "Essa ação é irreversível. Todos os seus dados, agendamentos e histórico serão permanentemente removidos."
+        delete_modal_support: "Se o motivo for outro, você pode falar com o nosso suporte pelo e-mail %{email}."
+        delete_modal_keep: "Manter minha conta"
+        delete_modal_confirm: "Sim, excluir minha conta"

@@ -31,6 +31,11 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  # Allow ngrok tunnel hosts, used to test mobile-only features (geolocation
+  # requires a secure/HTTPS origin) against the local dev server from a phone.
+  config.hosts << /.*\.ngrok-free\.(dev|app)/
+  config.hosts << /.*\.ngrok\.io/
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

@@ -1,0 +1,24 @@
+es:
+  devise:
+    shared:
+      # devise-i18n's own es.yml ships this key with blank values upstream.
+      minimum_password_length:
+        one: "(mínimo %{count} carácter)"
+        other: "(mínimo %{count} caracteres)"
+    sessions:
+      new:
+        no_account_yet: "¿Aún no tienes una cuenta?"
+    registrations:
+      new:
+        full_name_label: "Nombre completo"
+        company_name_label: "Nombre de la empresa"
+      edit:
+        back: "Volver"
+        security: "Seguridad"
+        notifications: "Notificaciones"
+        provider_settings: "Configuración del Proveedor"
+        delete_modal_title: "¿Eliminar tu cuenta?"
+        delete_modal_warning: "Esta acción es irreversible. Todos tus datos, citas e historial se eliminarán permanentemente."
+        delete_modal_support: "Si el motivo es otro, puedes contactar con nuestro soporte en %{email}."
+        delete_modal_keep: "Mantener mi cuenta"
+        delete_modal_confirm: "Sí, eliminar mi cuenta"

@@ -3,9 +3,20 @@
 <div class="w-full max-w-2xl">
   <div class="flex items-center justify-between mb-6">
     <h1 class="font-bold text-3xl"><%= t(".title") %></h1>
-    <div class="text-right">
+
+    <div class="text-right" data-controller="reveal" data-reveal-text-value="<%= number_to_currency(@monthly_revenue) %>">
       <p class="text-xs text-gray-500"><%= t(".monthly_revenue") %></p>
-      <p class="font-bold text-lg"><%= number_to_currency(@monthly_revenue) %></p>
+      <div class="flex items-center gap-1.5 justify-end">
+        <p class="font-bold text-lg" data-reveal-target="display">••••••</p>
+        <button type="button" data-action="reveal#toggle" class="text-gray-400 hover:text-gray-600" aria-label="<%= t(".toggle_revenue") %>">
+          <svg data-reveal-target="showIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" /><circle cx="12" cy="12" r="3" />
+          </svg>
+          <svg data-reveal-target="hideIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 hidden">
+            <path d="M9.9 4.24A9.75 9.75 0 0 1 12 4c7 0 11 8 11 8a17.9 17.9 0 0 1-3.24 4.36M6.5 6.6C3.4 8.5 1 12 1 12s4 8 11 8a9.8 9.8 0 0 0 5-1.4M9.9 14.1a3 3 0 1 0 4.2-4.2" /><path d="m1 1 22 22" />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -14,5 +25,18 @@
     <%= render "day_agenda", selected_date: @selected_date, day_appointments: @day_appointments, blocking_time_off: @blocking_time_off %>
   <% end %>
 
-  <%= link_to t(".edit_profile"), edit_provider_profile_path, class: "text-sm text-blue-600 hover:underline mt-6 inline-block" %>
+  <div class="flex gap-3 mt-6">
+    <%= link_to edit_provider_profile_path, class: "flex-1 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 bg-gray-100 hover:bg-gray-200 font-medium text-sm" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+      <%= t(".edit_profile") %>
+    <% end %>
+    <%= link_to edit_provider_profile_setting_path, class: "flex-1 flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 bg-gray-100 hover:bg-gray-200 font-medium text-sm" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+        <circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+      </svg>
+      <%= t(".settings") %>
+    <% end %>
+  </div>
 </div>

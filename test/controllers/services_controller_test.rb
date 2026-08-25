@@ -16,7 +16,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference("@provider_profile.services.count") do
       post provider_profile_services_url, params: {
-        service: { name: "Barba", description: "Aparar barba", duration: 20, price: 10 }
+        service: { name: "Barba", description: "Aparar barba", duration: 20, price: 10, modalities: [ "in_person" ] }
       }
     end
 
@@ -29,7 +29,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     other_profile = provider_profiles(:two)
 
     post provider_profile_services_url, params: {
-      service: { name: "Barba", duration: 20, price: 10, provider_profile_id: other_profile.id }
+      service: { name: "Barba", duration: 20, price: 10, modalities: [ "in_person" ], provider_profile_id: other_profile.id }
     }
 
     assert_equal @provider_profile, Service.last.provider_profile
@@ -61,5 +61,73 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
       delete provider_profile_service_url(@service)
     end
     assert_redirected_to edit_provider_profile_url
+  end
+
+  test "provider can set a service-specific weekly schedule when creating a service" do
+    sign_in users(:provider_one)
+
+    assert_difference("ProviderAvailability.count", 1) do
+      post provider_profile_services_url, params: {
+        service: {
+          name: "Aluguel de trasteiro", duration: 60, price: 20, modalities: [ "in_person" ],
+          availability_windows: { "1" => { start_time: "10:00", end_time: "11:00" } }
+        }
+      }
+    end
+
+    windows = Service.last.availabilities
+    assert_equal 1, windows.count
+    assert_equal 1, windows.first.day_of_week
+  end
+
+  test "provider can replace a service's schedule on update, including clearing it entirely" do
+    sign_in users(:provider_one)
+    @service.availabilities.create!(day_of_week: 1, start_time: "10:00", end_time: "11:00")
+
+    patch provider_profile_service_url(@service), params: { service: { name: @service.name, availability_windows: {} } }
+
+    assert_empty @service.availabilities.reload
+  end
+
+  test "provider can set which modalities a service is offered through" do
+    sign_in users(:provider_one)
+
+    post provider_profile_services_url, params: {
+      service: { name: "Consulta Online", duration: 30, price: 25, modalities: [ "online", "phone" ] }
+    }
+
+    assert_equal %w[online phone], Service.last.modalities
+  end
+
+  test "creating a service without any modality is rejected" do
+    sign_in users(:provider_one)
+
+    assert_no_difference("Service.count") do
+      post provider_profile_services_url, params: { service: { name: "Sem modalidade", duration: 20, price: 10 } }
+    end
+  end
+
+  test "provider can set the video call link and phone number for their service" do
+    sign_in users(:provider_one)
+
+    post provider_profile_services_url, params: {
+      service: {
+        name: "Consulta Flex", duration: 30, price: 25, modalities: [ "online", "phone" ],
+        video_call_link: "https://meet.example.com/room-1", phone_number: "+34 900 000 000"
+      }
+    }
+
+    service = Service.last
+    assert_equal "https://meet.example.com/room-1", service.video_call_link
+    assert_equal "+34 900 000 000", service.phone_number
+  end
+
+  test "provider can upload a photo when creating a service" do
+    sign_in users(:provider_one)
+    photo = fixture_file_upload("logo.png", "image/png")
+
+    post provider_profile_services_url, params: { service: { name: "Barba", duration: 20, price: 10, modalities: [ "in_person" ], photo: photo } }
+
+    assert Service.last.photo.attached?
   end
 end

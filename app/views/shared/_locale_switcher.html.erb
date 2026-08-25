@@ -1,0 +1,15 @@
+<details class="relative">
+  <summary class="list-none cursor-pointer p-1.5 rounded-full hover:bg-gray-100 [&::-webkit-details-marker]:hidden" aria-label="<%= locale_name(I18n.locale) %>">
+    <%= render "shared/locale_flag", locale: I18n.locale %>
+  </summary>
+
+  <div class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-30">
+    <% I18n.available_locales.each do |locale| %>
+      <%= link_to url_for(params.to_unsafe_h.merge(locale: locale)),
+            class: "flex items-center gap-2 px-3 py-2 text-sm hover:bg-gray-50 #{"font-semibold bg-gray-50" if I18n.locale == locale}" do %>
+        <%= render "shared/locale_flag", locale: locale %>
+        <span><%= locale_name(locale) %></span>
+      <% end %>
+    <% end %>
+  </div>
+</details>

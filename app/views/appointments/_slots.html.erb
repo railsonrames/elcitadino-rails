@@ -7,12 +7,12 @@
         <% if slot[:status] == :available %>
           <% selected = slot[:time] == appointment.scheduled_at %>
           <button type="button" data-booking-target="slotButton" data-action="click->booking#selectSlot" data-booking-time-param="<%= slot[:time].iso8601 %>"
-                  class="rounded-lg border py-2 text-sm <%= selected ? "bg-blue-600 text-white border-blue-600" : "border-gray-300 hover:border-blue-400" %>">
+                  class="flex items-center justify-center text-center rounded-lg border py-2 text-sm <%= selected ? "bg-blue-600 text-white border-blue-600" : "border-gray-300 hover:border-blue-400" %>">
             <%= slot[:time].strftime("%H:%M") %>
           </button>
         <% else %>
           <span title="<%= t(".slot_status.#{slot[:status]}") %>"
-                class="rounded-lg border border-gray-200 py-2 text-sm text-gray-300 cursor-not-allowed <%= "line-through" if slot[:status] == :booked %>">
+                class="flex items-center justify-center text-center rounded-lg border border-gray-200 py-2 text-sm text-gray-300 cursor-not-allowed <%= "line-through" if slot[:status] == :booked %>">
             <%= slot[:time].strftime("%H:%M") %>
           </span>
         <% end %>

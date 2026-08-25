@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :index, :show ]
+  skip_before_action :authenticate_user!, only: [ :index, :show, :nearby ]
 
   def index
     @provider_profiles = ProviderProfile.includes(:user)
@@ -15,5 +15,21 @@ class ProvidersController < ApplicationController
   def show
     @provider_profile = ProviderProfile.find(params[:id])
     @services = @provider_profile.services
+  end
+
+  def nearby
+    provider_profiles = ProviderProfile.near(params[:lat].to_f, params[:lng].to_f)
+
+    render json: provider_profiles.map { |provider_profile|
+      {
+        id: provider_profile.id,
+        name: provider_profile.user.name,
+        category: provider_profile.category,
+        latitude: provider_profile.latitude,
+        longitude: provider_profile.longitude,
+        logo_url: provider_profile.logo.attached? ? url_for(provider_profile.logo) : nil,
+        url: provider_path(provider_profile)
+      }
+    }
   end
 end

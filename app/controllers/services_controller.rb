@@ -10,6 +10,7 @@ class ServicesController < ApplicationController
     @service = @provider_profile.services.build(service_params)
 
     if @service.save
+      @service.replace_availability_windows!(availability_windows_param)
       redirect_to edit_provider_profile_path, notice: t(".success")
     else
       render :new, status: :unprocessable_content
@@ -21,6 +22,7 @@ class ServicesController < ApplicationController
 
   def update
     if @service.update(service_params)
+      @service.replace_availability_windows!(availability_windows_param)
       redirect_to edit_provider_profile_path, notice: t(".success")
     else
       render :edit, status: :unprocessable_content
@@ -47,6 +49,17 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-    params.expect(service: [ :name, :description, :duration, :price ])
+    params.expect(service: [ :name, :description, :duration, :price, :photo, :video_call_link, :phone_number, modalities: [] ])
+  end
+
+  # A flat { "0" => { start_time:, end_time: }, ..., "6" => {...} } hash,
+  # one entry per weekday — kept separate from service_params since it
+  # doesn't map onto a Service column, it drives replace_availability_windows!.
+  def availability_windows_param
+    return {} unless params[:service][:availability_windows]
+
+    params[:service][:availability_windows].to_unsafe_h.transform_keys(&:to_i).transform_values do |window|
+      { start_time: window[:start_time], end_time: window[:end_time] }
+    end
   end
 end

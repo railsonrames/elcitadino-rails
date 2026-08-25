@@ -46,6 +46,21 @@ module DemoData
 
   PASSWORD = "password123"
 
+  # Demo addresses are placeholder strings ("Rua Principal, N"), not real
+  # ones, so live-geocoding them via Nominatim would mostly fail and would
+  # hammer its 1req/sec rate limit on every seed run regardless — real
+  # city-center coordinates with a small jitter are used directly instead,
+  # bypassing GeocodeProviderProfileJob entirely for seed data.
+  CITY_COORDINATES = {
+    "Alicante" => [ 38.3452, -0.4810 ],
+    "Valência" => [ 39.4699, -0.3763 ]
+  }.freeze
+
+  def self.jittered_coordinates(city)
+    base_lat, base_lng = CITY_COORDINATES.fetch(city)
+    [ base_lat + rand(-0.02..0.02), base_lng + rand(-0.02..0.02) ]
+  end
+
   class ProviderGenerator
     def run
       emails = []
@@ -86,11 +101,11 @@ module DemoData
         bio: "Consultoria completa de relocation: apoio na mudança para Espanha, do início ao fim.")
 
       if profile.services.empty?
-        profile.services.create!(name: "Consultoria via Vídeo", description: "Primeira conversa e planejamento, por videochamada.", duration: 45, price: 40)
-        profile.services.create!(name: "Visita Presencial a Imóveis", description: "Acompanhamento presencial em visitas a casas/apartamentos.", duration: 90, price: 90)
+        profile.services.create!(name: "Consultoria via Vídeo", description: "Primeira conversa e planejamento, por videochamada.", duration: 45, price: 40, modalities: [ "online" ])
+        profile.services.create!(name: "Visita Presencial a Imóveis", description: "Acompanhamento presencial em visitas a casas/apartamentos.", duration: 90, price: 90, modalities: [ "in_person" ])
       end
 
-      add_weekly_rule(profile, days: (2..5), windows: [ [ [ 9, 0 ], [ 12, 0 ] ] ], modality: "video")
+      add_weekly_rule(profile, days: (2..5), windows: [ [ [ 9, 0 ], [ 12, 0 ] ] ], modality: "online")
       add_weekly_rule(profile, days: (2..5), windows: [ [ [ 16, 0 ], [ 21, 0 ] ] ], modality: "in_person")
 
       user.email
@@ -123,7 +138,7 @@ module DemoData
 
       if profile.services.empty?
         chosen_services.each do |name, duration, price|
-          profile.services.create!(name: name, description: "#{name} realizado por profissional qualificado.", duration: duration, price: price)
+          profile.services.create!(name: name, description: "#{name} realizado por profissional qualificado.", duration: duration, price: price, modalities: [ "in_person" ])
         end
       end
 
@@ -147,6 +162,7 @@ module DemoData
         profile.city = city
         profile.address = "Rua Principal, #{rand(1..200)}"
         profile.bio = bio
+        profile.latitude, profile.longitude = DemoData.jittered_coordinates(city)
       end
     end
 
@@ -156,7 +172,7 @@ module DemoData
       templates = SERVICE_TEMPLATES.fetch(category)
       templates.sample(rng.rand(1..[ 2, templates.size ].min), random: rng).each do |name, duration, price_range|
         profile.services.create!(name: name, description: "#{name} realizado por profissional qualificado.",
-          duration: duration, price: rng.rand(price_range))
+          duration: duration, price: rng.rand(price_range), modalities: [ "in_person" ])
       end
     end
 

@@ -1,6 +1,8 @@
 <% content_for :title, t(".title") %>
 
 <div class="w-full max-w-md">
+  <%= render "shared/back_link", path: dashboard_path, label: t(".back_to_dashboard") %>
+
   <h1 class="font-bold text-4xl mb-6"><%= t(".title") %></h1>
 
   <%= render "form", provider_profile: @provider_profile %>
@@ -20,5 +22,7 @@
     <% end %>
   </div>
 
-  <%= link_to t(".back_to_dashboard"), dashboard_path, class: "inline-block mt-6 text-sm text-blue-600 hover:underline" %>
+  <div class="mt-6">
+    <%= link_to t(".settings"), edit_provider_profile_setting_path, class: "text-sm text-blue-600 hover:underline" %>
+  </div>
 </div>

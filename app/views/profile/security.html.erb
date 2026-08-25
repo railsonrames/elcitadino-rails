@@ -1,0 +1,32 @@
+<% content_for :title, t(".title") %>
+
+<div class="w-full max-w-md">
+  <%= render "shared/back_link", path: edit_user_registration_path, label: t(".back") %>
+
+  <h1 class="font-bold text-3xl mb-6"><%= t(".title") %></h1>
+
+  <div class="border-t border-gray-200 mb-8">
+    <%= render "shared/nav_row", path: profile_security_password_path, label: t(".change_password") %>
+  </div>
+
+  <div data-controller="modal">
+    <h3 class="font-bold text-lg mb-2"><%= t("devise.registrations.edit.cancel_my_account") %></h3>
+    <p class="text-sm text-gray-500 mb-3"><%= t("devise.registrations.edit.unhappy") %></p>
+    <button type="button" data-action="modal#open" class="text-red-600 hover:underline text-sm cursor-pointer">
+      <%= t("devise.registrations.edit.cancel_my_account") %>
+    </button>
+
+    <dialog data-modal-target="dialog" class="rounded-2xl p-6 max-w-sm w-[90vw] m-auto backdrop:bg-black/40">
+      <h3 class="font-bold text-lg mb-3"><%= t("devise.registrations.edit.delete_modal_title") %></h3>
+      <p class="text-sm text-gray-700 mb-3"><%= t("devise.registrations.edit.delete_modal_warning") %></p>
+      <p class="text-sm text-gray-500 mb-5"><%= t("devise.registrations.edit.delete_modal_support", email: "contato@elcitadino.es") %></p>
+      <div class="flex gap-2 justify-end">
+        <button type="button" data-action="modal#close" class="rounded-md px-3.5 py-2 bg-gray-100 hover:bg-gray-200 font-medium cursor-pointer">
+          <%= t("devise.registrations.edit.delete_modal_keep") %>
+        </button>
+        <%= button_to t("devise.registrations.edit.delete_modal_confirm"), registration_path(:user), method: :delete,
+              class: "rounded-md px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-medium cursor-pointer" %>
+      </div>
+    </dialog>
+  </div>
+</div>
