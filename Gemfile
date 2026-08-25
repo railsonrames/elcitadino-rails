@@ -43,6 +43,8 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 # Store Active Storage uploads on Cloudinary [https://github.com/CloudinaryLtd/activestorage-cloudinary-service]
 gem "activestorage-cloudinary-service"
+# Generate QR codes server-side, no external service or JS library [https://github.com/whomwah/rqrcode]
+gem "rqrcode"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

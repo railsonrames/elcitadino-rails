@@ -11,4 +11,13 @@ module ApplicationHelper
   def appointment_provider_view?(appointment)
     appointment.provider_profile.user_id == current_user.id
   end
+
+  # Renders a QR code entirely server-side (rqrcode, no external service or
+  # JS library) as a data URI, so it can be dropped straight into an
+  # image_tag — using <img> rather than an inline <svg> is deliberate: it's
+  # what lets the browser's native "save image"/<a download> both work.
+  def qr_code_data_uri(url)
+    svg = RQRCode::QRCode.new(url).as_svg(module_size: 6, standalone: true, use_path: true)
+    "data:image/svg+xml;base64,#{Base64.strict_encode64(svg)}"
+  end
 end

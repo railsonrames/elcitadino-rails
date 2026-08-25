@@ -9,7 +9,39 @@
     <%= render "shared/nav_row", path: edit_provider_profile_schedule_path, label: t(".weekly_schedule") %>
   </div>
 
+  <div class="mb-8">
+    <p class="font-medium mb-1"><%= t(".qr_code_title") %></p>
+    <p class="text-sm text-gray-500 mb-3"><%= t(".qr_code_help") %></p>
+
+    <% qr_url = provider_url(@provider_profile, locale: nil) %>
+    <div class="border border-gray-200 rounded-2xl p-4 flex flex-col items-center gap-3">
+      <%= image_tag qr_code_data_uri(qr_url), alt: t("providers.show.qr_code_alt"), class: "w-40 h-40" %>
+      <%= link_to t(".download_qr_code"), qr_code_data_uri(qr_url),
+            download: "qrcode-#{@provider_profile.user.name.parameterize}.svg",
+            class: "text-sm text-blue-600 hover:underline" %>
+    </div>
+  </div>
+
   <%= form_with(model: @provider_profile, url: provider_profile_setting_path, method: :patch, class: "contents") do |form| %>
+    <div class="my-6">
+      <p class="font-medium mb-2"><%= t(".visibility_title") %></p>
+      <div class="flex gap-1 bg-gray-100 rounded-full p-1">
+        <label class="flex-1 text-center cursor-pointer">
+          <%= form.radio_button :listed, true, class: "peer sr-only" %>
+          <span class="block rounded-full py-2 text-sm font-medium text-gray-500 peer-checked:bg-white peer-checked:text-gray-900 peer-checked:shadow transition">
+            <%= t(".visibility_listed_label") %>
+          </span>
+        </label>
+        <label class="flex-1 text-center cursor-pointer">
+          <%= form.radio_button :listed, false, class: "peer sr-only" %>
+          <span class="block rounded-full py-2 text-sm font-medium text-gray-500 peer-checked:bg-white peer-checked:text-gray-900 peer-checked:shadow transition">
+            <%= t(".visibility_unlisted_label") %>
+          </span>
+        </label>
+      </div>
+      <p class="text-sm text-gray-500 mt-2"><%= t(".visibility_help") %></p>
+    </div>
+
     <div class="divide-y divide-gray-200 border-y border-gray-200">
       <%= render "shared/toggle", form: form, field: :allow_client_reschedule,
             label: t(".allow_client_reschedule"), helper_text: t(".allow_client_reschedule_help") %>

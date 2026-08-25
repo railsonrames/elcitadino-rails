@@ -40,6 +40,7 @@ pt-BR:
       badge_pricing: "Preços transparentes"
       badge_fast_confirmation: "Confirmação rápida"
       badge_easy_cancellation: "Cancelamento fácil"
+      qr_code_alt: "Código QR para esta página"
   appointments:
     new:
       title: "Agendar com %{provider}"
@@ -148,6 +149,13 @@ pt-BR:
     edit:
       title: "Configurações do Prestador"
       weekly_schedule: "Horário Geral"
+      qr_code_title: "Código QR"
+      qr_code_help: "Aponte a câmera para acessar sua página. Use no cartão de visitas ou na vitrine do seu negócio."
+      download_qr_code: "Baixar código QR"
+      visibility_title: "Visibilidade"
+      visibility_listed_label: "Visível"
+      visibility_unlisted_label: "Somente por link"
+      visibility_help: "Quando \"somente por link\", seu negócio não aparece na busca nem no mapa — só quem tiver o link direto ou escanear seu código QR consegue acessar sua página e agendar."
       allow_client_reschedule: "Clientes podem remarcar"
       allow_client_reschedule_help: "Permite que o próprio cliente escolha um novo horário para um agendamento existente."
       submit: "Salvar configurações"

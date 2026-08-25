@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_25_005354) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_25_125130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -93,6 +93,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_25_005354) do
     t.boolean "allow_client_reschedule", default: true, null: false
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
+    t.boolean "listed", default: true, null: false
     t.index ["user_id"], name: "index_provider_profiles_on_user_id"
   end
 

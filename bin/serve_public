@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# Starts the Rails dev server and an ngrok HTTPS tunnel together, so the
+# app is reachable from outside this machine (phone testing, sharing a
+# link, etc.) — geolocation and other browser features that require a
+# secure context only work over the ngrok https:// URL, not plain
+# http://<lan-ip>:3000.
+#
+# Usage: bin/serve_public [port]
+# Stop everything with Ctrl+C.
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+PORT="${1:-3000}"
+NGROK_LOG="tmp/ngrok.log"
+
+if [[ -x "$HOME/.local/bin/ngrok" ]]; then
+  NGROK_BIN="$HOME/.local/bin/ngrok"
+elif command -v ngrok >/dev/null 2>&1; then
+  NGROK_BIN="$(command -v ngrok)"
+else
+  echo "ngrok não encontrado (nem em ~/.local/bin/ngrok nem no PATH)." >&2
+  exit 1
+fi
+
+RAILS_PID=""
+NGROK_PID=""
+
+cleanup() {
+  echo ""
+  echo "Encerrando..."
+  [[ -n "$NGROK_PID" ]] && kill "$NGROK_PID" 2>/dev/null
+  [[ -n "$RAILS_PID" ]] && kill "$RAILS_PID" 2>/dev/null
+  wait 2>/dev/null
+}
+trap cleanup EXIT INT TERM
+
+if curl -s -o /dev/null "http://localhost:$PORT"; then
+  echo "Já tem algo respondendo em localhost:$PORT — presumindo que é o servidor Rails, não vou subir outro."
+else
+  echo "Iniciando servidor Rails na porta $PORT (acessível em toda a rede local)..."
+  bin/rails server -b 0.0.0.0 -p "$PORT" &
+  RAILS_PID=$!
+
+  echo "Aguardando o servidor responder..."
+  until curl -s -o /dev/null "http://localhost:$PORT"; do
+    sleep 1
+  done
+fi
+echo "Servidor no ar em http://localhost:$PORT"
+
+echo "Iniciando túnel ngrok..."
+mkdir -p tmp
+"$NGROK_BIN" http "$PORT" --log=stdout > "$NGROK_LOG" 2>&1 &
+NGROK_PID=$!
+
+URL=""
+for _ in $(seq 1 20); do
+  URL=$(grep -o 'url=https://[^[:space:]]*' "$NGROK_LOG" 2>/dev/null | tail -1 | cut -d= -f2) || true
+  [[ -n "$URL" ]] && break
+  sleep 0.5
+done
+
+echo ""
+if [[ -n "$URL" ]]; then
+  echo "=================================================="
+  echo " Projeto acessível externamente em:"
+  echo " $URL"
+  echo "=================================================="
+else
+  echo "Não consegui ler a URL do ngrok automaticamente — confira $NGROK_LOG ou http://localhost:4040"
+fi
+echo ""
+echo "Pressione Ctrl+C para parar o servidor e o túnel."
+
+wait

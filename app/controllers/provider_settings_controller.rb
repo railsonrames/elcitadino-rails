@@ -20,6 +20,6 @@ class ProviderSettingsController < ApplicationController
   end
 
   def setting_params
-    params.expect(provider_profile: [ :allow_client_reschedule ])
+    params.expect(provider_profile: [ :allow_client_reschedule, :listed ])
   end
 end

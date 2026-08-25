@@ -2,7 +2,7 @@ class ProvidersController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show, :nearby ]
 
   def index
-    @provider_profiles = ProviderProfile.includes(:user)
+    @provider_profiles = ProviderProfile.where(listed: true).includes(:user)
     @provider_profiles = @provider_profiles.where(category: params[:category]) if params[:category].present?
 
     if params[:q].present?

@@ -40,6 +40,7 @@ va:
       badge_pricing: "Preus transparents"
       badge_fast_confirmation: "Confirmació ràpida"
       badge_easy_cancellation: "Cancel·lació fàcil"
+      qr_code_alt: "Codi QR d'esta pàgina"
   appointments:
     new:
       title: "Reservar amb %{provider}"
@@ -148,6 +149,13 @@ va:
     edit:
       title: "Configuració del Prestador"
       weekly_schedule: "Horari General"
+      qr_code_title: "Codi QR"
+      qr_code_help: "Apunta la càmera per a accedir a la teua pàgina. Usa'l en la teua targeta de visita o en l'aparador del teu negoci."
+      download_qr_code: "Descarregar codi QR"
+      visibility_title: "Visibilitat"
+      visibility_listed_label: "Visible"
+      visibility_unlisted_label: "Només per enllaç"
+      visibility_help: "Quan està en \"només per enllaç\", el teu negoci no apareix en la busca ni en el mapa — només qui tinga l'enllaç directe o escanege el teu codi QR pot accedir a la teua pàgina i reservar."
       allow_client_reschedule: "Els clients poden remarcar"
       allow_client_reschedule_help: "Permet que el propi client trie un nou horari per a una cita existent."
       submit: "Guardar configuració"

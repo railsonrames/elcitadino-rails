@@ -40,6 +40,7 @@ en:
       badge_pricing: "Transparent pricing"
       badge_fast_confirmation: "Fast confirmation"
       badge_easy_cancellation: "Easy cancellation"
+      qr_code_alt: "QR code for this page"
   appointments:
     new:
       title: "Book with %{provider}"
@@ -148,6 +149,13 @@ en:
     edit:
       title: "Provider Settings"
       weekly_schedule: "General Hours"
+      qr_code_title: "QR Code"
+      qr_code_help: "Point a camera at it to open your page. Use it on your business card or shop window."
+      download_qr_code: "Download QR code"
+      visibility_title: "Visibility"
+      visibility_listed_label: "Listed"
+      visibility_unlisted_label: "Link only"
+      visibility_help: "When set to \"link only,\" your business won't show up in search or on the map — only people with your direct link or who scan your QR code can reach your page and book."
       allow_client_reschedule: "Clients can reschedule"
       allow_client_reschedule_help: "Lets the client pick a new time for an existing appointment themselves."
       submit: "Save settings"

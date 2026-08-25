@@ -3,14 +3,18 @@
 <div class="w-full max-w-2xl mx-auto">
   <%= render "shared/back_link", path: providers_path, label: t(".back") %>
 
-  <div class="flex items-center gap-4 mb-6">
-    <%= render "shared/category_avatar", category: @provider_profile.category, image: @provider_profile.logo, size: "lg" %>
-    <div>
-      <h1 class="font-bold text-2xl"><%= @provider_profile.user.name %></h1>
-      <p class="text-gray-500">
-        <%= t("enums.provider_profile.category.#{@provider_profile.category}") %> &middot; <%= @provider_profile.city %>
-      </p>
+  <div class="flex items-start justify-between gap-4 mb-6">
+    <div class="flex items-center gap-4">
+      <%= render "shared/category_avatar", category: @provider_profile.category, image: @provider_profile.logo, size: "lg" %>
+      <div>
+        <h1 class="font-bold text-2xl"><%= @provider_profile.user.name %></h1>
+        <p class="text-gray-500">
+          <%= t("enums.provider_profile.category.#{@provider_profile.category}") %> &middot; <%= @provider_profile.city %>
+        </p>
+      </div>
     </div>
+    <%= image_tag qr_code_data_uri(provider_url(@provider_profile, locale: nil)),
+          alt: t(".qr_code_alt"), class: "w-16 h-16 shrink-0" %>
   </div>
 
   <div class="grid grid-cols-3 gap-2 mb-6 text-center">

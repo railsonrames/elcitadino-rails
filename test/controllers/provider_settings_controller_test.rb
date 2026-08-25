@@ -25,6 +25,15 @@ class ProviderSettingsControllerTest < ActionDispatch::IntegrationTest
     assert_not @provider_profile.reload.allow_client_reschedule?
   end
 
+  test "provider can make their profile unlisted" do
+    sign_in users(:provider_one)
+
+    patch provider_profile_setting_url, params: { provider_profile: { listed: "0" } }
+
+    assert_redirected_to edit_provider_profile_setting_url
+    assert_not @provider_profile.reload.listed?
+  end
+
   test "a user with no provider profile is redirected to onboarding" do
     sign_in users(:client_one)
     get edit_provider_profile_setting_url

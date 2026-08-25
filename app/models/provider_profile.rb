@@ -50,7 +50,8 @@ class ProviderProfile < ApplicationRecord
   # applied in Ruby afterwards instead of repeating the formula — fine at
   # this row count.
   scope :near, ->(lat, lng, radius_km: 50) {
-    where.not(latitude: nil, longitude: nil)
+    where(listed: true)
+      .where.not(latitude: nil, longitude: nil)
       .select("provider_profiles.*, (6371 * acos(
         cos(radians(#{lat})) * cos(radians(latitude)) * cos(radians(longitude) - radians(#{lng})) +
         sin(radians(#{lat})) * sin(radians(latitude))

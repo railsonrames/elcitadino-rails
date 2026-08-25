@@ -40,6 +40,7 @@ es:
       badge_pricing: "Precios transparentes"
       badge_fast_confirmation: "Confirmación rápida"
       badge_easy_cancellation: "Cancelación fácil"
+      qr_code_alt: "Código QR de esta página"
   appointments:
     new:
       title: "Reservar con %{provider}"
@@ -148,6 +149,13 @@ es:
     edit:
       title: "Configuración del Proveedor"
       weekly_schedule: "Horario General"
+      qr_code_title: "Código QR"
+      qr_code_help: "Apunta la cámara para acceder a tu página. Úsalo en tu tarjeta de presentación o en el escaparate de tu negocio."
+      download_qr_code: "Descargar código QR"
+      visibility_title: "Visibilidad"
+      visibility_listed_label: "Visible"
+      visibility_unlisted_label: "Solo por enlace"
+      visibility_help: "Cuando está en \"solo por enlace\", tu negocio no aparece en la búsqueda ni en el mapa — solo quien tenga el enlace directo o escanee tu código QR puede acceder a tu página y reservar."
       allow_client_reschedule: "Los clientes pueden reprogramar"
       allow_client_reschedule_help: "Permite que el propio cliente elija un nuevo horario para una cita existente."
       submit: "Guardar configuración"

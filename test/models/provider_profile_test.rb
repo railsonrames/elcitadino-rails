@@ -199,6 +199,14 @@ class ProviderProfileTest < ActiveSupport::TestCase
     assert_equal [ close ], results
   end
 
+  test "near excludes unlisted providers even when otherwise in range" do
+    @provider_profile.update_columns(latitude: 38.35, longitude: -0.48, listed: false)
+
+    results = ProviderProfile.near(38.3452, -0.4810)
+
+    assert_not_includes results, @provider_profile
+  end
+
   test "creating a profile with an address enqueues a geocoding job" do
     user = User.create!(name: "Novo", email: "novo.geocode@example.com", password: "password123", role: :provider)
 
