@@ -34,7 +34,7 @@ ssh:
 builder:
   arch: amd64
 
-# Variáveis injetadas no container. Segredos vêm de .kamal/secrets.
+# Variáveis injetadas no container. Segredos vêm de .kamal/secrets-common.
 env:
   clear:
     # Roda o supervisor do Solid Queue dentro do Puma (inclui as tarefas de config/recurring.yml).
