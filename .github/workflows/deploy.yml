@@ -57,7 +57,9 @@ jobs:
           install -d -m 700 ~/.ssh
           printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_kamal
           chmod 600 ~/.ssh/id_kamal
-          ssh-keyscan -H 51.195.220.76 >> ~/.ssh/known_hosts 2>/dev/null
+          # só a ed25519: o net-ssh do Kamal negocia essa e, com rsa/ecdsa juntas no
+          # known_hosts, dispara HostKeyMismatch em vez de aceitar.
+          ssh-keyscan -t ed25519 51.195.220.76 >> ~/.ssh/known_hosts 2>/dev/null
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_kamal
           echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
