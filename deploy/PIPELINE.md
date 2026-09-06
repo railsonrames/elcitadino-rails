@@ -71,7 +71,7 @@ Enquanto a *repository variable* `DEPLOY_ENABLED` não for `true`, o job aparece
 | `secrets.RAILS_MASTER_KEY` | `config/credentials.yml.enc` (Cloudinary, secret_key_base…) |
 | `secrets.ELCITADINO_DATABASE_PASSWORD` | senha do Postgres — app e container |
 
-O `.kamal/secrets` do repo só faz o *mapeamento* `NOME=$ENV` — nenhum valor cru é versionado.
+O `.kamal/secrets-common` do repo só faz o *mapeamento* `NOME=$ENV` — nenhum valor cru é versionado.
 
 ## Environments
 
