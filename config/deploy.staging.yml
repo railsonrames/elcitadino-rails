@@ -24,9 +24,15 @@ env:
     WEB_CONCURRENCY: 1
     DB_HOST: elcitadino-staging-db
     RAILS_LOG_TO_STDOUT: "1"
+    # staging não tem credencial Cloudinary — usa disco local (volume abaixo).
+    ACTIVE_STORAGE_SERVICE: local
   secret:
     - RAILS_MASTER_KEY
     - ELCITADINO_DATABASE_PASSWORD
+
+# volume próprio do staging (não compartilha com produção)
+volumes:
+  - "elcitadino_staging_storage:/rails/storage"
 
 accessories:
   db:

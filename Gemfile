@@ -42,7 +42,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 # Store Active Storage uploads on Cloudinary [https://github.com/CloudinaryLtd/activestorage-cloudinary-service]
+# O adapter faz `require "cloudinary"` mas não declara a dependência; precisa ser explícita.
 gem "activestorage-cloudinary-service"
+gem "cloudinary"
 # Generate QR codes server-side, no external service or JS library [https://github.com/whomwah/rqrcode]
 gem "rqrcode"
 
