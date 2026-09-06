@@ -34,6 +34,9 @@ class ProviderProfile < ApplicationRecord
 
   validates :bio, :address, :city, presence: true
   validates :category, inclusion: { in: ProviderCategory::SLUGS }
+  validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-z0-9]+(-[a-z0-9]+)*\z/ }
+
+  before_validation :assign_default_slug, on: :create
 
   # Nominatim's usage policy caps requests at 1/sec and must never block a
   # save, so geocoding always happens out-of-band in a background job.
@@ -65,6 +68,10 @@ class ProviderProfile < ApplicationRecord
   # (Rails' automatic attribute query method) — the column has a DB
   # default of true, backfilled onto every existing row at migration
   # time, so there's no nil-row case to guard against here.
+
+  def city_slug
+    city.to_s.parameterize
+  end
 
   def closed_on?(date)
     time_offs.any? { |time_off| time_off.starts_on <= date && time_off.ends_on >= date }
@@ -184,5 +191,18 @@ class ProviderProfile < ApplicationRecord
 
   def enqueue_geocoding
     GeocodeProviderProfileJob.perform_later(id)
+  end
+
+  def assign_default_slug
+    return if slug.present?
+    base = user.name.to_s.parameterize
+    base = "provider" if base.blank?
+    candidate = base
+    suffix = 1
+    while self.class.exists?(slug: candidate)
+      suffix += 1
+      candidate = "#{base}-#{suffix}"
+    end
+    self.slug = candidate
   end
 end

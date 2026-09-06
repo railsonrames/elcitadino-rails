@@ -1,55 +1,71 @@
-<div id="<%= dom_id appointment %>" class="w-full sm:w-auto my-5 space-y-5">
-  <% if appointment_provider_view?(appointment) %>
+<% counterparty = appointment_provider_view?(appointment) ? appointment.client.name : appointment.provider_profile.user.name %>
+<% counterparty_label = appointment_provider_view?(appointment) ? Appointment.human_attribute_name(:client) : ProviderProfile.model_name.human %>
+<% badge_class = {
+     "pending" => "bg-yellow-50 text-yellow-700", "confirmed" => "bg-blue-50 text-blue-700",
+     "completed" => "bg-green-50 text-green-700", "canceled" => "bg-gray-100 text-gray-500"
+   }.fetch(appointment.status) %>
+
+<div id="<%= dom_id(appointment) %>" class="border border-gray-200 rounded-2xl p-5">
+  <div class="flex items-start justify-between gap-2 mb-4">
     <div>
-      <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:client) %>:</strong>
-      <%= appointment.client.name %>
+      <p class="text-xs text-gray-500"><%= counterparty_label %></p>
+      <p class="font-bold text-lg"><%= counterparty %></p>
     </div>
-  <% else %>
-    <div>
-      <strong class="block font-medium mb-1"><%= ProviderProfile.model_name.human %>:</strong>
-      <%= appointment.provider_profile.user.name %>
-    </div>
-  <% end %>
-  <div>
-    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:service) %>:</strong>
-    <%= appointment.service.name %>
+    <span class="shrink-0 text-xs font-medium px-2 py-0.5 rounded-full <%= badge_class %>">
+      <%= t("enums.appointment.status.#{appointment.status}") %>
+    </span>
   </div>
-  <div>
-    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:scheduled_at) %>:</strong>
-    <%= l(appointment.scheduled_at) %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:status) %>:</strong>
-    <%= t("enums.appointment.status.#{appointment.status}") %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:modality) %>:</strong>
-    <%= t("enums.appointment.modality.#{appointment.modality}") %>
-  </div>
-  <% if appointment.service.video_call_link.present? %>
-    <div>
-      <strong class="block font-medium mb-1"><%= Service.human_attribute_name(:video_call_link) %>:</strong>
-      <% if (safe_link = appointment.service.safe_video_call_link) %>
-        <%= link_to safe_link, safe_link, class: "text-blue-600 hover:underline break-all" %>
-      <% else %>
-        <%= appointment.service.video_call_link %>
-      <% end %>
+
+  <% if appointment.pending? && appointment.service.requires_payment_confirmation? %>
+    <div class="rounded-xl bg-amber-50 border border-amber-200 p-3 mb-4 text-sm">
+      <p class="font-medium text-amber-800"><%= t("appointments.payment_notice.pending_note") %></p>
+      <p class="text-amber-800 mt-1"><%= t("appointments.payment_notice.amount_label") %> <%= number_to_currency(appointment.service.deposit_amount) %></p>
+      <p class="text-amber-700 mt-1 whitespace-pre-line"><%= appointment.service.payment_instructions %></p>
     </div>
   <% end %>
-  <% if appointment.service.phone_number.present? %>
-    <div>
-      <strong class="block font-medium mb-1"><%= Service.human_attribute_name(:phone_number) %>:</strong>
-      <%= appointment.service.phone_number %>
+
+  <dl class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+    <div class="col-span-2">
+      <dt class="text-xs text-gray-500"><%= Appointment.human_attribute_name(:scheduled_at) %></dt>
+      <dd class="font-medium"><%= l(appointment.scheduled_at, format: :long) %></dd>
     </div>
-  <% end %>
-  <% if appointment.phone_number.present? %>
     <div>
-      <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:phone_number) %>:</strong>
-      <%= appointment.phone_number %>
+      <dt class="text-xs text-gray-500"><%= Appointment.human_attribute_name(:service) %></dt>
+      <dd class="font-medium"><%= appointment.service.name %></dd>
     </div>
-  <% end %>
-  <div>
-    <strong class="block font-medium mb-1"><%= Appointment.human_attribute_name(:notes) %>:</strong>
-    <%= appointment.notes %>
-  </div>
+    <div>
+      <dt class="text-xs text-gray-500"><%= Appointment.human_attribute_name(:modality) %></dt>
+      <dd class="font-medium"><%= t("enums.appointment.modality.#{appointment.modality}") %></dd>
+    </div>
+    <% if appointment.service.video_call_link.present? %>
+      <div class="col-span-2">
+        <dt class="text-xs text-gray-500"><%= Service.human_attribute_name(:video_call_link) %></dt>
+        <dd class="font-medium break-all">
+          <% if (safe_link = appointment.service.safe_video_call_link) %>
+            <%= link_to safe_link, safe_link, class: "text-blue-600 hover:underline" %>
+          <% else %>
+            <%= appointment.service.video_call_link %>
+          <% end %>
+        </dd>
+      </div>
+    <% end %>
+    <% if appointment.service.phone_number.present? %>
+      <div>
+        <dt class="text-xs text-gray-500"><%= Service.human_attribute_name(:phone_number) %></dt>
+        <dd class="font-medium"><%= appointment.service.phone_number %></dd>
+      </div>
+    <% end %>
+    <% if appointment.phone_number.present? %>
+      <div>
+        <dt class="text-xs text-gray-500"><%= Appointment.human_attribute_name(:phone_number) %></dt>
+        <dd class="font-medium"><%= appointment.phone_number %></dd>
+      </div>
+    <% end %>
+    <% if appointment.notes.present? %>
+      <div class="col-span-2">
+        <dt class="text-xs text-gray-500"><%= Appointment.human_attribute_name(:notes) %></dt>
+        <dd><%= appointment.notes %></dd>
+      </div>
+    <% end %>
+  </dl>
 </div>

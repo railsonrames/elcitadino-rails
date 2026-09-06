@@ -13,8 +13,12 @@ en:
       my_appointments: "Appointments"
       account: "My account"
       sign_out: "Sign out"
+      confirm_sign_out: "Are you sure you want to sign out?"
+      stay_signed_in: "Stay signed in"
       sign_in: "Sign in"
       sign_up: "Sign up"
+    footer:
+      copyright: "Proudly built by The IT Works - All rights reserved %{year}"
   providers:
     index:
       title: "Providers"
@@ -78,16 +82,18 @@ en:
       reschedule: "Reschedule"
       cancel: "Cancel"
       confirm_cancel: "Are you sure you want to cancel?"
+      confirm_complete: "Confirm this appointment has been completed?"
       keep: "Keep"
     show:
       title: "Appointment Details"
-      cancel: "Cancel"
-      confirm_cancel: "Are you sure you want to cancel?"
-      keep: "Keep"
-      confirm: "Confirm"
-      complete: "Complete"
-      reschedule: "Reschedule"
       back: "Back"
+    payment_notice:
+      title: "Payment required"
+      warning: "This service's provider requires payment to confirm the appointment. If you agree, the amount and instructions are shown below."
+      amount_label: "Amount:"
+      agree: "I agree, continue"
+      cancel: "Cancel"
+      pending_note: "Awaiting payment and provider confirmation."
     reschedule:
       title: "Reschedule Appointment"
       back: "Back"
@@ -102,6 +108,15 @@ en:
       video_call_link_hint: "Used for this service's online appointments. Optional."
       phone_number_label: "Phone number for phone appointments"
       phone_number_hint: "Used for this service's phone appointments. Optional."
+      requires_payment_confirmation_label: "Require payment to confirm"
+      requires_payment_confirmation_hint: "The client will see a notice and must agree to send a payment before booking."
+      deposit_amount_label: "Deposit amount"
+      deposit_amount_hint: "Use the buttons below to fill it in based on the service price, or type an amount."
+      payment_instructions_label: "Payment and verification instructions"
+      payment_instructions_hint: "Free text explaining how the client should pay and prove it."
+      payment_instructions_placeholder: "E.g.: \"Send 5€ to Bizum 614239629 with the note YourName+27-08 10:00 and send the screenshot via WhatsApp.\""
+      payment_confirmation_window_minutes_label: "Your confirmation deadline (in minutes)"
+      payment_confirmation_window_minutes_hint: "If you don't confirm within this window, the slot becomes available again automatically. Default: 120 minutes (2 hours)."
       modalities:
         title: "Service modalities"
         help: "Choose how this service can be provided. The client will only be able to choose among these options."
@@ -112,6 +127,7 @@ en:
       edit: "Edit"
       destroy: "Delete"
       confirm_destroy: "Are you sure?"
+      keep: "Keep"
     create:
       success: "Service created successfully."
     update:
@@ -131,6 +147,7 @@ en:
       select_category: "Select a category"
       logo_label: "Business logo"
       logo_hint: "Shown on your profile and on the map markers."
+      slug_hint: "Your business's public link. Auto-filled from your name — change it if you'd like something else."
     new:
       title: "Complete your provider profile"
       subtitle: "This information will be shown to your clients."
@@ -142,7 +159,6 @@ en:
       new_service: "New service"
       no_services: "You haven't added any services yet."
       back_to_dashboard: "Back to dashboard"
-      settings: "Settings"
     update:
       success: "Profile updated successfully."
   provider_settings:
@@ -165,7 +181,7 @@ en:
   provider_schedules:
     edit:
       title: "General Hours"
-      help: "Sets your business's default hours. A service with its own hours configured uses those instead."
+      help: "Sets your business's default hours. Leave a day blank to mark it as a non-business day (e.g. weekends). A service with its own hours configured uses those instead."
       back: "Back"
       submit: "Save hours"
     update:
@@ -206,19 +222,16 @@ en:
     day_agenda:
       blocked: "This day is blocked."
       unblock: "Unblock"
-      confirm: "Confirm"
-      complete: "Complete"
-      reschedule: "Reschedule"
-      cancel: "Cancel"
       confirm_cancel: "Are you sure you want to cancel?"
-      block: "Block this day"
       block_and_reschedule: "Block and reschedule automatically"
       confirm_block_and_reschedule: "This day's appointments will be automatically moved to their next available slot. Continue?"
       keep: "Keep"
       empty: "No appointments on this day."
       empty_past: "No appointments on this day."
+      block_label: "Block appointments:"
+      block_today: "Today"
       block_range:
-        trigger: "Block a date range"
+        trigger: "Range"
         title: "Block a date range"
         help: "Existing appointments in this range will be automatically rescheduled to the nearest available times."
         start_date: "Start date"
@@ -243,3 +256,4 @@ en:
         weekdays: "Monday to Friday"
         weekdays_saturday: "Monday to Saturday"
         all_week: "Every day"
+        clear: "Clear"

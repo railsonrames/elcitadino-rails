@@ -26,7 +26,7 @@
 
     <%= form.hidden_field :scheduled_at, data: { booking_target: "scheduledAt" } %>
 
-    <div class="inline mt-5">
+    <div class="mt-5">
       <%= form.submit t(".submit"), disabled: true, data: { booking_target: "submit" },
             class: "w-full rounded-full px-3.5 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed text-white inline-block font-medium cursor-pointer" %>
     </div>

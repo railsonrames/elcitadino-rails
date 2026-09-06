@@ -13,6 +13,10 @@
           class="rounded-full px-3 py-1.5 text-xs font-medium bg-gray-100 hover:bg-gray-200 cursor-pointer">
       <%= t("shared.weekly_hours_grid.presets.all_week") %>
     </button>
+    <button type="button" data-action="weekly-schedule#clear"
+          class="rounded-full px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 cursor-pointer">
+      <%= t("shared.weekly_hours_grid.presets.clear") %>
+    </button>
   </div>
 
   <div class="space-y-2" data-weekly-schedule-target="grid">

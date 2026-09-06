@@ -43,6 +43,6 @@ class ProviderProfilesController < ApplicationController
   end
 
   def provider_profile_params
-    params.expect(provider_profile: [ :bio, :address, :city, :category, :logo ])
+    params.expect(provider_profile: [ :bio, :address, :city, :category, :logo, :slug ])
   end
 end

@@ -13,8 +13,12 @@ es:
       my_appointments: "Citas"
       account: "Mi cuenta"
       sign_out: "Salir"
+      confirm_sign_out: "¿Seguro que quieres cerrar sesión?"
+      stay_signed_in: "Seguir conectado"
       sign_in: "Entrar"
       sign_up: "Registrarse"
+    footer:
+      copyright: "Creado con orgullo por The IT Works - Todos los derechos reservados %{year}"
   providers:
     index:
       title: "Proveedores"
@@ -78,16 +82,18 @@ es:
       reschedule: "Reprogramar"
       cancel: "Cancelar"
       confirm_cancel: "¿Seguro que quieres cancelar?"
+      confirm_complete: "¿Confirmas que esta cita ya se completó?"
       keep: "Mantener"
     show:
       title: "Detalles de la Cita"
-      cancel: "Cancelar"
-      confirm_cancel: "¿Seguro que quieres cancelar?"
-      keep: "Mantener"
-      confirm: "Confirmar"
-      complete: "Completar"
-      reschedule: "Reprogramar"
       back: "Volver"
+    payment_notice:
+      title: "Pago requerido"
+      warning: "El proveedor de este servicio exige un pago para confirmar la cita. Si estás de acuerdo, el importe y las instrucciones se indican a continuación."
+      amount_label: "Importe:"
+      agree: "Estoy de acuerdo, continuar"
+      cancel: "Cancelar"
+      pending_note: "Esperando el pago y la confirmación del proveedor."
     reschedule:
       title: "Reprogramar Cita"
       back: "Volver"
@@ -102,6 +108,15 @@ es:
       video_call_link_hint: "Se usa en las citas online de este servicio. Opcional."
       phone_number_label: "Teléfono de atención telefónica"
       phone_number_hint: "Se usa en las citas por teléfono de este servicio. Opcional."
+      requires_payment_confirmation_label: "Exigir pago para confirmar"
+      requires_payment_confirmation_hint: "El cliente verá un aviso y deberá aceptar enviar un pago antes de reservar."
+      deposit_amount_label: "Importe del depósito"
+      deposit_amount_hint: "Usa los botones de abajo para calcularlo según el precio del servicio, o escribe un importe."
+      payment_instructions_label: "Instrucciones de pago y verificación"
+      payment_instructions_hint: "Texto libre explicando cómo debe pagar el cliente y comprobarlo."
+      payment_instructions_placeholder: "Ej.: \"Envío de 5€ al Bizum 614239629 con el concepto TuNombre+27-08 10:00 y envío de la captura por WhatsApp.\""
+      payment_confirmation_window_minutes_label: "Plazo para que confirmes (en minutos)"
+      payment_confirmation_window_minutes_hint: "Si no confirmas dentro de este plazo, el horario vuelve a estar disponible automáticamente. Por defecto: 120 minutos (2 horas)."
       modalities:
         title: "Modalidades de atención"
         help: "Elige cómo se puede prestar este servicio. El cliente solo podrá elegir entre estas opciones."
@@ -112,6 +127,7 @@ es:
       edit: "Editar"
       destroy: "Eliminar"
       confirm_destroy: "¿Estás seguro?"
+      keep: "Mantener"
     create:
       success: "Servicio creado correctamente."
     update:
@@ -131,6 +147,7 @@ es:
       select_category: "Selecciona una categoría"
       logo_label: "Logo del negocio"
       logo_hint: "Aparecerá en tu perfil y en los marcadores del mapa."
+      slug_hint: "El enlace público de tu negocio. Se rellena automáticamente con tu nombre — cámbialo si prefieres otro."
     new:
       title: "Completa tu perfil de proveedor"
       subtitle: "Esta información se mostrará a tus clientes."
@@ -142,7 +159,6 @@ es:
       new_service: "Nuevo servicio"
       no_services: "Aún no has registrado ningún servicio."
       back_to_dashboard: "Volver al panel"
-      settings: "Configuración"
     update:
       success: "Perfil actualizado correctamente."
   provider_settings:
@@ -165,7 +181,7 @@ es:
   provider_schedules:
     edit:
       title: "Horario General"
-      help: "Define el horario predeterminado de tu negocio. Un servicio con horario propio configurado usa el suyo en su lugar."
+      help: "Define el horario predeterminado de tu negocio. Deja un día en blanco para marcarlo como no laborable (p. ej.: fines de semana). Un servicio con horario propio configurado usa el suyo en su lugar."
       back: "Volver"
       submit: "Guardar horario"
     update:
@@ -206,19 +222,16 @@ es:
     day_agenda:
       blocked: "Este día está bloqueado."
       unblock: "Desbloquear"
-      confirm: "Confirmar"
-      complete: "Completar"
-      reschedule: "Reprogramar"
-      cancel: "Cancelar"
       confirm_cancel: "¿Seguro que quieres cancelar?"
-      block: "Bloquear este día"
       block_and_reschedule: "Bloquear y reprogramar automáticamente"
       confirm_block_and_reschedule: "Las citas de este día se reprogramarán automáticamente en los próximos horarios disponibles. ¿Continuar?"
       keep: "Mantener"
       empty: "No hay citas este día."
       empty_past: "No hay citas este día."
+      block_label: "Bloquear citas:"
+      block_today: "Hoy"
       block_range:
-        trigger: "Bloquear un período"
+        trigger: "Período"
         title: "Bloquear período"
         help: "Las citas existentes en el período se reprogramarán automáticamente a los horarios disponibles más cercanos."
         start_date: "Fecha inicial"
@@ -243,3 +256,4 @@ es:
         weekdays: "Lunes a viernes"
         weekdays_saturday: "Lunes a sábado"
         all_week: "Todos los días"
+        clear: "Limpiar"

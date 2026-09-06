@@ -121,4 +121,71 @@ class AppointmentTest < ActiveSupport::TestCase
 
     assert appointment.valid?
   end
+
+  test "creating an appointment for a payment-required service sets a deadline based on the window" do
+    @service.update!(requires_payment_confirmation: true, deposit_amount: 10, payment_instructions: "Pay via Bizum", payment_confirmation_window_minutes: 120)
+    monday = Date.tomorrow.next_occurring(:monday)
+    appointment = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 10))
+
+    appointment.save!
+
+    assert_in_delta appointment.created_at + 120.minutes, appointment.payment_confirmation_deadline_at, 1.second
+  end
+
+  test "creating an appointment for a normal service leaves the payment deadline nil" do
+    monday = Date.tomorrow.next_occurring(:monday)
+    appointment = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 10))
+
+    appointment.save!
+
+    assert_nil appointment.payment_confirmation_deadline_at
+  end
+
+  test "the payment confirmation deadline is capped at the appointment's own scheduled_at" do
+    @service.update!(requires_payment_confirmation: true, deposit_amount: 10, payment_instructions: "Pay via Bizum", payment_confirmation_window_minutes: 120)
+    monday = Date.tomorrow.next_occurring(:monday)
+
+    travel_to monday.in_time_zone.change(hour: 10) do
+      appointment = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 11))
+      appointment.save!
+
+      assert_equal appointment.scheduled_at, appointment.payment_confirmation_deadline_at
+    end
+  end
+
+  test "awaiting_payment_confirmation_expired includes only pending appointments past their payment deadline" do
+    @service.update!(requires_payment_confirmation: true, deposit_amount: 10, payment_instructions: "Pay via Bizum")
+    monday = Date.tomorrow.next_occurring(:monday)
+
+    expired = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 10))
+    expired.save!
+    expired.update_column(:payment_confirmation_deadline_at, 1.hour.ago)
+
+    not_yet_expired = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 12))
+    not_yet_expired.save!
+
+    confirmed_but_expired = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 14))
+    confirmed_but_expired.save!
+    confirmed_but_expired.update_columns(status: :confirmed, payment_confirmation_deadline_at: 1.hour.ago)
+
+    plain_service = @provider_profile.services.create!(name: "Plain", duration: 30, price: 10, modalities: [ "in_person" ])
+    no_payment_required = Appointment.new(
+      client: @client, provider_profile: @provider_profile, service: plain_service,
+      scheduled_at: monday.in_time_zone.change(hour: 16), modality: "in_person"
+    )
+    no_payment_required.save!
+
+    assert_equal [ expired ], Appointment.awaiting_payment_confirmation_expired
+  end
+
+  test "expire_for_payment_confirmation_timeout! cancels the appointment" do
+    @service.update!(requires_payment_confirmation: true, deposit_amount: 10, payment_instructions: "Pay via Bizum")
+    monday = Date.tomorrow.next_occurring(:monday)
+    appointment = build_appointment(scheduled_at: monday.in_time_zone.change(hour: 10))
+    appointment.save!
+
+    appointment.expire_for_payment_confirmation_timeout!
+
+    assert appointment.canceled?
+  end
 end

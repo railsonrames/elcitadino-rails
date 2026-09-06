@@ -73,6 +73,46 @@
     </div>
   <% end %>
 
+  <div class="my-5" data-controller="checkbox-reveal">
+    <%= render "shared/toggle", form: form, field: :requires_payment_confirmation,
+          label: t("services.form.requires_payment_confirmation_label"),
+          helper_text: t("services.form.requires_payment_confirmation_hint"),
+          checkbox_data: { action: "checkbox-reveal#toggle" } %>
+
+    <div data-checkbox-reveal-target="content" class="<%= "hidden" unless service.requires_payment_confirmation? %>">
+      <div class="my-5" data-controller="deposit-suggestions" data-deposit-suggestions-price-value="<%= service.price %>">
+        <%= form.label :deposit_amount, t("services.form.deposit_amount_label") %>
+        <p class="text-sm text-gray-500 mb-2"><%= t("services.form.deposit_amount_hint") %></p>
+        <%= form.text_field :deposit_amount, data: { deposit_suggestions_target: "input" },
+              class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <% [ 25, 50 ].each do |percent| %>
+            <button type="button" data-action="deposit-suggestions#fill" data-percent="<%= percent %>"
+                  class="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"><%= percent %>%</button>
+          <% end %>
+          <% [ 5, 10, 20 ].each do |amount| %>
+            <button type="button" data-action="deposit-suggestions#fill" data-amount="<%= amount %>"
+                  class="rounded-full border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50"><%= number_to_currency(amount) %></button>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :payment_instructions, t("services.form.payment_instructions_label") %>
+        <p class="text-sm text-gray-500 mb-2"><%= t("services.form.payment_instructions_hint") %></p>
+        <%= form.textarea :payment_instructions, rows: 3, placeholder: t("services.form.payment_instructions_placeholder"),
+              class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :payment_confirmation_window_minutes, t("services.form.payment_confirmation_window_minutes_label") %>
+        <p class="text-sm text-gray-500 mb-2"><%= t("services.form.payment_confirmation_window_minutes_hint") %></p>
+        <%= form.number_field :payment_confirmation_window_minutes,
+              class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+      </div>
+    </div>
+  </div>
+
   <div class="my-5">
     <p class="font-medium"><%= t("services.form.availability_windows.title") %></p>
     <p class="text-sm text-gray-500 mb-3"><%= t("services.form.availability_windows.help") %></p>

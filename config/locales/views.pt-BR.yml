@@ -13,8 +13,12 @@ pt-BR:
       my_appointments: "Agendamentos"
       account: "Minha conta"
       sign_out: "Sair"
+      confirm_sign_out: "Tem certeza que deseja sair da sua conta?"
+      stay_signed_in: "Continuar conectado"
       sign_in: "Entrar"
       sign_up: "Cadastrar"
+    footer:
+      copyright: "Orgulhosamente criado pela The IT Works - Todos os direitos reservados %{year}"
   providers:
     index:
       title: "Prestadores"
@@ -78,16 +82,18 @@ pt-BR:
       reschedule: "Remarcar"
       cancel: "Cancelar"
       confirm_cancel: "Tem certeza que deseja cancelar?"
+      confirm_complete: "Confirmar que este atendimento foi concluído?"
       keep: "Manter"
     show:
       title: "Detalhes do Agendamento"
-      cancel: "Cancelar"
-      confirm_cancel: "Tem certeza que deseja cancelar?"
-      keep: "Manter"
-      confirm: "Confirmar"
-      complete: "Concluir"
-      reschedule: "Remarcar"
       back: "Voltar"
+    payment_notice:
+      title: "Pagamento necessário"
+      warning: "O prestador deste serviço exige um pagamento para confirmar o agendamento. Se você concorda, o valor e as instruções estão a seguir."
+      amount_label: "Valor:"
+      agree: "Concordo, continuar"
+      cancel: "Cancelar"
+      pending_note: "Aguardando pagamento e confirmação do prestador."
     reschedule:
       title: "Remarcar Agendamento"
       back: "Voltar"
@@ -102,6 +108,15 @@ pt-BR:
       video_call_link_hint: "Usado nos agendamentos online deste serviço. Opcional."
       phone_number_label: "Telefone para atendimento por telefone"
       phone_number_hint: "Usado nos agendamentos por telefone deste serviço. Opcional."
+      requires_payment_confirmation_label: "Exigir pagamento para confirmação"
+      requires_payment_confirmation_hint: "O cliente verá um aviso e deverá concordar em enviar um pagamento antes de reservar."
+      deposit_amount_label: "Valor do depósito"
+      deposit_amount_hint: "Use os botões abaixo para preencher com base no preço do serviço, ou digite um valor."
+      payment_instructions_label: "Instruções de pagamento e verificação"
+      payment_instructions_hint: "Texto livre explicando como o cliente deve pagar e comprovar o pagamento."
+      payment_instructions_placeholder: "Ex.: \"Envio de 5€ para o Bizum 614239629 com o conceito SeuNome+27-08 10:00 e envio do print pelo WhatsApp.\""
+      payment_confirmation_window_minutes_label: "Prazo para você confirmar (em minutos)"
+      payment_confirmation_window_minutes_hint: "Se você não confirmar dentro deste prazo, o horário volta a ficar disponível automaticamente. Padrão: 120 minutos (2 horas)."
       modalities:
         title: "Modalidades de atendimento"
         help: "Escolha como este serviço pode ser prestado. O cliente só poderá escolher entre estas opções."
@@ -112,6 +127,7 @@ pt-BR:
       edit: "Editar"
       destroy: "Excluir"
       confirm_destroy: "Tem certeza?"
+      keep: "Manter"
     create:
       success: "Serviço criado com sucesso."
     update:
@@ -131,6 +147,7 @@ pt-BR:
       select_category: "Selecione uma categoria"
       logo_label: "Logo do negócio"
       logo_hint: "Aparecerá no seu perfil e nos marcadores do mapa."
+      slug_hint: "O link público do seu negócio. Preenchido automaticamente com seu nome — altere se quiser outro."
     new:
       title: "Complete seu perfil de prestador"
       subtitle: "Essas informações serão exibidas para seus clientes."
@@ -142,7 +159,6 @@ pt-BR:
       new_service: "Novo serviço"
       no_services: "Você ainda não cadastrou nenhum serviço."
       back_to_dashboard: "Voltar ao painel"
-      settings: "Configurações"
     update:
       success: "Perfil atualizado com sucesso."
   provider_settings:
@@ -165,7 +181,7 @@ pt-BR:
   provider_schedules:
     edit:
       title: "Horário Geral"
-      help: "Define o horário padrão do seu negócio. Um serviço com horário próprio configurado usa o dele no lugar deste."
+      help: "Define o horário padrão do seu negócio. Deixe um dia em branco para marcá-lo como não útil (ex.: fins de semana). Um serviço com horário próprio configurado usa o dele no lugar deste."
       back: "Voltar"
       submit: "Salvar horário"
     update:
@@ -206,19 +222,16 @@ pt-BR:
     day_agenda:
       blocked: "Este dia está bloqueado."
       unblock: "Desbloquear"
-      confirm: "Confirmar"
-      complete: "Concluir"
-      reschedule: "Remarcar"
-      cancel: "Cancelar"
       confirm_cancel: "Tem certeza que deseja cancelar?"
-      block: "Bloquear este dia"
       block_and_reschedule: "Bloquear e remarcar automaticamente"
       confirm_block_and_reschedule: "Os agendamentos deste dia serão remarcados automaticamente para os próximos horários disponíveis. Continuar?"
       keep: "Manter"
       empty: "Nenhum agendamento neste dia."
       empty_past: "Nenhum agendamento neste dia."
+      block_label: "Bloquear agendamentos:"
+      block_today: "Hoje"
       block_range:
-        trigger: "Bloquear um período"
+        trigger: "Período"
         title: "Bloquear período"
         help: "Os agendamentos existentes no período serão remarcados automaticamente para os horários disponíveis mais próximos."
         start_date: "Data inicial"
@@ -243,3 +256,4 @@ pt-BR:
         weekdays: "Segunda a sexta"
         weekdays_saturday: "Segunda a sábado"
         all_week: "Todos os dias"
+        clear: "Limpar"

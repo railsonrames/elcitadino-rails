@@ -61,7 +61,7 @@
   <div class="grid sm:grid-cols-2 gap-4 mt-6">
     <% if @provider_profiles.any? %>
       <% @provider_profiles.each do |provider_profile| %>
-        <%= link_to provider_path(provider_profile), class: "flex items-center gap-4 border border-gray-200 rounded-2xl p-4 hover:border-blue-400 hover:shadow-sm transition" do %>
+        <%= link_to provider_path(city_slug: provider_profile.city_slug, slug: provider_profile.slug), class: "flex items-center gap-4 border border-gray-200 rounded-2xl p-4 hover:border-blue-400 hover:shadow-sm transition" do %>
           <%= render "shared/category_avatar", category: provider_profile.category, image: provider_profile.logo %>
           <div class="min-w-0">
             <h2 class="font-bold truncate"><%= provider_profile.user.name %></h2>

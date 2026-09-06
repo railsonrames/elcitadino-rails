@@ -13,6 +13,9 @@ class Service < ApplicationRecord
   # Rendered as a clickable link, so only http(s) is accepted — otherwise a
   # provider could store a javascript: URI as their "video call link".
   validates :video_call_link, format: { with: %r{\Ahttps?://\S+\z}i }, allow_blank: true
+  validates :deposit_amount, presence: true, numericality: { greater_than: 0 }, if: :requires_payment_confirmation?
+  validates :payment_instructions, presence: true, if: :requires_payment_confirmation?
+  validates :payment_confirmation_window_minutes, presence: true, numericality: { greater_than: 0 }
 
   # The format validation above already guarantees any *stored* value is a
   # plain http(s) URL, but this re-checks at read time too (defense in

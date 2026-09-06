@@ -13,7 +13,7 @@
         </p>
       </div>
     </div>
-    <%= image_tag qr_code_data_uri(provider_url(@provider_profile, locale: nil)),
+    <%= image_tag qr_code_data_uri(provider_url(city_slug: @provider_profile.city_slug, slug: @provider_profile.slug, locale: nil)),
           alt: t(".qr_code_alt"), class: "w-16 h-16 shrink-0" %>
   </div>
 

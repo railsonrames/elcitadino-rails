@@ -17,12 +17,33 @@ class Appointment < ApplicationRecord
 
   scope :active, -> { where.not(status: :canceled) }
   scope :for_date, ->(date) { where(scheduled_at: date.beginning_of_day..date.end_of_day) }
+  scope :awaiting_payment_confirmation_expired, -> {
+    pending.where.not(payment_confirmation_deadline_at: nil).where("payment_confirmation_deadline_at < ?", Time.current)
+  }
+
+  before_create :set_payment_confirmation_deadline
 
   def end_time
     scheduled_at + service.duration.minutes
   end
 
+  def expire_for_payment_confirmation_timeout!
+    update!(status: :canceled)
+    # Notification hook: when the notification system is built, this is
+    # where the client should be told their booking fell through because
+    # the provider didn't confirm in time (see NotificationPreference).
+  end
+
   private
+
+  # Capped at scheduled_at: a booking made shortly before its own start
+  # time (e.g. 1 hour out, on a service with a 2-hour window) must not get
+  # a deadline after the appointment itself.
+  def set_payment_confirmation_deadline
+    return unless service&.requires_payment_confirmation?
+    window_deadline = Time.current + service.payment_confirmation_window_minutes.minutes
+    self.payment_confirmation_deadline_at = [ window_deadline, scheduled_at ].min
+  end
 
   def scheduled_at_cannot_be_in_the_past
     if scheduled_at.present? && scheduled_at < Time.current

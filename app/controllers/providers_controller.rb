@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :index, :show, :nearby ]
+  skip_before_action :authenticate_user!, only: [ :index, :show, :nearby, :redirect_legacy ]
 
   def index
     @provider_profiles = ProviderProfile.where(listed: true).includes(:user)
@@ -13,8 +13,14 @@ class ProvidersController < ApplicationController
   end
 
   def show
-    @provider_profile = ProviderProfile.find(params[:id])
+    @provider_profile = ProviderProfile.find_by!(slug: params[:slug])
     @services = @provider_profile.services
+  end
+
+  def redirect_legacy
+    provider_profile = ProviderProfile.find(params[:id])
+    redirect_to provider_path(city_slug: provider_profile.city_slug, slug: provider_profile.slug),
+      status: :moved_permanently
   end
 
   def nearby
@@ -28,7 +34,7 @@ class ProvidersController < ApplicationController
         latitude: provider_profile.latitude,
         longitude: provider_profile.longitude,
         logo_url: provider_profile.logo.attached? ? url_for(provider_profile.logo) : nil,
-        url: provider_path(provider_profile)
+        url: provider_path(city_slug: provider_profile.city_slug, slug: provider_profile.slug)
       }
     }
   end

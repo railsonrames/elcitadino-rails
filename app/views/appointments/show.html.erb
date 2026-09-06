@@ -5,33 +5,7 @@
 
   <%= render @appointment %>
 
-  <div class="flex flex-wrap gap-2 mt-6">
-    <% if appointment_provider_view?(@appointment) %>
-      <% if @appointment.pending? %>
-        <%= button_to t(".confirm"), appointment_path(@appointment),
-              method: :patch, params: { appointment: { status: "confirmed" } },
-              class: "rounded-md px-3.5 py-2.5 text-white bg-blue-600 hover:bg-blue-500 font-medium cursor-pointer" %>
-      <% end %>
-      <% if @appointment.status.in?(%w[pending confirmed]) %>
-        <%= button_to t(".complete"), appointment_path(@appointment),
-              method: :patch, params: { appointment: { status: "completed" } },
-              class: "rounded-md px-3.5 py-2.5 text-white bg-green-600 hover:bg-green-500 font-medium cursor-pointer" %>
-        <%= link_to t(".reschedule"), reschedule_appointment_path(@appointment),
-              class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 font-medium inline-block" %>
-        <%= render "shared/confirm_action", trigger_label: t(".cancel"), path: appointment_path(@appointment), method: :patch,
-              params: { appointment: { status: "canceled" } }, title: t(".cancel"), warning: t(".confirm_cancel"),
-              confirm_label: t(".cancel"), cancel_label: t(".keep"),
-              button_class: "rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer" %>
-      <% end %>
-    <% elsif @appointment.status.in?(%w[pending confirmed]) %>
-      <% if @appointment.provider_profile.allow_client_reschedule? %>
-        <%= link_to t(".reschedule"), reschedule_appointment_path(@appointment),
-              class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 font-medium inline-block" %>
-      <% end %>
-      <%= render "shared/confirm_action", trigger_label: t(".cancel"), path: appointment_path(@appointment), method: :patch,
-            params: { appointment: { status: "canceled" } }, title: t(".cancel"), warning: t(".confirm_cancel"),
-            confirm_label: t(".cancel"), cancel_label: t(".keep"),
-            button_class: "rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer" %>
-    <% end %>
+  <div class="mt-4">
+    <%= render "actions", appointment: @appointment, viewpoint: appointment_provider_view?(@appointment) ? :provider : :client %>
   </div>
 </div>

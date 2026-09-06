@@ -64,6 +64,14 @@ export default class extends Controller {
     this.applyPreset(ALL_WEEK)
   }
 
+  clear() {
+    this.gridTarget.querySelectorAll("[data-day]").forEach((row) => {
+      const [startInput, endInput] = row.querySelectorAll("input")
+      startInput.value = ""
+      endInput.value = ""
+    })
+  }
+
   applyPreset(days) {
     const [start, end] = this.presetSourceTimes()
     days.forEach((day) => this.fillDay(day, start, end))

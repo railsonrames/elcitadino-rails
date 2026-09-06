@@ -14,6 +14,7 @@ es:
         address: "Dirección"
         city: "Ciudad"
         category: "Categoría"
+        slug: "Enlace público"
       service:
         name: "Nombre del Servicio"
         description: "Descripción"
@@ -22,6 +23,10 @@ es:
         modalities: "Modalidades"
         video_call_link: "Enlace de la videollamada"
         phone_number: "Teléfono del proveedor"
+        requires_payment_confirmation: "Exigir pago"
+        deposit_amount: "Importe del depósito"
+        payment_instructions: "Instrucciones de pago"
+        payment_confirmation_window_minutes: "Plazo de confirmación (minutos)"
       appointment:
         client: "Cliente"
         service: "Servicio"

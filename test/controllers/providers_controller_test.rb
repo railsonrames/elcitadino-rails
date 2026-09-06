@@ -14,9 +14,26 @@ class ProvidersControllerTest < ActionDispatch::IntegrationTest
     unlisted = provider_profiles(:one)
     unlisted.update!(listed: false)
 
-    get provider_url(unlisted)
+    get provider_url(city_slug: unlisted.city_slug, slug: unlisted.slug)
 
     assert_response :success
+  end
+
+  test "show resolves by slug alone, ignoring the city segment" do
+    provider = provider_profiles(:one)
+
+    get provider_url(city_slug: "wrong-city", slug: provider.slug)
+
+    assert_response :success
+  end
+
+  test "redirect_legacy redirects an old id-based link to the canonical slug URL" do
+    provider = provider_profiles(:one)
+
+    get "/providers/#{provider.id}"
+
+    assert_redirected_to provider_url(city_slug: provider.city_slug, slug: provider.slug)
+    assert_response :moved_permanently
   end
 
   test "nearby excludes unlisted providers even when in range" do

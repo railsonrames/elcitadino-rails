@@ -13,8 +13,12 @@ va:
       my_appointments: "Cites"
       account: "El meu compte"
       sign_out: "Eixir"
+      confirm_sign_out: "Segur que vols eixir del teu compte?"
+      stay_signed_in: "Continuar connectat"
       sign_in: "Entrar"
       sign_up: "Registrar-se"
+    footer:
+      copyright: "Creat amb orgull per The IT Works - Tots els drets reservats %{year}"
   providers:
     index:
       title: "Prestadors"
@@ -78,16 +82,18 @@ va:
       reschedule: "Remarcar"
       cancel: "Cancel·lar"
       confirm_cancel: "Segur que vols cancel·lar-la?"
+      confirm_complete: "Confirmes que esta cita ja s'ha completat?"
       keep: "Mantindre"
     show:
       title: "Detalls de la Cita"
-      cancel: "Cancel·lar"
-      confirm_cancel: "Segur que vols cancel·lar-la?"
-      keep: "Mantindre"
-      confirm: "Confirmar"
-      complete: "Completar"
-      reschedule: "Remarcar"
       back: "Tornar"
+    payment_notice:
+      title: "Pagament requerit"
+      warning: "El prestador d'este servici exigix un pagament per a confirmar la cita. Si hi estàs d'acord, l'import i les instruccions s'indiquen a continuació."
+      amount_label: "Import:"
+      agree: "Hi estic d'acord, continuar"
+      cancel: "Cancel·lar"
+      pending_note: "Esperant el pagament i la confirmació del prestador."
     reschedule:
       title: "Remarcar Cita"
       back: "Tornar"
@@ -102,6 +108,15 @@ va:
       video_call_link_hint: "S'usa en les cites online d'este servici. Opcional."
       phone_number_label: "Telèfon per a atenció telefònica"
       phone_number_hint: "S'usa en les cites per telèfon d'este servici. Opcional."
+      requires_payment_confirmation_label: "Exigir pagament per a confirmar"
+      requires_payment_confirmation_hint: "El client veurà un avís i haurà d'acceptar enviar un pagament abans de reservar."
+      deposit_amount_label: "Import del dipòsit"
+      deposit_amount_hint: "Usa els botons de baix per a calcular-ho segons el preu del servici, o escriu un import."
+      payment_instructions_label: "Instruccions de pagament i verificació"
+      payment_instructions_hint: "Text lliure explicant com ha de pagar el client i comprovar-ho."
+      payment_instructions_placeholder: "Ex.: \"Enviament de 5€ al Bizum 614239629 amb el concepte El teu nom+27-08 10:00 i enviament de la captura per WhatsApp.\""
+      payment_confirmation_window_minutes_label: "Termini perquè confirmes (en minuts)"
+      payment_confirmation_window_minutes_hint: "Si no confirmes dins d'este termini, l'horari torna a estar disponible automàticament. Per defecte: 120 minuts (2 hores)."
       modalities:
         title: "Modalitats d'atenció"
         help: "Tria com es pot prestar este servici. El client només podrà triar entre estes opcions."
@@ -112,6 +127,7 @@ va:
       edit: "Editar"
       destroy: "Eliminar"
       confirm_destroy: "Estàs segur?"
+      keep: "Mantindre"
     create:
       success: "Servici creat correctament."
     update:
@@ -131,6 +147,7 @@ va:
       select_category: "Selecciona una categoria"
       logo_label: "Logo del negoci"
       logo_hint: "Apareixerà en el teu perfil i en els marcadors del mapa."
+      slug_hint: "L'enllaç públic del teu negoci. Es plena automàticament amb el teu nom — canvia'l si en vols un altre."
     new:
       title: "Completa el teu perfil de prestador"
       subtitle: "Esta informació es mostrarà als teus clients."
@@ -142,7 +159,6 @@ va:
       new_service: "Nou servici"
       no_services: "Encara no has afegit cap servici."
       back_to_dashboard: "Tornar al panell"
-      settings: "Configuració"
     update:
       success: "Perfil actualitzat correctament."
   provider_settings:
@@ -165,7 +181,7 @@ va:
   provider_schedules:
     edit:
       title: "Horari General"
-      help: "Defineix l'horari per defecte del teu negoci. Un servici amb horari propi configurat usa el seu en el seu lloc."
+      help: "Defineix l'horari per defecte del teu negoci. Deixa un dia en blanc per a marcar-lo com a no laborable (p. ex.: caps de setmana). Un servici amb horari propi configurat usa el seu en el seu lloc."
       back: "Tornar"
       submit: "Guardar horari"
     update:
@@ -206,19 +222,16 @@ va:
     day_agenda:
       blocked: "Este dia està bloquejat."
       unblock: "Desbloquejar"
-      confirm: "Confirmar"
-      complete: "Completar"
-      reschedule: "Remarcar"
-      cancel: "Cancel·lar"
       confirm_cancel: "Segur que vols cancel·lar-la?"
-      block: "Bloquejar este dia"
       block_and_reschedule: "Bloquejar i remarcar automàticament"
       confirm_block_and_reschedule: "Les cites d'este dia es remarcaran automàticament als pròxims horaris disponibles. Continuar?"
       keep: "Mantindre"
       empty: "No hi ha cites este dia."
       empty_past: "No hi ha cites este dia."
+      block_label: "Bloquejar cites:"
+      block_today: "Hui"
       block_range:
-        trigger: "Bloquejar un període"
+        trigger: "Període"
         title: "Bloquejar període"
         help: "Les cites existents en el període es remarcaran automàticament als horaris disponibles més pròxims."
         start_date: "Data inicial"
@@ -243,3 +256,4 @@ va:
         weekdays: "Dilluns a divendres"
         weekdays_saturday: "Dilluns a dissabte"
         all_week: "Tots els dies"
+        clear: "Netejar"

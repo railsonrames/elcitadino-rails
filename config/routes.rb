@@ -10,10 +10,12 @@ Rails.application.routes.draw do
 
     root "providers#index"
 
-    resources :providers, only: [ :index, :show ] do
+    resources :providers, only: [ :index ] do
       collection { get :nearby }
       resources :appointments, only: [ :new, :create ]
     end
+
+    get "providers/:id", to: "providers#redirect_legacy", constraints: { id: /\d+/ }, as: nil
 
     resource :provider_profile, only: [ :new, :create, :edit, :update ] do
       resources :services, only: [ :new, :create, :edit, :update, :destroy ]
@@ -34,6 +36,11 @@ Rails.application.routes.draw do
         get :reschedule
       end
     end
+
+    # Pretty, brandable provider share links (e.g. /alicante/nome-da-empresa).
+    # Must stay last: it's a catch-all for any otherwise-unmatched two-segment
+    # path, and declaration order (not specificity) governs Rails routing.
+    get "/:city_slug/:slug", to: "providers#show", as: :provider
   end
 end
 

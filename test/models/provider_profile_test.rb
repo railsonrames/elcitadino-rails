@@ -231,4 +231,47 @@ class ProviderProfileTest < ActiveSupport::TestCase
       @provider_profile.update!(bio: "Nova bio")
     end
   end
+
+  test "a new profile defaults its slug to the parameterized user name" do
+    user = User.create!(name: "Salão Beleza Total", email: "slug.default@example.com", password: "password123", role: :provider)
+
+    profile = ProviderProfile.create!(user: user, bio: "Bio", address: "Rua Teste, 1", city: "Alicante", category: "beleza")
+
+    assert_equal "salao-beleza-total", profile.slug
+  end
+
+  test "a colliding default slug gets a numeric suffix" do
+    first_user = User.create!(name: "Estúdio Bela", email: "slug.collision1@example.com", password: "password123", role: :provider)
+    first_profile = ProviderProfile.create!(user: first_user, bio: "Bio", address: "Rua Teste, 1", city: "Alicante", category: "beleza")
+
+    second_user = User.create!(name: "Estúdio Bela", email: "slug.collision2@example.com", password: "password123", role: :provider)
+    second_profile = ProviderProfile.create!(user: second_user, bio: "Bio", address: "Rua Teste, 2", city: "Alicante", category: "beleza")
+
+    assert_equal "estudio-bela", first_profile.slug
+    assert_equal "estudio-bela-2", second_profile.slug
+  end
+
+  test "updating the user's name later does not retroactively change an existing slug" do
+    original_slug = @provider_profile.slug
+    @provider_profile.user.update!(name: "Novo Nome Qualquer")
+
+    assert_equal original_slug, @provider_profile.reload.slug
+  end
+
+  test "slug format rejects uppercase, spaces, accents, and leading/trailing hyphens" do
+    %w[Nome-Da-Empresa nome\ da\ empresa nome-da-empresá -nome-da-empresa nome-da-empresa-].each do |invalid|
+      @provider_profile.slug = invalid
+      assert_not @provider_profile.valid?, "expected #{invalid.inspect} to be invalid"
+    end
+  end
+
+  test "slug must be unique" do
+    @provider_profile.slug = provider_profiles(:two).slug
+    assert_not @provider_profile.valid?
+  end
+
+  test "city_slug parameterizes the city for use in URLs" do
+    @provider_profile.city = "São Paulo"
+    assert_equal "sao-paulo", @provider_profile.city_slug
+  end
 end

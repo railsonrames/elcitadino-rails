@@ -4,6 +4,7 @@ one:
   address: Rua das Flores, 123
   city: Alicante
   category: beleza
+  slug: barbearia-do-joao
 
 two:
   user: provider_two
@@ -11,3 +12,4 @@ two:
   address: Avenida do Mar, 45
   city: Valência
   category: bem_estar
+  slug: salao-da-maria

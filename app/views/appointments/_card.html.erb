@@ -14,33 +14,5 @@
   </div>
   <p class="text-sm text-gray-500 mb-3"><%= appointment.service.name %> &middot; <%= l(appointment.scheduled_at, format: :short) %></p>
 
-  <div class="flex flex-wrap gap-2">
-    <% if viewpoint == :provider %>
-      <% if appointment.pending? %>
-        <%= button_to t("appointments.card.confirm"), appointment_path(appointment), method: :patch,
-              params: { appointment: { status: "confirmed" } },
-              class: "rounded-full px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm cursor-pointer" %>
-      <% end %>
-      <% if appointment.status.in?(%w[pending confirmed]) %>
-        <%= button_to t("appointments.card.complete"), appointment_path(appointment), method: :patch,
-              params: { appointment: { status: "completed" } },
-              class: "rounded-full px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white font-medium text-sm cursor-pointer" %>
-        <%= link_to t("appointments.card.reschedule"), reschedule_appointment_path(appointment),
-              class: "rounded-full px-3 py-1.5 bg-gray-100 hover:bg-gray-200 font-medium text-sm" %>
-        <%= render "shared/confirm_action", trigger_label: t("appointments.card.cancel"), path: appointment_path(appointment), method: :patch,
-              params: { appointment: { status: "canceled" } }, title: t("appointments.card.cancel"), warning: t("appointments.card.confirm_cancel"),
-              confirm_label: t("appointments.card.cancel"), cancel_label: t("appointments.card.keep"),
-              button_class: "rounded-full px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white font-medium text-sm cursor-pointer" %>
-      <% end %>
-    <% elsif appointment.status.in?(%w[pending confirmed]) %>
-      <% if appointment.provider_profile.allow_client_reschedule? %>
-        <%= link_to t("appointments.card.reschedule"), reschedule_appointment_path(appointment),
-              class: "rounded-full px-3 py-1.5 bg-gray-100 hover:bg-gray-200 font-medium text-sm" %>
-      <% end %>
-      <%= render "shared/confirm_action", trigger_label: t("appointments.card.cancel"), path: appointment_path(appointment), method: :patch,
-            params: { appointment: { status: "canceled" } }, title: t("appointments.card.cancel"), warning: t("appointments.card.confirm_cancel"),
-            confirm_label: t("appointments.card.cancel"), cancel_label: t("appointments.card.keep"),
-            button_class: "rounded-full px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white font-medium text-sm cursor-pointer" %>
-    <% end %>
-  </div>
+  <%= render "appointments/actions", appointment: appointment, viewpoint: viewpoint %>
 </div>

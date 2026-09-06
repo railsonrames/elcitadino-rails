@@ -1,7 +1,11 @@
-<%# locals: trigger_label, path, method, title, warning, confirm_label, cancel_label, button_class, params: {} %>
+<%# locals: trigger_label, path, method, title, warning, confirm_label, cancel_label, button_class, params: {}, trigger_content: nil, confirm_button_class: nil %>
 <% params ||= {} %>
+<% trigger_content = local_assigns.fetch(:trigger_content, trigger_label) %>
+<% confirm_button_class = local_assigns.fetch(:confirm_button_class, "bg-red-600 hover:bg-red-500 text-white") %>
 <div data-controller="modal" class="inline-block">
-  <button type="button" data-action="modal#open" class="<%= button_class %>"><%= trigger_label %></button>
+  <button type="button" data-action="modal#open" class="<%= button_class %>" title="<%= trigger_label %>" aria-label="<%= trigger_label %>">
+    <%= trigger_content %>
+  </button>
 
   <dialog data-modal-target="dialog" class="rounded-2xl p-6 max-w-sm w-[90vw] m-auto backdrop:bg-black/40">
     <h3 class="font-bold text-lg mb-3"><%= title %></h3>
@@ -11,7 +15,7 @@
         <%= cancel_label %>
       </button>
       <%= button_to confirm_label, path, method: method, params: params,
-            class: "rounded-md px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-medium cursor-pointer" %>
+            class: "rounded-md px-3.5 py-2 font-medium cursor-pointer #{confirm_button_class}" %>
     </div>
   </dialog>
 </div>

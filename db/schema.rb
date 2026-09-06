@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_25_125130) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_27_212959) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_25_125130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone_number"
+    t.datetime "payment_confirmation_deadline_at"
     t.index ["client_id"], name: "index_appointments_on_client_id"
     t.index ["provider_profile_id"], name: "index_appointments_on_provider_profile_id"
     t.index ["service_id"], name: "index_appointments_on_service_id"
@@ -94,6 +95,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_25_125130) do
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.boolean "listed", default: true, null: false
+    t.string "slug", null: false
+    t.index ["slug"], name: "index_provider_profiles_on_slug", unique: true
     t.index ["user_id"], name: "index_provider_profiles_on_user_id"
   end
 
@@ -119,6 +122,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_25_125130) do
     t.string "modalities", default: [], null: false, array: true
     t.string "video_call_link"
     t.string "phone_number"
+    t.boolean "requires_payment_confirmation", default: false, null: false
+    t.decimal "deposit_amount"
+    t.text "payment_instructions"
+    t.integer "payment_confirmation_window_minutes", default: 120, null: false
     t.index ["provider_profile_id"], name: "index_services_on_provider_profile_id"
   end
 

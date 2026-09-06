@@ -35,6 +35,18 @@
     <%= form.text_field :city, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <% if provider_profile.persisted? %>
+    <div class="my-5" data-controller="slug">
+      <%= form.label :slug %>
+      <p class="text-sm text-gray-500 mb-2"><%= t("provider_profiles.form.slug_hint") %></p>
+      <%= form.text_field :slug, data: { slug_target: "input", action: "input->slug#format" },
+            class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+      <p class="text-sm text-gray-500 mt-1 font-mono">
+        <%= request.base_url %>/<%= provider_profile.city_slug %>/<span data-slug-target="preview"><%= provider_profile.slug %></span>
+      </p>
+    </div>
+  <% end %>
+
   <div class="my-5">
     <%= form.label :category %>
     <%= form.select :category, ProviderCategory::SLUGS.map { |slug| [t("enums.provider_profile.category.#{slug}"), slug] },

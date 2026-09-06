@@ -1,7 +1,7 @@
 <% content_for :title, t(".title", provider: @provider_profile.user.name) %>
 
 <div class="w-full max-w-md mx-auto" data-controller="booking">
-  <%= render "shared/back_link", path: provider_path(@provider_profile), label: t(".back") %>
+  <%= render "shared/back_link", path: provider_path(city_slug: @provider_profile.city_slug, slug: @provider_profile.slug), label: t(".back") %>
 
   <h1 class="font-bold text-2xl mb-1"><%= t(".title", provider: @provider_profile.user.name) %></h1>
   <p class="text-gray-500 mb-6"><%= @service.name %></p>

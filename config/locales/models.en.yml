@@ -14,6 +14,7 @@ en:
         address: "Address"
         city: "City"
         category: "Category"
+        slug: "Public link"
       service:
         name: "Service Name"
         description: "Description"
@@ -22,6 +23,10 @@ en:
         modalities: "Modalities"
         video_call_link: "Video call link"
         phone_number: "Provider's phone number"
+        requires_payment_confirmation: "Require payment"
+        deposit_amount: "Deposit amount"
+        payment_instructions: "Payment instructions"
+        payment_confirmation_window_minutes: "Confirmation deadline (minutes)"
       appointment:
         client: "Client"
         service: "Service"

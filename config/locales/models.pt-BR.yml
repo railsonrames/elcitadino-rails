@@ -14,6 +14,7 @@ pt-BR:
         address: "Endereço"
         city: "Cidade"
         category: "Categoria"
+        slug: "Link público"
       service:
         name: "Nome do Serviço"
         description: "Descrição"
@@ -22,6 +23,10 @@ pt-BR:
         modalities: "Modalidades"
         video_call_link: "Link da videochamada"
         phone_number: "Telefone do prestador"
+        requires_payment_confirmation: "Exigir pagamento"
+        deposit_amount: "Valor do depósito"
+        payment_instructions: "Instruções de pagamento"
+        payment_confirmation_window_minutes: "Prazo de confirmação (minutos)"
       appointment:
         client: "Cliente"
         service: "Serviço"

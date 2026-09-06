@@ -49,7 +49,9 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-    params.expect(service: [ :name, :description, :duration, :price, :photo, :video_call_link, :phone_number, modalities: [] ])
+    params.expect(service: [ :name, :description, :duration, :price, :photo, :video_call_link, :phone_number,
+      :requires_payment_confirmation, :deposit_amount, :payment_instructions, :payment_confirmation_window_minutes,
+      modalities: [] ])
   end
 
   # A flat { "0" => { start_time:, end_time: }, ..., "6" => {...} } hash,

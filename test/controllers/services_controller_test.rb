@@ -130,4 +130,21 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
 
     assert Service.last.photo.attached?
   end
+
+  test "provider can require payment confirmation with a deposit, instructions, and a custom deadline" do
+    sign_in users(:provider_one)
+
+    patch provider_profile_service_url(@service), params: {
+      service: {
+        requires_payment_confirmation: true, deposit_amount: 15, payment_instructions: "Pay via Bizum to 600000000",
+        payment_confirmation_window_minutes: 60
+      }
+    }
+
+    @service.reload
+    assert @service.requires_payment_confirmation?
+    assert_equal 15, @service.deposit_amount.to_i
+    assert_equal "Pay via Bizum to 600000000", @service.payment_instructions
+    assert_equal 60, @service.payment_confirmation_window_minutes
+  end
 end

@@ -37,5 +37,9 @@
     <main class="container mx-auto mt-10 px-5 pb-10">
       <%= yield %>
     </main>
+
+    <footer class="border-t border-gray-200">
+      <p class="text-center text-xs text-gray-400 py-6"><%= t("layouts.footer.copyright", year: Time.zone.now.year) %></p>
+    </footer>
   </body>
 </html>

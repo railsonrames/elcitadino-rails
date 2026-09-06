@@ -13,7 +13,7 @@
     <p class="font-medium mb-1"><%= t(".qr_code_title") %></p>
     <p class="text-sm text-gray-500 mb-3"><%= t(".qr_code_help") %></p>
 
-    <% qr_url = provider_url(@provider_profile, locale: nil) %>
+    <% qr_url = provider_url(city_slug: @provider_profile.city_slug, slug: @provider_profile.slug, locale: nil) %>
     <div class="border border-gray-200 rounded-2xl p-4 flex flex-col items-center gap-3">
       <%= image_tag qr_code_data_uri(qr_url), alt: t("providers.show.qr_code_alt"), class: "w-40 h-40" %>
       <%= link_to t(".download_qr_code"), qr_code_data_uri(qr_url),
@@ -47,7 +47,7 @@
             label: t(".allow_client_reschedule"), helper_text: t(".allow_client_reschedule_help") %>
     </div>
 
-    <div class="inline mt-6">
+    <div class="mt-6">
       <%= form.submit t(".submit"), class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>

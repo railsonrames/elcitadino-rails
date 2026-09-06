@@ -14,6 +14,7 @@ va:
         address: "Adreça"
         city: "Ciutat"
         category: "Categoria"
+        slug: "Enllaç públic"
       service:
         name: "Nom del Servici"
         description: "Descripció"
@@ -22,6 +23,10 @@ va:
         modalities: "Modalitats"
         video_call_link: "Enllaç de la videotrucada"
         phone_number: "Telèfon del prestador"
+        requires_payment_confirmation: "Exigir pagament"
+        deposit_amount: "Import del dipòsit"
+        payment_instructions: "Instruccions de pagament"
+        payment_confirmation_window_minutes: "Termini de confirmació (minuts)"
       appointment:
         client: "Client"
         service: "Servici"

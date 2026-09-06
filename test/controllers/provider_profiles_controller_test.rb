@@ -30,4 +30,22 @@ class ProviderProfilesControllerTest < ActionDispatch::IntegrationTest
 
     assert @provider_profile.logo.attached?
   end
+
+  test "provider can customize their slug" do
+    sign_in users(:provider_one)
+
+    patch provider_profile_url, params: { provider_profile: { slug: "meu-novo-link" } }
+
+    assert_equal "meu-novo-link", @provider_profile.reload.slug
+  end
+
+  test "a duplicate slug fails validation and re-renders edit" do
+    sign_in users(:provider_one)
+    taken = provider_profiles(:two).slug
+
+    patch provider_profile_url, params: { provider_profile: { slug: taken } }
+
+    assert_response :unprocessable_content
+    assert_not_equal taken, @provider_profile.reload.slug
+  end
 end
