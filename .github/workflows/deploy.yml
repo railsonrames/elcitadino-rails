@@ -1,0 +1,85 @@
+name: deploy
+
+# Gatilhos:
+#   - push na main            -> deploy de STAGING   (staging.elcitadino.railson.click)
+#   - release publicado (v*)  -> deploy de PRODUÇÃO  (elcitadino.railson.click)
+#   - Run workflow (manual)   -> escolhe destino e comando (deploy | setup | rollback)
+#
+# A pipeline de qualidade (testes, rubocop, brakeman) fica em ci.yml e roda no mesmo push.
+# Kill-switch: enquanto a repo variable DEPLOY_ENABLED != "true", este job é pulado.
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      destination:
+        description: Destino
+        type: choice
+        options: [staging, production]
+        default: staging
+      command:
+        description: Comando do Kamal
+        type: choice
+        options: [deploy, setup, rollback]
+        default: deploy
+
+concurrency:
+  group: elcitadino-${{ (github.event_name == 'release' || github.event.inputs.destination == 'production') && 'production' || 'staging' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: vars.DEPLOY_ENABLED == 'true'
+    environment: ${{ (github.event_name == 'release' || github.event.inputs.destination == 'production') && 'production' || 'staging' }}
+    env:
+      DEST: ${{ (github.event_name == 'release' || github.event.inputs.destination == 'production') && 'production' || 'staging' }}
+      CMD: ${{ github.event.inputs.command || 'deploy' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Configure SSH
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_kamal
+          chmod 600 ~/.ssh/id_kamal
+          ssh-keyscan -H 51.195.220.76 >> ~/.ssh/known_hosts 2>/dev/null
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_kamal
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
+
+      - name: Kamal ${{ env.CMD }} (${{ env.DEST }})
+        env:
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          ELCITADINO_DATABASE_PASSWORD: ${{ secrets.ELCITADINO_DATABASE_PASSWORD }}
+        run: |
+          if [ "$DEST" = "production" ]; then ARGS=""; else ARGS="-d staging"; fi
+          bin/kamal $CMD $ARGS
+
+      - name: Health check
+        if: env.CMD != 'rollback'
+        run: |
+          if [ "$DEST" = "production" ]; then
+            HOST=elcitadino.railson.click
+          else
+            HOST=staging.elcitadino.railson.click
+          fi
+          # /up é liberado do basic_auth no Caddy (ver deploy/Caddyfile.elcitadino).
+          curl -fsS --retry 15 --retry-all-errors --retry-connrefused --retry-delay 6 \
+            -o /dev/null -w 'HTTP %{http_code}\n' "https://$HOST/up"

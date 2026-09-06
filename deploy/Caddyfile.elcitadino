@@ -1,0 +1,50 @@
+# Blocos do Elcitadino para acrescentar ao /etc/caddy/Caddyfile da VPS.
+# O bloco global ({ email ... }) já existe no Caddyfile — não repetir.
+# Depois de editar:  sudo caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy
+#
+# Portas locais: 3000 = container de produção, 3001 = container de staging
+# (publicados só em 127.0.0.1 pelo Kamal — ver config/deploy*.yml).
+
+elcitadino.railson.click {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "same-origin"
+		-Server
+	}
+
+	log {
+		output file /var/log/caddy/elcitadino.log {
+			roll_size 10M
+			roll_keep 5
+		}
+	}
+}
+
+staging.elcitadino.railson.click {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3001
+
+	header {
+		X-Robots-Tag "noindex, nofollow"
+		-Server
+	}
+
+	# Protege tudo, menos o /up (health check do CI precisa passar sem credencial).
+	@needs_auth not path /up /up/*
+	basic_auth @needs_auth {
+		# Gerar o hash com:  caddy hash-password
+		rames REPLACE_WITH_BCRYPT_HASH
+	}
+
+	log {
+		output file /var/log/caddy/elcitadino-staging.log {
+			roll_size 10M
+			roll_keep 5
+		}
+	}
+}

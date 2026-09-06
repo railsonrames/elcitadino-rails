@@ -69,4 +69,9 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
+
+# Kamal roda com proxy desativado (Caddy é o proxy de borda), então o readiness vem daqui.
+HEALTHCHECK --interval=10s --timeout=3s --start-period=40s --retries=6 \
+  CMD curl -fsS http://localhost/up || exit 1
+
 CMD ["./bin/thrust", "./bin/rails", "server"]
