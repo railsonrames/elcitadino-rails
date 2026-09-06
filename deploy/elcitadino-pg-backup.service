@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup dos bancos Postgres do Elcitadino
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+# roda como root: precisa falar com o socket do Docker
+ExecStart=/opt/elcitadino/pg-backup.sh

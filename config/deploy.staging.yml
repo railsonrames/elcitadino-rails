@@ -1,0 +1,43 @@
+# Overrides do destino STAGING. Uso: `kamal deploy -d staging`.
+# O Kamal mescla este arquivo sobre config/deploy.yml. Só o que muda em relação a produção
+# fica aqui — mesma VPS, containers/rede/volume com prefixo `elcitadino-staging`.
+#
+# Servido em https://staging.elcitadino.railson.click (Caddy -> 127.0.0.1:3001),
+# protegido por basic_auth no Caddy. RAILS_ENV continua "production" (destino != Rails env).
+
+service: elcitadino-staging
+image: railsonrames/elcitadino
+
+servers:
+  web:
+    hosts:
+      - 51.195.220.76
+    proxy: false
+    options:
+      publish:
+        - "127.0.0.1:3001:80"
+
+env:
+  clear:
+    SOLID_QUEUE_IN_PUMA: true
+    JOB_CONCURRENCY: 1
+    WEB_CONCURRENCY: 1
+    DB_HOST: elcitadino-staging-db
+    RAILS_LOG_TO_STDOUT: "1"
+  secret:
+    - RAILS_MASTER_KEY
+    - ELCITADINO_DATABASE_PASSWORD
+
+accessories:
+  db:
+    image: postgres:17-alpine
+    host: 51.195.220.76
+    port: "127.0.0.1:5433:5432"
+    env:
+      clear:
+        POSTGRES_USER: elcitadino
+        POSTGRES_DB: elcitadino_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - /opt/elcitadino/postgres/staging:/var/lib/postgresql/data

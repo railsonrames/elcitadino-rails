@@ -84,6 +84,7 @@ production:
     database: elcitadino_production
     username: elcitadino
     password: <%= ENV["ELCITADINO_DATABASE_PASSWORD"] %>
+    host: <%= ENV.fetch("DB_HOST", "localhost") %>
   cache:
     <<: *primary_production
     database: elcitadino_production_cache
