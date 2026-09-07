@@ -50,7 +50,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
 
       - name: Configure SSH
         run: |
