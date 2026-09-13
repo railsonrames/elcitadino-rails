@@ -1,18 +1,17 @@
 <% content_for :title, t(".title") %>
+<% content_for :page_title, t(".title") %>
 
-<div class="w-full max-w-2xl mx-auto">
-  <h1 class="font-bold text-2xl mb-4"><%= t(".title") %></h1>
-
-  <div class="flex items-center gap-2">
+<% content_for :page_header_extra do %>
+  <div class="flex items-center gap-2 px-4">
     <div data-controller="modal" class="shrink-0">
       <button type="button" data-action="modal#open" aria-label="<%= t(".filters_button") %>"
-            class="rounded-full border border-gray-300 p-3 hover:bg-gray-50 cursor-pointer">
+            class="rounded-[6px] border border-white/40 p-2.5 text-white hover:bg-white/10 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
           <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
         </svg>
       </button>
 
-      <dialog data-modal-target="dialog" class="fixed inset-y-0 left-0 h-full w-72 max-w-[85vw] m-0 rounded-none rounded-r-2xl p-6 backdrop:bg-black/40">
+      <dialog data-modal-target="dialog" class="fixed inset-y-0 left-0 h-full w-72 max-w-[85vw] m-0 rounded-none rounded-r-[8px] p-6 backdrop:bg-black/40">
         <%= render "filters_drawer" %>
       </dialog>
     </div>
@@ -22,14 +21,14 @@
         <%= hidden_field_tag :category, params[:category] %>
       <% end %>
       <div class="relative">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-ink-3">
           <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
         </svg>
         <%= text_field_tag :q, params[:q], placeholder: t(".search_placeholder"),
-              class: "w-full shadow-sm rounded-full border border-gray-300 focus:outline-blue-600 pl-11 pr-10 py-3" %>
+              class: "w-full rounded-full border-0 bg-white/95 focus:outline-brand pl-11 pr-10 py-3 text-ink" %>
         <% if params[:q].present? %>
           <%= link_to providers_path(category: params[:category]), "aria-label": t(".clear_search"),
-                class: "absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" do %>
+                class: "absolute right-3.5 top-1/2 -translate-y-1/2 text-ink-3 hover:text-ink" do %>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
               <circle cx="12" cy="12" r="10" /><path d="m15 9-6 6M9 9l6 6" />
             </svg>
@@ -39,40 +38,63 @@
     <% end %>
   </div>
 
-  <details class="mt-4 border border-gray-200 rounded-2xl" data-controller="map" data-action="toggle->map#toggled"
+  <div class="flex gap-2 overflow-x-auto px-4 pt-3 pb-4 [scrollbar-width:none]">
+    <%= link_to t(".all_categories"), providers_path(q: params[:q]),
+          class: "shrink-0 font-extrabold text-xs rounded-[6px] px-3.5 py-2 #{params[:category].blank? ? "bg-white text-brand-deep" : "bg-white/15 text-white"}" %>
+    <% ProviderCategory::SLUGS.each do |slug| %>
+      <%= link_to t("enums.provider_profile.category.#{slug}"), providers_path(category: slug, q: params[:q]),
+            class: "shrink-0 font-extrabold text-xs rounded-[6px] px-3.5 py-2 #{params[:category] == slug ? "bg-white text-brand-deep" : "bg-white/15 text-white"}" %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="w-full">
+  <details class="border border-line rounded-[8px] bg-surface mb-4" data-controller="map" data-action="toggle->map#toggled"
         data-map-nearby-url-value="<%= nearby_providers_path %>"
         data-map-google-maps-api-key-value="<%= Rails.application.credentials.dig(:google_maps, :api_key) %>"
         data-map-permission-denied-value="<%= t(".location_permission_denied") %>"
         data-map-unsupported-value="<%= t(".location_unsupported") %>"
         data-map-not-configured-value="<%= t(".location_not_configured") %>"
         data-map-loading-value="<%= t(".location_loading") %>">
-    <summary class="cursor-pointer p-4 font-medium list-none flex items-center gap-2 [&::-webkit-details-marker]:hidden">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400">
+    <summary class="cursor-pointer p-4 font-bold text-sm list-none flex items-center gap-2 [&::-webkit-details-marker]:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-ink-3">
         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
       </svg>
       <%= t(".location_section_title") %>
     </summary>
     <div class="p-4 pt-0">
-      <p data-map-target="message" class="text-sm text-gray-500"><%= t(".location_loading") %></p>
-      <div data-map-target="container" class="hidden h-64 rounded-xl bg-gray-100 mt-2"></div>
+      <p data-map-target="message" class="text-sm text-ink-2"><%= t(".location_loading") %></p>
+      <div data-map-target="container" class="hidden h-64 rounded-[6px] bg-surface-2 mt-2"></div>
     </div>
   </details>
 
-  <div class="grid sm:grid-cols-2 gap-4 mt-6">
-    <% if @provider_profiles.any? %>
+  <% if @provider_profiles.any? %>
+    <div class="space-y-3">
       <% @provider_profiles.each do |provider_profile| %>
-        <%= link_to provider_path(city_slug: provider_profile.city_slug, slug: provider_profile.slug), class: "flex items-center gap-4 border border-gray-200 rounded-2xl p-4 hover:border-blue-400 hover:shadow-sm transition" do %>
-          <%= render "shared/category_avatar", category: provider_profile.category, image: provider_profile.logo %>
-          <div class="min-w-0">
-            <h2 class="font-bold truncate"><%= provider_profile.user.name %></h2>
-            <p class="text-sm text-gray-500 truncate">
-              <%= t("enums.provider_profile.category.#{provider_profile.category}") %> &middot; <%= provider_profile.city %>
+        <%= link_to provider_path(city_slug: provider_profile.city_slug, slug: provider_profile.slug),
+              class: "flex items-center gap-3 bg-surface border border-line rounded-[8px] p-2.5 hover:border-brand transition" do %>
+          <% if provider_profile.logo.attached? %>
+            <%= image_tag provider_profile.logo.variant(resize_to_limit: [ 192, 192 ]), class: "w-24 h-24 rounded-[6px] object-cover shrink-0" %>
+          <% else %>
+            <div class="w-24 h-24 rounded-[6px] flex items-center justify-center shrink-0 <%= ProviderCategory.color_classes(provider_profile.category) %>">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10">
+                <path d="<%= ProviderCategory.icon_path(provider_profile.category) %>" />
+              </svg>
+            </div>
+          <% end %>
+          <div class="min-w-0 flex-1">
+            <h2 class="font-extrabold text-[15px] truncate"><%= provider_profile.user.name %></h2>
+            <p class="text-[13px] text-ink-2 truncate">
+              <%= t("enums.provider_profile.category.#{provider_profile.category}") %> · <%= provider_profile.city %>
             </p>
           </div>
+          <span class="shrink-0 rounded-[6px] bg-brand hover:bg-brand-deep text-white font-extrabold text-xs px-3.5 py-2">
+            <%= t(".view_availability") %>
+          </span>
         <% end %>
       <% end %>
-    <% else %>
-      <p class="text-center col-span-full my-10 text-gray-500"><%= t(".none_found") %></p>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <p class="text-center text-ink-2 my-10"><%= t(".none_found") %></p>
+  <% end %>
 </div>

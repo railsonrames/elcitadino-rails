@@ -1,44 +1,53 @@
 <% content_for :title, t(".title") %>
+<% content_for :page_title, t(".title") %>
+<% content_for :page_header_extra do %>
+  <div class="flex gap-2 px-4 pb-4">
+    <%= link_to t(".tabs.upcoming"), appointments_path(scope: "upcoming"),
+          data: { turbo_action: "replace" },
+          class: "font-extrabold text-xs rounded-[6px] px-4.5 py-2.5 #{@scope == "upcoming" ? "bg-white text-brand-deep" : "bg-white/15 text-white"}" %>
+    <%= link_to t(".tabs.past"), appointments_path(scope: "past"),
+          data: { turbo_action: "replace" },
+          class: "font-extrabold text-xs rounded-[6px] px-4.5 py-2.5 #{@scope == "past" ? "bg-white text-brand-deep" : "bg-white/15 text-white"}" %>
+  </div>
+<% end %>
 
 <div class="w-full">
-  <h1 class="font-bold text-4xl mb-6"><%= t(".title") %></h1>
-
-  <section class="<%= "mb-10" if current_user.provider_profile %>">
+  <section class="<%= "mb-6" if current_user.provider_profile %>">
     <% if current_user.provider_profile %>
-      <h2 class="font-bold text-xl mb-4"><%= t(".my_appointments") %></h2>
+      <h2 class="font-extrabold text-base mb-2"><%= t(".my_appointments") %></h2>
     <% end %>
 
     <% if @own_appointments.any? %>
-      <div class="space-y-3">
+      <div class="bg-surface rounded-[8px] border border-line overflow-hidden">
         <% @own_appointments.each do |appointment| %>
-          <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-            <div class="flex-1"><%= render "card", appointment: appointment, viewpoint: :client %></div>
-            <%= link_to t(".show"), appointment,
-                  class: "shrink-0 text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium text-sm" %>
-          </div>
+          <%= render "card", appointment: appointment, viewpoint: :client %>
+        <% end %>
+        <% if @scope == "upcoming" %>
+          <%= link_to t(".history_link"), appointments_path(scope: "past"),
+                class: "block px-3.5 py-3 font-bold text-xs text-brand hover:bg-surface-2" %>
         <% end %>
       </div>
     <% else %>
-      <p class="text-center my-10"><%= t(".none_found") %></p>
+      <p class="text-center text-ink-2 my-10"><%= t(".none_found") %></p>
     <% end %>
   </section>
 
   <% if current_user.provider_profile %>
     <section>
-      <h2 class="font-bold text-xl mb-4"><%= t(".client_appointments") %></h2>
+      <h2 class="font-extrabold text-base mb-2"><%= t(".client_appointments") %></h2>
 
       <% if @client_appointments.any? %>
-        <div class="space-y-3">
+        <div class="bg-surface rounded-[8px] border border-line overflow-hidden">
           <% @client_appointments.each do |appointment| %>
-            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-              <div class="flex-1"><%= render "card", appointment: appointment, viewpoint: :provider %></div>
-              <%= link_to t(".show"), appointment,
-                    class: "shrink-0 text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium text-sm" %>
-            </div>
+            <%= render "card", appointment: appointment, viewpoint: :provider %>
+          <% end %>
+          <% if @scope == "upcoming" %>
+            <%= link_to t(".history_link"), appointments_path(scope: "past"),
+                  class: "block px-3.5 py-3 font-bold text-xs text-brand hover:bg-surface-2" %>
           <% end %>
         </div>
       <% else %>
-        <p class="text-center my-10"><%= t(".none_found") %></p>
+        <p class="text-center text-ink-2 my-10"><%= t(".none_found") %></p>
       <% end %>
     </section>
   <% end %>

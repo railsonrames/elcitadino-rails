@@ -34,6 +34,7 @@ en:
       location_unsupported: "Your browser doesn't support geolocation."
       location_not_configured: "Map search isn't available yet."
       location_loading: "Getting your location..."
+      view_availability: "View availability"
     show:
       back: "Back"
       services: "Services"
@@ -76,7 +77,12 @@ en:
       none_found: "No appointments found."
       my_appointments: "My appointments"
       client_appointments: "My clients' appointments"
+      history_link: "View full history"
+      tabs:
+        upcoming: "Upcoming"
+        past: "Past"
     card:
+      view: "View appointment"
       confirm: "Confirm"
       complete: "Complete"
       reschedule: "Reschedule"
@@ -214,6 +220,7 @@ en:
       title: "My Schedule"
       monthly_revenue: "Monthly revenue"
       toggle_revenue: "Show/hide amount"
+      appointments_today: "Appointments today"
       edit_profile: "Edit my profile and services"
       settings: "Settings"
     calendar:
@@ -246,6 +253,12 @@ en:
     destroy:
       unblocked: "Day unblocked successfully."
   shared:
+    tab_bar:
+      agenda: "Agenda"
+      my_appointments: "My appointments"
+      clients: "Clients"
+      messages: "Messages"
+      profile: "Profile"
     weekly_hours_grid:
       repeat_modal:
         title: "Repeat this schedule?"

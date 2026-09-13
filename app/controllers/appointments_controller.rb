@@ -13,8 +13,9 @@ class AppointmentsController < ApplicationController
   before_action :require_reschedule_permission, only: [ :reschedule ]
 
   def index
-    @own_appointments = current_user.appointments.order(scheduled_at: :desc)
-    @client_appointments = current_user.provider_profile ? current_user.provider_profile.appointments.order(scheduled_at: :desc) : Appointment.none
+    @scope = params[:scope] == "past" ? "past" : "upcoming"
+    @own_appointments = scoped_appointments(current_user.appointments)
+    @client_appointments = current_user.provider_profile ? scoped_appointments(current_user.provider_profile.appointments) : Appointment.none
   end
 
   def show
@@ -56,6 +57,16 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  # Upcoming shows soonest-first (what you'd act on next); past shows most-recent-first
+  # (what you'd look back at). @scope is set in #index.
+  def scoped_appointments(relation)
+    if @scope == "past"
+      relation.where(scheduled_at: ...Time.current).order(scheduled_at: :desc)
+    else
+      relation.where(scheduled_at: Time.current..).order(scheduled_at: :asc)
+    end
+  end
 
   def set_provider_profile
     @provider_profile = ProviderProfile.find(params[:provider_id])

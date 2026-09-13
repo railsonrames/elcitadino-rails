@@ -1,44 +1,49 @@
-<div class="border border-gray-200 rounded-2xl p-4 mb-4">
-  <div class="flex items-center justify-between mb-3">
+<div class="bg-surface border border-line rounded-[8px] overflow-hidden mb-4">
+  <div class="flex items-center justify-between px-3 py-2.5 border-b border-[#d8dce5]">
     <%= link_to dashboard_path(date: (calendar_month - 1.month).iso8601),
-          data: { turbo_frame: "dashboard_panel" }, class: "p-1.5 rounded-full hover:bg-gray-100", "aria-label": t(".previous_month") do %>
+          data: { turbo_frame: "dashboard_panel" },
+          class: "w-[30px] h-[30px] flex items-center justify-center rounded-[6px] border border-[#c3cad8] hover:bg-[#eef1f6] text-brand", "aria-label": t(".previous_month") do %>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m15 18-6-6 6-6" /></svg>
     <% end %>
-    <p class="font-medium capitalize"><%= l(calendar_month, format: "%B %Y") %></p>
+    <p class="font-extrabold text-sm"><%= capitalize_first(l(calendar_month, format: "%B %Y")) %></p>
     <%= link_to dashboard_path(date: (calendar_month + 1.month).iso8601),
-          data: { turbo_frame: "dashboard_panel" }, class: "p-1.5 rounded-full hover:bg-gray-100", "aria-label": t(".next_month") do %>
+          data: { turbo_frame: "dashboard_panel" },
+          class: "w-[30px] h-[30px] flex items-center justify-center rounded-[6px] border border-[#c3cad8] hover:bg-[#eef1f6] text-brand", "aria-label": t(".next_month") do %>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m9 18 6-6-6-6" /></svg>
     <% end %>
   </div>
 
-  <div class="grid grid-cols-7 gap-y-1 text-center text-xs text-gray-400 mb-1">
+  <div class="grid grid-cols-7 text-center bg-surface-2 border-b border-[#d8dce5] font-bold text-[10px] uppercase text-ink-3">
     <% I18n.t("date.abbr_day_names").each do |day_name| %>
-      <div><%= day_name %></div>
+      <div class="py-1.5"><%= day_name %></div>
     <% end %>
   </div>
 
-  <div class="grid grid-cols-7 gap-y-1 text-center text-sm">
-    <% calendar_weeks(calendar_month).flatten(1).each do |date, in_month| %>
+  <div class="grid grid-cols-7">
+    <% weeks = calendar_weeks(calendar_month).flatten(1) %>
+    <% weeks.each_with_index do |(date, in_month), i| %>
+      <% border_r = "border-r border-[#d8dce5]" unless (i + 1) % 7 == 0 %>
+      <% border_b = "border-b border-[#d8dce5]" unless i >= weeks.size - 7 %>
       <% if in_month %>
         <% blocked = blocked_dates.include?(date) %>
         <% has_appointments = appointment_dates.include?(date) %>
         <% is_selected = date == selected_date %>
         <% cell_classes = if is_selected
-             "bg-blue-600 text-white font-bold"
+             "bg-brand text-white font-extrabold"
            elsif blocked
-             "text-gray-400 line-through hover:bg-gray-100"
+             "text-ink-3 line-through hover:bg-surface-2"
            else
-             "hover:bg-gray-100"
+             "hover:bg-surface-2"
            end %>
         <%= link_to dashboard_path(date: date.iso8601), data: { turbo_frame: "dashboard_panel" },
-              class: "relative mx-auto flex items-center justify-center w-8 h-8 rounded-full #{cell_classes} #{"ring-1 ring-blue-400" if date == Date.current && !is_selected}" do %>
-          <%= date.day %>
+              class: "relative flex flex-col items-center justify-center h-11 font-bold text-sm #{border_r} #{border_b} #{cell_classes} #{"ring-1 ring-inset ring-brand" if date == Date.current && !is_selected}" do %>
+          <span><%= date.day %></span>
           <% if has_appointments %>
-            <span class="absolute bottom-0.5 w-1 h-1 rounded-full <%= is_selected ? "bg-white" : "bg-blue-600" %>"></span>
+            <span class="w-1.5 h-[3px] mt-0.5 <%= is_selected ? "bg-white" : "bg-ok" %>"></span>
           <% end %>
         <% end %>
       <% else %>
-        <span class="mx-auto flex items-center justify-center w-8 h-8 text-gray-300"><%= date.day %></span>
+        <span class="flex items-center justify-center h-11 text-[#a7afc0] text-sm <%= border_r %> <%= border_b %>"><%= date.day %></span>
       <% end %>
     <% end %>
   </div>

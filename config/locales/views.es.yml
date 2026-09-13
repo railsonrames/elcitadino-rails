@@ -34,6 +34,7 @@ es:
       location_unsupported: "Tu navegador no admite geolocalización."
       location_not_configured: "La búsqueda por mapa aún no está disponible."
       location_loading: "Obteniendo tu ubicación..."
+      view_availability: "Ver horarios"
     show:
       back: "Volver"
       services: "Servicios"
@@ -76,7 +77,12 @@ es:
       none_found: "No se encontraron citas."
       my_appointments: "Mis citas"
       client_appointments: "Citas de mis clientes"
+      history_link: "Ver el historial completo"
+      tabs:
+        upcoming: "Próximas"
+        past: "Pasadas"
     card:
+      view: "Ver cita"
       confirm: "Confirmar"
       complete: "Completar"
       reschedule: "Reprogramar"
@@ -214,6 +220,7 @@ es:
       title: "Mi Agenda"
       monthly_revenue: "Ingresos del mes"
       toggle_revenue: "Mostrar/ocultar valor"
+      appointments_today: "Citas hoy"
       edit_profile: "Editar mi perfil y servicios"
       settings: "Configuración"
     calendar:
@@ -246,6 +253,12 @@ es:
     destroy:
       unblocked: "Día desbloqueado correctamente."
   shared:
+    tab_bar:
+      agenda: "Agenda"
+      my_appointments: "Mis citas"
+      clients: "Clientes"
+      messages: "Mensajes"
+      profile: "Perfil"
     weekly_hours_grid:
       repeat_modal:
         title: "¿Repetir horario?"

@@ -34,6 +34,7 @@ va:
       location_unsupported: "El teu navegador no admet geolocalització."
       location_not_configured: "La busca per mapa encara no està disponible."
       location_loading: "Obtenint la teua ubicació..."
+      view_availability: "Vore horaris"
     show:
       back: "Tornar"
       services: "Servicis"
@@ -76,7 +77,12 @@ va:
       none_found: "No s'han trobat cites."
       my_appointments: "Les meues cites"
       client_appointments: "Cites dels meus clients"
+      history_link: "Vore l'historial complet"
+      tabs:
+        upcoming: "Pròximes"
+        past: "Passades"
     card:
+      view: "Vore cita"
       confirm: "Confirmar"
       complete: "Completar"
       reschedule: "Remarcar"
@@ -214,6 +220,7 @@ va:
       title: "La Meua Agenda"
       monthly_revenue: "Ingressos del mes"
       toggle_revenue: "Mostrar/amagar valor"
+      appointments_today: "Cites hui"
       edit_profile: "Editar el meu perfil i servicis"
       settings: "Configuració"
     calendar:
@@ -246,6 +253,12 @@ va:
     destroy:
       unblocked: "Dia desbloquejat correctament."
   shared:
+    tab_bar:
+      agenda: "Agenda"
+      my_appointments: "Les meues cites"
+      clients: "Clients"
+      messages: "Missatges"
+      profile: "Perfil"
     weekly_hours_grid:
       repeat_modal:
         title: "Repetir este horari?"
