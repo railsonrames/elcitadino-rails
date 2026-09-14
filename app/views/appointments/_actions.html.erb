@@ -1,66 +1,38 @@
-<%# locals: appointment, viewpoint: :client | :provider — shared by the compact list card and the detail page, so both stay visually identical %>
-<% cancel_icon = capture do %>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-<% end %>
-<% reschedule_icon = capture do %>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" />
-  </svg>
-<% end %>
+<%# locals: appointment, viewpoint: :client | :provider — rendered inside appointments/_card's
+    row, both in the Citas list and (show_date: false) the Mi Agenda day agenda. %>
+<% btn_solid_blue = "shrink-0 rounded-[6px] bg-brand hover:bg-brand-deep text-white font-extrabold text-xs px-3.5 py-2 cursor-pointer" %>
+<% btn_solid_green = "shrink-0 rounded-[6px] bg-ok hover:bg-ok-hover text-white font-extrabold text-xs px-3.5 py-2 cursor-pointer" %>
+<% btn_outline = "shrink-0 rounded-[6px] border border-[#c3cad8] bg-white hover:bg-[#eef1f6] text-ink font-extrabold text-xs px-3 py-2 cursor-pointer" %>
+<% btn_text_danger = "shrink-0 rounded-[6px] bg-transparent hover:bg-[#fbeceb] text-[#b3261e] font-extrabold text-xs px-1.5 py-2 cursor-pointer" %>
 
-<div class="flex flex-wrap items-center gap-2">
-  <% if viewpoint == :provider %>
-    <% if appointment.status.in?(%w[pending confirmed]) %>
-      <%# Cancel and reschedule are the two deliberate, confirmation-gated
-          actions, so they lead — confirm/complete follow, kept as
-          icon+label since a bare like/check icon isn't self-explanatory
-          the way an X or a reschedule clock is. %>
-      <%= render "shared/confirm_action", trigger_label: t("appointments.card.cancel"), trigger_content: cancel_icon,
-            path: appointment_path(appointment), method: :patch, params: { appointment: { status: "canceled" } },
-            title: t("appointments.card.cancel"), warning: t("appointments.card.confirm_cancel"),
-            confirm_label: t("appointments.card.cancel"), cancel_label: t("appointments.card.keep"),
-            button_class: "rounded-full p-2 bg-red-600 hover:bg-red-500 text-white cursor-pointer" %>
-      <%= link_to reschedule_appointment_path(appointment),
-            class: "rounded-full p-2 bg-gray-100 hover:bg-gray-200 text-gray-700",
-            title: t("appointments.card.reschedule"), aria: { label: t("appointments.card.reschedule") } do %>
-        <%= reschedule_icon %>
-      <% end %>
-      <% if appointment.pending? %>
-        <%= button_to appointment_path(appointment), method: :patch, params: { appointment: { status: "confirmed" } },
-              class: "rounded-full pl-2.5 pr-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white cursor-pointer inline-flex items-center gap-1.5 text-sm font-medium" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
-            <path d="M7 10v12" /><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8a2 2 0 0 1-1.92 1.44H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
-          </svg>
-          <%= t("appointments.card.confirm") %>
-        <% end %>
-      <% end %>
-      <% complete_content = capture do %>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
-          <polyline points="20 6 9 17 4 12" />
-        </svg>
-        <%= t("appointments.card.complete") %>
-      <% end %>
-      <%= render "shared/confirm_action", trigger_label: t("appointments.card.complete"), trigger_content: complete_content,
-            path: appointment_path(appointment), method: :patch, params: { appointment: { status: "completed" } },
-            title: t("appointments.card.complete"), warning: t("appointments.card.confirm_complete"),
-            confirm_label: t("appointments.card.complete"), cancel_label: t("appointments.card.keep"),
-            confirm_button_class: "bg-green-600 hover:bg-green-500 text-white",
-            button_class: "rounded-full pl-2.5 pr-3.5 py-2 bg-green-600 hover:bg-green-500 text-white cursor-pointer inline-flex items-center gap-1.5 text-sm font-medium" %>
+<% if viewpoint == :provider %>
+  <% if appointment.status.in?(%w[pending confirmed]) %>
+    <% if appointment.pending? %>
+      <%= button_to t("appointments.card.confirm"), appointment_path(appointment), method: :patch, params: { appointment: { status: "confirmed" } },
+            class: btn_solid_green %>
     <% end %>
-  <% elsif appointment.status.in?(%w[pending confirmed]) %>
-    <%= render "shared/confirm_action", trigger_label: t("appointments.card.cancel"), trigger_content: cancel_icon,
+    <%= link_to t("appointments.card.reschedule"), reschedule_appointment_path(appointment), class: btn_outline %>
+    <%# Fidelidade ao mockup: a Mi Agenda mostra só Confirmar+Reprogramar por linha, mas
+        mantemos Cancelar/Completar disponíveis em toda parte — cortar uma ação existente
+        é decisão de produto, não só de estilo (ver docs/design/theme-azul-gris.md). %>
+    <%= render "shared/confirm_action", trigger_label: t("appointments.card.complete"),
+          path: appointment_path(appointment), method: :patch, params: { appointment: { status: "completed" } },
+          title: t("appointments.card.complete"), warning: t("appointments.card.confirm_complete"),
+          confirm_label: t("appointments.card.complete"), cancel_label: t("appointments.card.keep"),
+          confirm_button_class: "bg-ok hover:bg-ok-hover text-white", button_class: btn_solid_green %>
+    <%= render "shared/confirm_action", trigger_label: t("appointments.card.cancel"),
           path: appointment_path(appointment), method: :patch, params: { appointment: { status: "canceled" } },
           title: t("appointments.card.cancel"), warning: t("appointments.card.confirm_cancel"),
           confirm_label: t("appointments.card.cancel"), cancel_label: t("appointments.card.keep"),
-          button_class: "rounded-full p-2 bg-red-600 hover:bg-red-500 text-white cursor-pointer" %>
-    <% if appointment.provider_profile.allow_client_reschedule? %>
-      <%= link_to reschedule_appointment_path(appointment),
-            class: "rounded-full p-2 bg-gray-100 hover:bg-gray-200 text-gray-700",
-            title: t("appointments.card.reschedule"), aria: { label: t("appointments.card.reschedule") } do %>
-        <%= reschedule_icon %>
-      <% end %>
-    <% end %>
+          button_class: btn_text_danger %>
   <% end %>
-</div>
+<% elsif appointment.status.in?(%w[pending confirmed]) %>
+  <% if appointment.provider_profile.allow_client_reschedule? %>
+    <%= link_to t("appointments.card.reschedule"), reschedule_appointment_path(appointment), class: btn_outline %>
+  <% end %>
+  <%= render "shared/confirm_action", trigger_label: t("appointments.card.cancel"),
+        path: appointment_path(appointment), method: :patch, params: { appointment: { status: "canceled" } },
+        title: t("appointments.card.cancel"), warning: t("appointments.card.confirm_cancel"),
+        confirm_label: t("appointments.card.cancel"), cancel_label: t("appointments.card.keep"),
+        button_class: btn_text_danger %>
+<% end %>

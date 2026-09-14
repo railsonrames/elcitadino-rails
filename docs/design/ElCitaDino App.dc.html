@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap"><style>body{margin:0;background:#e7e5e2;font-family:Archivo,system-ui,sans-serif}.dv-turn{padding:40px 44px 32px;border-bottom:2px solid rgba(32,30,29,.4)}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 6px}.dv-tid{font:800 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#201e1d;color:#f3f2f2;text-decoration:none}.dv-tname{font:800 13px/1.2 Archivo,sans-serif;color:#201e1d;letter-spacing:.02em;text-transform:uppercase}.dv-tsub{font:400 12px/1.5 Archivo,sans-serif;color:rgba(32,30,29,.6);max-width:62ch;margin:0 0 20px}.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px}.dv-oid{font:800 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(32,30,29,.12);color:#201e1d;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 Archivo,sans-serif;color:rgba(32,30,29,.6)}.dv-card{background:#fff;border:2px solid rgba(32,30,29,.4)}.dv-opt:target .dv-oid{background:#ec3013;color:#f3f2f2}.dv-next{margin:22px 0 0;font:12px/1.6 Archivo,sans-serif;color:rgba(32,30,29,.55)}a{color:#ec3013}a:hover{color:#ae1800}</style></helmet>
+
+<section class="dv-turn" id="t6">
+<div class="dv-thd"><a class="dv-tid" href="#t6">6</a><span class="dv-tname">Azul profundo + fondo gris — reparto de <a class="dv-oid" href="#2b">2b</a></span></div>
+<p class="dv-tsub">Fondo gris (#e6e8ed) en lugar de blanco azulado: las superficies blancas y los botones sólidos ganan contraste. La estructura viene de <a class="dv-oid" href="#2b">2b</a> — columna de fecha a la izquierda separada por regla, filas divididas por líneas en vez de tarjetas flotantes, etiquetas de estado compactas y acciones alineadas a la izquierda. Radios intercalados: 8px en superficies y botones, 0 en la rejilla y las filas. <a class="dv-oid" href="#6c">6c</a> mantiene las tarjetas con foto pero con el mismo gris y botón sólido.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="6a"><div class="dv-olabel"><a class="dv-oid" href="#6a">6a</a>Citas — filas con columna de fecha</div>
+<div class="dv-card" style="width:390px;background:#e6e8ed;color:#0d1626;font-family:Archivo,sans-serif;font-size:15px;line-height:1.5">
+  <div style="background:#0b2f87;color:#fff">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 16px;font:700 12px Archivo,sans-serif;color:rgba(255,255,255,.85)"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#fff;display:block"></span><span style="width:5px;height:9px;background:#fff;display:block"></span><span style="width:5px;height:9px;background:rgba(255,255,255,.45);display:block"></span></span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 16px 0">
+      <div style="width:40px;height:40px;flex:none;border-radius:8px;border:1px solid rgba(255,255,255,.5);background:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 6px,rgba(255,255,255,.12) 6px 12px);display:flex;align-items:flex-end;justify-content:center;font:600 7px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.9);padding-bottom:3px">DINO</div>
+      <div style="font:800 17px/1 Archivo,sans-serif;letter-spacing:-.02em">ElCitaDino</div>
+      <div style="margin-left:auto;position:relative;display:flex">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <span style="position:absolute;top:-4px;right:-5px;min-width:15px;height:15px;border-radius:4px;background:#157f3c;color:#fff;font:800 9px/15px Archivo,sans-serif;text-align:center">2</span>
+      </div>
+    </div>
+    <div style="padding:16px 16px 0">
+      <div style="font:700 10px Archivo,sans-serif;letter-spacing:.1em;color:rgba(255,255,255,.7)">SEPTIEMBRE 2026</div>
+      <h1 style="font:800 30px/1 Archivo,sans-serif;letter-spacing:-.03em;margin:7px 0 0">Citas</h1>
+    </div>
+    <div style="display:flex;gap:8px;padding:14px 16px 16px">
+      <sc-for list="{{ citasTabsGris }}" as="tab" hint-placeholder-count="2">
+        <button type="button" onClick="{{ tab.onClick }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="padding:12px 12px 16px">
+    <div style="background:#fff;border-radius:8px;overflow:hidden;border:1px solid #d1d6e0">
+      <sc-for list="{{ citasGris }}" as="c" hint-placeholder-count="3">
+        <div style="display:flex;border-bottom:1px solid #e2e6ee">
+          <div style="width:66px;flex:none;border-right:1px solid #e2e6ee;background:#f4f6fa;padding:13px 0;text-align:center">
+            <div style="font:800 22px/1 Archivo,sans-serif;color:#0d1626">{{ c.d }}</div>
+            <div style="font:700 10px Archivo,sans-serif;color:#67718a;margin-top:3px;letter-spacing:.06em">{{ c.m }}</div>
+            <div style="font:800 12px Archivo,sans-serif;color:#1546c6;margin-top:9px">{{ c.t }}</div>
+          </div>
+          <div style="flex:1;min-width:0;padding:13px 14px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+              <div style="min-width:0">
+                <div style="font:800 15px/1.2 Archivo,sans-serif">{{ c.who }}</div>
+                <div style="font:400 13px Archivo,sans-serif;color:#5a6480;margin-top:2px">{{ c.service }}</div>
+              </div>
+              <span style="{{ c.tagStyle }}">{{ c.status }}</span>
+            </div>
+            <sc-if value="{{ c.pay }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:10px;border-left:3px solid #d97706;background:#fdf4e5;color:#8a5206;padding:8px 10px;font:400 12px/1.45 Archivo,sans-serif">
+                <span style="font-weight:800">Pago requerido · 5,00 €</span><br>Esperando el pago y la confirmación del proveedor.
+              </div>
+            </sc-if>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button type="button" style="flex:none;border:0;border-radius:6px;background:#1546c6;color:#fff;font:800 12px Archivo,sans-serif;padding:9px 14px;cursor:pointer" style-hover="background:#0b2f87">Ver cita</button>
+              <button type="button" style="flex:none;border:1px solid #c3cad8;border-radius:6px;background:#fff;color:#0d1626;font:800 12px Archivo,sans-serif;padding:9px 12px;cursor:pointer" style-hover="background:#eef1f6">Reprogramar</button>
+              <button type="button" style="flex:none;border:0;border-radius:6px;background:transparent;color:#b3261e;font:800 12px Archivo,sans-serif;padding:9px 6px;cursor:pointer" style-hover="background:#fbeceb">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+      <div style="padding:12px 14px;font:700 12px Archivo,sans-serif;color:#1546c6">Ver el historial completo</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #d1d6e0;background:#fff;padding:9px 0 13px">
+    <sc-for list="{{ tabsGrisCitas }}" as="t" hint-placeholder-count="4">
+      <div style="{{ t.style }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg>
+        <span style="font:700 10px Archivo,sans-serif;margin-top:4px">{{ t.label }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="6b"><div class="dv-olabel"><a class="dv-oid" href="#6b">6b</a>Mi Agenda — rejilla a línea, cifras al descubierto</div>
+<div class="dv-card" style="width:390px;background:#e6e8ed;color:#0d1626;font-family:Archivo,sans-serif;font-size:15px;line-height:1.5">
+  <div style="background:#0b2f87;color:#fff">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 16px;font:700 12px Archivo,sans-serif;color:rgba(255,255,255,.85)"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#fff;display:block"></span><span style="width:5px;height:9px;background:#fff;display:block"></span><span style="width:5px;height:9px;background:rgba(255,255,255,.45);display:block"></span></span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 16px 0">
+      <div style="width:40px;height:40px;flex:none;border-radius:8px;border:1px solid rgba(255,255,255,.5);background:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 6px,rgba(255,255,255,.12) 6px 12px);display:flex;align-items:flex-end;justify-content:center;font:600 7px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.9);padding-bottom:3px">DINO</div>
+      <div>
+        <div style="font:800 15px/1.1 Archivo,sans-serif">Peluquería Marisol</div>
+        <div style="font:400 11px Archivo,sans-serif;color:rgba(255,255,255,.75)">Proveedor · Alicante</div>
+      </div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+    </div>
+    <h1 style="font:800 30px/1 Archivo,sans-serif;letter-spacing:-.03em;margin:16px 16px 0">Mi Agenda</h1>
+    <div style="display:flex;margin-top:16px;border-top:1px solid rgba(255,255,255,.28)">
+      <div style="flex:1;padding:12px 16px;border-right:1px solid rgba(255,255,255,.28)">
+        <div style="font:700 10px Archivo,sans-serif;letter-spacing:.08em;color:rgba(255,255,255,.72)">INGRESOS DEL MES</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
+          <span style="font:800 22px/1 Archivo,sans-serif">{{ revenue }}</span>
+          <button type="button" onClick="{{ toggleRevenue }}" style="background:transparent;border:0;padding:0;cursor:pointer;color:rgba(255,255,255,.8);display:flex">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+      <div style="width:120px;flex:none;padding:12px 16px">
+        <div style="font:700 10px Archivo,sans-serif;letter-spacing:.08em;color:rgba(255,255,255,.72)">CITAS HOY</div>
+        <div style="font:800 22px/1 Archivo,sans-serif;margin-top:5px;color:#6ee89b">{{ todayCount }}</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:12px 12px 16px">
+    <div style="background:#fff;border:1px solid #d1d6e0;border-radius:8px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #d8dce5">
+        <button type="button" style="border:1px solid #c3cad8;border-radius:6px;background:#fff;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1546c6" style-hover="background:#eef1f6">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        <span style="font:800 14px Archivo,sans-serif">Septiembre 2026</span>
+        <button type="button" style="border:1px solid #c3cad8;border-radius:6px;background:#fff;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1546c6" style-hover="background:#eef1f6">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font:700 10px Archivo,sans-serif;color:#67718a;background:#f4f6fa;border-bottom:1px solid #d8dce5">
+        <div style="padding:7px 0">DOM</div><div style="padding:7px 0">LUN</div><div style="padding:7px 0">MAR</div><div style="padding:7px 0">MIÉ</div><div style="padding:7px 0">JUE</div><div style="padding:7px 0">VIE</div><div style="padding:7px 0">SÁB</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr)">
+        <sc-for list="{{ cellsGris }}" as="c" hint-placeholder-count="35">
+          <button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">
+            <span>{{ c.n }}</span>
+            <sc-if value="{{ c.dot }}" hint-placeholder-val="{{ false }}"><span style="{{ c.dotStyle }}"></span></sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:16px 2px 8px">
+      <span style="font:800 16px Archivo,sans-serif">{{ agendaTitle }}</span>
+      <span style="font:700 10px Archivo,sans-serif;color:#67718a;letter-spacing:.06em">{{ agendaCount }}</span>
+    </div>
+    <div style="background:#fff;border:1px solid #d1d6e0;border-radius:8px;overflow:hidden">
+      <sc-for list="{{ agendaGris }}" as="a" hint-placeholder-count="2">
+        <div style="display:flex;border-bottom:1px solid #e2e6ee">
+          <div style="width:66px;flex:none;border-right:1px solid #e2e6ee;background:#f4f6fa;padding:13px 0;text-align:center;font:800 14px Archivo,sans-serif;color:#1546c6">{{ a.t }}</div>
+          <div style="flex:1;min-width:0;padding:13px 14px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+              <div style="min-width:0">
+                <div style="font:800 15px/1.2 Archivo,sans-serif">{{ a.who }}</div>
+                <div style="font:400 13px Archivo,sans-serif;color:#5a6480;margin-top:2px">{{ a.service }}</div>
+              </div>
+              <span style="{{ a.tagStyle }}">{{ a.status }}</span>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button type="button" style="flex:none;border:0;border-radius:6px;background:#157f3c;color:#fff;font:800 12px Archivo,sans-serif;padding:9px 14px;cursor:pointer" style-hover="background:#0f6530">Confirmar</button>
+              <button type="button" style="flex:none;border:1px solid #c3cad8;border-radius:6px;background:#fff;color:#0d1626;font:800 12px Archivo,sans-serif;padding:9px 12px;cursor:pointer" style-hover="background:#eef1f6">Reprogramar</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ agendaEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:12px;align-items:center;padding:16px 14px">
+          <div style="width:64px;height:64px;flex:none;border:1px solid #d1d6e0;background:repeating-linear-gradient(45deg,#dfe3ea 0 7px,#f4f6fa 7px 14px);display:flex;align-items:flex-end;padding:4px;font:600 7px ui-monospace,Menlo,monospace;color:#67718a">DINO</div>
+          <div style="font:400 13px/1.5 Archivo,sans-serif;color:#5a6480"><span style="font-weight:800;color:#0d1626">No hay citas este día.</span><br>Dino descansa. Bloquéalo si no quieres reservas.</div>
+        </div>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid #e2e6ee">
+        <span style="font:700 10px Archivo,sans-serif;color:#67718a;letter-spacing:.06em">BLOQUEAR:</span>
+        <button type="button" style="border:1px solid #c3cad8;border-radius:6px;background:#fff;font:800 12px Archivo,sans-serif;padding:8px 12px;cursor:pointer" style-hover="background:#eef1f6">Hoy</button>
+        <button type="button" style="border:1px solid #c3cad8;border-radius:6px;background:#fff;font:800 12px Archivo,sans-serif;padding:8px 12px;cursor:pointer" style-hover="background:#eef1f6">Período</button>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #d1d6e0;background:#fff;padding:9px 0 13px">
+    <sc-for list="{{ tabsGrisPanel }}" as="t" hint-placeholder-count="4">
+      <div style="{{ t.style }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg>
+        <span style="font:700 10px Archivo,sans-serif;margin-top:4px">{{ t.label }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="6c"><div class="dv-olabel"><a class="dv-oid" href="#6c">6c</a>Buscar — mismo gris, botón sólido, radio 8</div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarPaleta" hint-size="390px,820px" bg="#e6e8ed" surface="#ffffff" ink="#0d1626" muted="#5a6480" line="#d1d6e0" accent="#1546c6" on-accent="#ffffff" accent2="#157f3c" radius="8" radius-sm="6" btn-radius="6" btn-solid="{{ true }}"></dc-import>
+</div></div>
+
+</div>
+<p class="dv-next">Prueba: «lleva el gris de <a class="dv-oid" href="#6a">6a</a> a la pantalla Buscar de <a class="dv-oid" href="#4b">4b</a>» · «sube el contraste del azul de cabecera» · «añade la ficha del proveedor con calendario y horarios en este estilo»</p>
+</section>
+
+<section class="dv-turn" id="t5">
+<div class="dv-thd"><a class="dv-tid" href="#t5">5</a><span class="dv-tname">Las otras vistas en azul profundo (<a class="dv-oid" href="#4b">4b</a>)</span></div>
+<p class="dv-tsub">Mismo patrón de <a class="dv-oid" href="#4b">4b</a> aplicado al resto: cabecera azul profundo con la marca y lo que define la pantalla dentro (pestañas en <a class="dv-oid" href="#5a">5a</a>, ingresos del mes en <a class="dv-oid" href="#5b">5b</a>), hoja de contenido encima con esquinas de 22px, verde para lo confirmado y barra de pestañas abajo. Las pestañas de <a class="dv-oid" href="#5a">5a</a> y los días de <a class="dv-oid" href="#5b">5b</a> responden al toque.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="5a"><div class="dv-olabel"><a class="dv-oid" href="#5a">5a</a>Citas — cliente y proveedor en una lista</div>
+<div class="dv-card" style="width:390px;background:#f2f6fd;color:#101a2e;font-family:Archivo,sans-serif;font-size:15px;line-height:1.5">
+  <div style="background:#0e3aa3;color:#fff;padding-bottom:30px">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 16px;font:700 12px Archivo,sans-serif;color:rgba(255,255,255,.85)"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#fff;border-radius:2px;display:block"></span><span style="width:5px;height:9px;background:#fff;border-radius:2px;display:block"></span><span style="width:5px;height:9px;background:rgba(255,255,255,.45);border-radius:2px;display:block"></span></span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 16px 0">
+      <div style="width:40px;height:40px;flex:none;border-radius:10px;border:1px solid rgba(255,255,255,.5);background:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 6px,rgba(255,255,255,.12) 6px 12px);display:flex;align-items:flex-end;justify-content:center;font:600 7px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.9);padding-bottom:3px">DINO</div>
+      <div style="font:800 17px/1 Archivo,sans-serif;letter-spacing:-.02em">ElCitaDino</div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+        <div style="position:relative;display:flex">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+          <span style="position:absolute;top:-4px;right:-5px;min-width:15px;height:15px;border-radius:999px;background:#1aa64b;color:#fff;font:800 9px/15px Archivo,sans-serif;text-align:center">2</span>
+        </div>
+      </div>
+    </div>
+    <h1 style="font:800 26px/1.15 Archivo,sans-serif;letter-spacing:-.02em;margin:18px 16px 4px">Citas</h1>
+    <p style="font:400 13px Archivo,sans-serif;color:rgba(255,255,255,.8);margin:0 16px 14px">Tus reservas y las de tus clientes, en un mismo sitio.</p>
+    <div style="display:flex;gap:8px;padding:0 16px">
+      <sc-for list="{{ citasTabsAzul }}" as="tab" hint-placeholder-count="2">
+        <button type="button" onClick="{{ tab.onClick }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="background:#f2f6fd;border-radius:22px 22px 0 0;margin-top:-22px;position:relative;padding:16px 16px 18px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ citasAzul }}" as="c" hint-placeholder-count="3">
+        <div style="background:#fff;border:1px solid #dbe4f3;border-radius:14px;padding:12px">
+          <div style="display:flex;gap:12px">
+            <div style="width:56px;flex:none;border-radius:10px;background:#e7eeff;color:#1653d9;padding:8px 0;text-align:center">
+              <div style="font:800 20px/1 Archivo,sans-serif">{{ c.d }}</div>
+              <div style="font:700 10px Archivo,sans-serif;margin-top:3px">{{ c.m }}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <div style="min-width:0;flex:1">
+                  <div style="font:800 15px/1.2 Archivo,sans-serif">{{ c.who }}</div>
+                  <div style="font:400 12px Archivo,sans-serif;color:#5b6b85;margin-top:2px">{{ c.service }}</div>
+                </div>
+                <span style="{{ c.tagStyle }}">{{ c.status }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px;margin-top:7px;font:700 12px Archivo,sans-serif;color:#1aa64b">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg>
+                <span>{{ c.t }}</span>
+              </div>
+            </div>
+          </div>
+          <sc-if value="{{ c.pay }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:10px;border-radius:10px;background:#fff6e6;color:#b45309;padding:9px 11px;font:400 12px/1.45 Archivo,sans-serif">
+              <span style="font-weight:800">Pago requerido · 5,00 €</span><br>Esperando el pago y la confirmación del proveedor.
+            </div>
+          </sc-if>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button type="button" style="flex:1;border:1px solid #dbe4f3;border-radius:999px;background:#fff;color:#101a2e;font:800 12px Archivo,sans-serif;padding:9px 10px;cursor:pointer" style-hover="background:#f2f6fd">Reprogramar</button>
+            <button type="button" style="flex:none;border:1px solid #f4c7c3;border-radius:999px;background:#fff;color:#c0342b;font:800 12px Archivo,sans-serif;padding:9px 14px;cursor:pointer" style-hover="background:#fdf0ef">Cancelar</button>
+            <button type="button" style="flex:none;border:0;border-radius:999px;background:#1653d9;color:#fff;font:800 12px Archivo,sans-serif;padding:9px 16px;cursor:pointer" style-hover="background:#0e3aa3">Ver</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #dbe4f3;background:#fff;padding:9px 0 13px">
+    <sc-for list="{{ tabsCitas }}" as="t" hint-placeholder-count="4">
+      <div style="{{ t.style }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg>
+        <span style="font:700 10px Archivo,sans-serif;margin-top:4px">{{ t.label }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="5b"><div class="dv-olabel"><a class="dv-oid" href="#5b">5b</a>Mi Agenda — panel del proveedor</div>
+<div class="dv-card" style="width:390px;background:#f2f6fd;color:#101a2e;font-family:Archivo,sans-serif;font-size:15px;line-height:1.5">
+  <div style="background:#0e3aa3;color:#fff;padding-bottom:30px">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 16px;font:700 12px Archivo,sans-serif;color:rgba(255,255,255,.85)"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#fff;border-radius:2px;display:block"></span><span style="width:5px;height:9px;background:#fff;border-radius:2px;display:block"></span><span style="width:5px;height:9px;background:rgba(255,255,255,.45);border-radius:2px;display:block"></span></span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 16px 0">
+      <div style="width:40px;height:40px;flex:none;border-radius:10px;border:1px solid rgba(255,255,255,.5);background:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 6px,rgba(255,255,255,.12) 6px 12px);display:flex;align-items:flex-end;justify-content:center;font:600 7px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.9);padding-bottom:3px">DINO</div>
+      <div>
+        <div style="font:800 15px/1.1 Archivo,sans-serif">Peluquería Marisol</div>
+        <div style="font:400 11px Archivo,sans-serif;color:rgba(255,255,255,.78)">Proveedor · Alicante</div>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+      </div>
+    </div>
+    <h1 style="font:800 26px/1.15 Archivo,sans-serif;letter-spacing:-.02em;margin:18px 16px 12px">Mi Agenda</h1>
+    <div style="display:flex;gap:10px;padding:0 16px">
+      <div style="flex:1;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:11px 13px">
+        <div style="font:700 10px Archivo,sans-serif;color:rgba(255,255,255,.8);letter-spacing:.04em">INGRESOS DEL MES</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
+          <span style="font:800 20px/1 Archivo,sans-serif">{{ revenue }}</span>
+          <button type="button" onClick="{{ toggleRevenue }}" style="background:transparent;border:0;padding:0;cursor:pointer;color:rgba(255,255,255,.85);display:flex">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+      <div style="flex:none;width:118px;border-radius:14px;background:#1aa64b;padding:11px 13px">
+        <div style="font:700 10px Archivo,sans-serif;color:rgba(255,255,255,.85);letter-spacing:.04em">CITAS HOY</div>
+        <div style="font:800 20px/1 Archivo,sans-serif;margin-top:5px">{{ todayCount }}</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#f2f6fd;border-radius:22px 22px 0 0;margin-top:-22px;position:relative;padding:16px 16px 18px">
+    <div style="background:#fff;border:1px solid #dbe4f3;border-radius:14px;padding:12px 10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0 6px 10px">
+        <button type="button" style="border:0;background:#f2f6fd;border-radius:999px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1653d9" style-hover="background:#e7eeff">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        <span style="font:800 14px Archivo,sans-serif">Septiembre 2026</span>
+        <button type="button" style="border:0;background:#f2f6fd;border-radius:999px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1653d9" style-hover="background:#e7eeff">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font:700 10px Archivo,sans-serif;color:#8a99b3;padding-bottom:4px">
+        <div>DOM</div><div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px">
+        <sc-for list="{{ cellsAzul }}" as="c" hint-placeholder-count="35">
+          <button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">
+            <span>{{ c.n }}</span>
+            <sc-if value="{{ c.dot }}" hint-placeholder-val="{{ false }}"><span style="{{ c.dotStyle }}"></span></sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:16px 0 10px">
+      <span style="font:800 16px Archivo,sans-serif">{{ agendaTitle }}</span>
+      <span style="font:700 11px Archivo,sans-serif;color:#5b6b85">{{ agendaCount }}</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ agendaAzul }}" as="a" hint-placeholder-count="2">
+        <div style="display:flex;gap:12px;background:#fff;border:1px solid #dbe4f3;border-radius:14px;padding:12px">
+          <div style="width:52px;flex:none;align-self:flex-start;border-radius:10px;background:#e7f4ec;color:#15803d;padding:8px 0;text-align:center;font:800 14px Archivo,sans-serif">{{ a.t }}</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:flex-start;gap:8px">
+              <div style="min-width:0;flex:1">
+                <div style="font:800 15px/1.2 Archivo,sans-serif">{{ a.who }}</div>
+                <div style="font:400 12px Archivo,sans-serif;color:#5b6b85;margin-top:2px">{{ a.service }}</div>
+              </div>
+              <span style="{{ a.tagStyle }}">{{ a.status }}</span>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button type="button" style="flex:1;border:1px solid #dbe4f3;border-radius:999px;background:#fff;font:800 12px Archivo,sans-serif;color:#101a2e;padding:8px 10px;cursor:pointer" style-hover="background:#f2f6fd">Reprogramar</button>
+              <button type="button" style="flex:none;border:0;border-radius:999px;background:#1aa64b;color:#fff;font:800 12px Archivo,sans-serif;padding:8px 14px;cursor:pointer" style-hover="background:#15803d">Confirmar</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ agendaEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #dbe4f3;border-radius:14px;padding:14px">
+        <div style="width:64px;height:64px;flex:none;border-radius:12px;background:repeating-linear-gradient(45deg,#dbe4f3 0 7px,#f2f6fd 7px 14px);display:flex;align-items:flex-end;padding:4px;font:600 7px ui-monospace,Menlo,monospace;color:#5b6b85">DINO</div>
+        <div style="font:400 13px/1.5 Archivo,sans-serif;color:#5b6b85"><span style="font-weight:800;color:#101a2e">No hay citas este día.</span><br>Dino descansa. Bloquéalo si no quieres reservas.</div>
+      </div>
+    </sc-if>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button type="button" style="flex:1;border:1px solid #dbe4f3;border-radius:999px;background:#fff;color:#101a2e;font:800 12px Archivo,sans-serif;padding:11px 14px;cursor:pointer" style-hover="background:#e7eeff">Bloquear hoy</button>
+      <button type="button" style="flex:1;border:1px solid #dbe4f3;border-radius:999px;background:#fff;color:#101a2e;font:800 12px Archivo,sans-serif;padding:11px 14px;cursor:pointer" style-hover="background:#e7eeff">Bloquear período</button>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #dbe4f3;background:#fff;padding:9px 0 13px">
+    <sc-for list="{{ tabsPanel }}" as="t" hint-placeholder-count="4">
+      <div style="{{ t.style }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg>
+        <span style="font:700 10px Archivo,sans-serif;margin-top:4px">{{ t.label }}</span>
+      </div>
+    </sc-for>
+  </div>
+</div></div>
+
+</div>
+<p class="dv-next">Prueba: «añade la ficha del proveedor con calendario y horarios en este estilo» · «en <a class="dv-oid" href="#5b">5b</a> cambia la rejilla del mes por la franja semanal de <a class="dv-oid" href="#2d">2d</a>» · «versión de escritorio del panel como en tu segunda captura»</p>
+</section>
+
+<section class="dv-turn" id="t4">
+<div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">Menos blanco — azul arriba, contenido abajo</span></div>
+<p class="dv-tsub">Partiendo de <a class="dv-oid" href="#3c">3c</a>: la cabecera pasa a ser un bloque azul lleno (marca, buscador y categorías dentro), y el listado sube sobre él como una hoja con esquinas de 22px. Tres grados de color, de menos a más: <a class="dv-oid" href="#4a">4a</a> banda, <a class="dv-oid" href="#4b">4b</a> azul profundo con titular grande, <a class="dv-oid" href="#4c">4c</a> además tiñe tarjetas alternas en azul y verde para quitar blanco del listado.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="4a"><div class="dv-olabel"><a class="dv-oid" href="#4a">4a</a>Banda azul + hoja blanca</div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarAzul" hint-size="390px,840px" mode="band"></dc-import>
+</div></div>
+
+<div class="dv-opt" id="4b"><div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>Azul profundo + titular grande</div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarAzul" hint-size="390px,840px" mode="hero"></dc-import>
+</div></div>
+
+<div class="dv-opt" id="4c"><div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>Banda azul + tarjetas teñidas</div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarAzul" hint-size="390px,840px" mode="tinted"></dc-import>
+</div></div>
+
+</div>
+<p class="dv-next">Prueba: «quédate con <a class="dv-oid" href="#4b">4b</a> y aplica esa cabecera a Mis citas y Mi Agenda» · «en <a class="dv-oid" href="#4c">4c</a> tiñe todas las tarjetas, no alternas» · «añade la ficha del proveedor con calendario y horarios»</p>
+</section>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Paletas + esquinas redondeadas</span></div>
+<p class="dv-tsub">La misma pantalla «Proveedores» en cuatro paletas de estilo marketplace, con tarjetas redondeadas, foto por proveedor, valoración, distancia y barra de pestañas inferior — el punto medio entre <a class="dv-oid" href="#t2">2</a> y tu referencia. La tipografía Archivo y la rejilla se mantienen en las cuatro; solo cambian color y radio. <a class="dv-oid" href="#3d">3d</a> es el punto medio literal: estructura Modernist con el rojo del sistema, ya redondeada.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a"><div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Turquesa mercado · radio 20<span style="display:inline-flex;gap:3px;margin-left:4px"><span style="width:12px;height:12px;background:#0fb8a3;border-radius:3px"></span><span style="width:12px;height:12px;background:#ff6b4a;border-radius:3px"></span><span style="width:12px;height:12px;background:#0d2b2a;border-radius:3px"></span><span style="width:12px;height:12px;background:#f2f6f5;border:1px solid rgba(0,0,0,.15);border-radius:3px"></span></span></div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarPaleta" hint-size="390px,820px" bg="#f2f6f5" surface="#ffffff" ink="#0d2b2a" muted="#5e7b79" line="#dde7e5" accent="#0fb8a3" on-accent="#ffffff" accent2="#ff6b4a" radius="20" radius-sm="14"></dc-import>
+</div></div>
+
+<div class="dv-opt" id="3b"><div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Violeta clasificados · radio 16<span style="display:inline-flex;gap:3px;margin-left:4px"><span style="width:12px;height:12px;background:#6a0fd4;border-radius:3px"></span><span style="width:12px;height:12px;background:#12c9b5;border-radius:3px"></span><span style="width:12px;height:12px;background:#1b1230;border-radius:3px"></span><span style="width:12px;height:12px;background:#f8f5ff;border:1px solid rgba(0,0,0,.15);border-radius:3px"></span></span></div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarPaleta" hint-size="390px,820px" bg="#f8f5ff" surface="#ffffff" ink="#1b1230" muted="#6a6280" line="#e6e0f2" accent="#6a0fd4" on-accent="#ffffff" accent2="#0f9e8e" radius="16" radius-sm="12"></dc-import>
+</div></div>
+
+<div class="dv-opt" id="3c"><div class="dv-olabel"><a class="dv-oid" href="#3c">3c</a>Azul + verde (tu referencia) · radio 14<span style="display:inline-flex;gap:3px;margin-left:4px"><span style="width:12px;height:12px;background:#1653d9;border-radius:3px"></span><span style="width:12px;height:12px;background:#1aa64b;border-radius:3px"></span><span style="width:12px;height:12px;background:#101a2e;border-radius:3px"></span><span style="width:12px;height:12px;background:#f2f6fd;border:1px solid rgba(0,0,0,.15);border-radius:3px"></span></span></div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarPaleta" hint-size="390px,820px" bg="#f2f6fd" surface="#ffffff" ink="#101a2e" muted="#5b6b85" line="#dbe4f3" accent="#1653d9" on-accent="#ffffff" accent2="#1aa64b" radius="14" radius-sm="10"></dc-import>
+</div></div>
+
+<div class="dv-opt" id="3d"><div class="dv-olabel"><a class="dv-oid" href="#3d">3d</a>Modernist redondeado (punto medio) · radio 12<span style="display:inline-flex;gap:3px;margin-left:4px"><span style="width:12px;height:12px;background:#ec3013;border-radius:3px"></span><span style="width:12px;height:12px;background:#1f7a4d;border-radius:3px"></span><span style="width:12px;height:12px;background:#201e1d;border-radius:3px"></span><span style="width:12px;height:12px;background:#f3f2f2;border:1px solid rgba(0,0,0,.15);border-radius:3px"></span></span></div>
+<div class="dv-card" style="width:390px">
+<dc-import name="BuscarPaleta" hint-size="390px,820px" bg="#f3f2f2" surface="#ffffff" ink="#201e1d" muted="#605d5d" line="#d7d3d3" accent="#ec3013" on-accent="#f3f2f2" accent2="#1f7a4d" radius="12" radius-sm="8"></dc-import>
+</div></div>
+
+</div>
+<p class="dv-next">Prueba: «quédate con <a class="dv-oid" href="#3c">3c</a> y aplícala a la agenda <a class="dv-oid" href="#2d">2d</a>» · «<a class="dv-oid" href="#3a">3a</a> con la cabecera azul de la referencia» · «añade la ficha del proveedor con calendario y horarios»</p>
+</section>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">ElCitaDino nuevo — sistema Modernist</span></div>
+<p class="dv-tsub">Mismas tres pantallas, reconstruidas sobre el sistema Modernist: Archivo, rojo #ec3013 sobre fondo #f3f2f2, esquinas a 0, reglas de 2px y rejilla visible. Cada pantalla ahorra un salto: en <a class="dv-oid" href="#2a">2a</a> se reserva el próximo hueco desde la lista, en <a class="dv-oid" href="#2b">2b</a> las acciones viven en la fila, y <a class="dv-oid" href="#2c">2c</a>/<a class="dv-oid" href="#2d">2d</a> son dos lecturas distintas de la agenda. Los huecos rayados marcan dónde va la mascota — los rellenas con tu arte.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Buscar — reserva en un toque</div>
+<div class="dv-card" style="width:390px;background:#f3f2f2;color:#201e1d;font-family:Archivo,sans-serif">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font:600 12px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);border-bottom:1px solid rgba(32,30,29,.15)"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#201e1d;display:block"></span><span style="width:5px;height:9px;background:#201e1d;display:block"></span><span style="width:5px;height:9px;background:rgba(32,30,29,.3);display:block"></span></span></div>
+  <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:2px solid rgba(32,30,29,.4)">
+    <div style="width:40px;height:40px;flex:none;border:1px solid rgba(32,30,29,.4);background:repeating-linear-gradient(45deg,#eae9e9 0 6px,#f3f2f2 6px 12px);display:flex;align-items:flex-end;justify-content:center;font:600 7px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);padding-bottom:2px">DINO</div>
+    <div style="font:800 20px/1 Archivo,sans-serif;letter-spacing:-.02em">EL<span style="color:#ec3013">CITA</span>DINO</div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#201e1d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+      <span style="font:600 11px ui-monospace,Menlo,monospace;border:1px solid rgba(32,30,29,.4);padding:2px 5px">ES</span>
+    </div>
+  </div>
+  <div style="display:flex;border-bottom:2px solid rgba(32,30,29,.4)">
+    <div style="flex:1;display:flex;align-items:center;gap:8px;padding:14px 16px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <span style="font:400 15px Archivo,sans-serif;color:rgba(32,30,29,.5)">¿Qué servicio necesitas?</span>
+    </div>
+    <button type="button" style="width:52px;border:0;border-left:2px solid rgba(32,30,29,.4);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:rgba(32,30,29,.07)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#201e1d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+    </button>
+  </div>
+  <div style="display:flex;overflow:hidden;border-bottom:2px solid rgba(32,30,29,.4);font:600 12px Archivo,sans-serif">
+    <span style="padding:9px 13px;background:#ec3013;color:#f3f2f2">Todos</span>
+    <span style="padding:9px 13px;border-left:1px solid rgba(32,30,29,.25)">Belleza</span>
+    <span style="padding:9px 13px;border-left:1px solid rgba(32,30,29,.25)">Bienestar</span>
+    <span style="padding:9px 13px;border-left:1px solid rgba(32,30,29,.25)">Fitness</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:2px solid rgba(32,30,29,.4);font:600 12px Archivo,sans-serif">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec3013" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+    <span>Cerca de ti · Alicante</span>
+    <span style="margin-left:auto;font:600 11px ui-monospace,Menlo,monospace;color:#ec3013">VER MAPA</span>
+  </div>
+  <sc-for list="{{ providers }}" as="p" hint-placeholder-count="4">
+    <div style="display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(32,30,29,.2)">
+      <div style="width:56px;height:56px;flex:none;border:1px solid rgba(32,30,29,.4);background:repeating-linear-gradient(45deg,#eae9e9 0 6px,#f3f2f2 6px 12px);display:flex;align-items:flex-end;padding:3px;font:600 7px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.5)">FOTO</div>
+      <div style="min-width:0;flex:1">
+        <div style="font:800 15px/1.2 Archivo,sans-serif;letter-spacing:-.01em">{{ p.name }}</div>
+        <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);margin-top:3px;letter-spacing:.04em">{{ p.meta }}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
+          <span style="font:800 12px Archivo,sans-serif;color:#ae1800">{{ p.next }}</span>
+          <span style="font:400 11px Archivo,sans-serif;color:rgba(32,30,29,.55)">{{ p.service }}</span>
+        </div>
+      </div>
+      <button type="button" style="align-self:flex-end;flex:none;background:#ec3013;color:#f3f2f2;border:0;font:800 12px Archivo,sans-serif;padding:8px 12px;cursor:pointer" style-hover="background:#dd2b0f">Reservar</button>
+    </div>
+  </sc-for>
+  <div style="padding:14px 16px;font:400 12px/1.5 Archivo,sans-serif;color:rgba(32,30,29,.55)">Precios transparentes · Confirmación rápida · Cancelación fácil</div>
+</div></div>
+
+<div class="dv-opt" id="2b"><div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Citas — fecha como columna, acciones en la fila</div>
+<div class="dv-card" style="width:390px;background:#f3f2f2;color:#201e1d;font-family:Archivo,sans-serif">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font:600 12px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);border-bottom:1px solid rgba(32,30,29,.15)"><span>9:41</span><span style="letter-spacing:.1em">ELCITADINO</span></div>
+  <div style="padding:18px 16px 14px;border-bottom:2px solid rgba(32,30,29,.4)">
+    <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);letter-spacing:.08em">SEPTIEMBRE 2026</div>
+    <h1 style="font:800 34px/1 Archivo,sans-serif;letter-spacing:-.03em;margin:6px 0 0">Citas</h1>
+  </div>
+  <div style="display:flex;border-bottom:2px solid rgba(32,30,29,.4);font:800 12px Archivo,sans-serif">
+    <sc-for list="{{ citasTabs }}" as="tab" hint-placeholder-count="2">
+      <button type="button" onClick="{{ tab.onClick }}" style="{{ tab.style }}">{{ tab.label }}</button>
+    </sc-for>
+  </div>
+  <sc-for list="{{ citas }}" as="c" hint-placeholder-count="3">
+    <div style="display:flex;border-bottom:1px solid rgba(32,30,29,.2)">
+      <div style="width:64px;flex:none;border-right:1px solid rgba(32,30,29,.2);padding:14px 0 14px 16px">
+        <div style="font:800 22px/1 Archivo,sans-serif">{{ c.d }}</div>
+        <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);margin-top:2px">{{ c.m }}</div>
+        <div style="font:800 12px Archivo,sans-serif;margin-top:8px;color:#ae1800">{{ c.t }}</div>
+      </div>
+      <div style="flex:1;min-width:0;padding:14px 16px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+          <div style="min-width:0">
+            <div style="font:800 15px/1.2 Archivo,sans-serif">{{ c.who }}</div>
+            <div style="font:400 13px Archivo,sans-serif;color:rgba(32,30,29,.6);margin-top:2px">{{ c.service }}</div>
+          </div>
+          <span style="{{ c.tagStyle }}">{{ c.status }}</span>
+        </div>
+        <sc-if value="{{ c.pay }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:10px;border-left:2px solid #ec3013;background:#fff2ef;padding:8px 10px;font:400 12px/1.45 Archivo,sans-serif">
+            <span style="font-weight:800">Pago requerido · 5,00 €</span><br>Esperando el pago y la confirmación del proveedor.
+          </div>
+        </sc-if>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button type="button" style="flex:1;background:transparent;border:1px solid rgba(32,30,29,.4);font:800 12px Archivo,sans-serif;padding:8px 10px;cursor:pointer;text-align:left" style-hover="background:rgba(32,30,29,.07)">Reprogramar</button>
+          <button type="button" style="flex:1;background:transparent;border:1px solid rgba(32,30,29,.4);color:#ae1800;font:800 12px Archivo,sans-serif;padding:8px 10px;cursor:pointer;text-align:left" style-hover="background:#fff2ef">Cancelar</button>
+          <button type="button" style="flex:none;background:#201e1d;color:#f3f2f2;border:0;font:800 12px Archivo,sans-serif;padding:8px 12px;cursor:pointer" style-hover="background:#444141">Ver</button>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+  <sc-if value="{{ citasEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:30px 16px;display:flex;gap:14px;align-items:center;border-bottom:2px solid rgba(32,30,29,.4)">
+      <div style="width:88px;height:88px;flex:none;border:1px solid rgba(32,30,29,.4);background:repeating-linear-gradient(45deg,#eae9e9 0 6px,#f3f2f2 6px 12px);display:flex;align-items:flex-end;padding:4px;font:600 8px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.5)">DINO · VACÍO</div>
+      <div>
+        <div style="font:800 17px/1.2 Archivo,sans-serif">Nada por aquí atrás.</div>
+        <div style="font:400 13px/1.5 Archivo,sans-serif;color:rgba(32,30,29,.6);margin-top:4px">Dino no guarda citas pasadas en esta vista todavía.</div>
+      </div>
+    </div>
+  </sc-if>
+</div></div>
+
+<div class="dv-opt" id="2c"><div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Mi Agenda — rejilla del mes (toca un día)</div>
+<div class="dv-card" style="width:390px;background:#f3f2f2;color:#201e1d;font-family:Archivo,sans-serif">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font:600 12px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);border-bottom:1px solid rgba(32,30,29,.15)"><span>9:41</span><span style="letter-spacing:.1em">PANEL</span></div>
+  <div style="display:flex;border-bottom:2px solid rgba(32,30,29,.4)">
+    <div style="flex:1;padding:16px">
+      <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);letter-spacing:.08em">MI AGENDA</div>
+      <h1 style="font:800 30px/1 Archivo,sans-serif;letter-spacing:-.03em;margin:6px 0 0">Septiembre</h1>
+    </div>
+    <div style="width:150px;flex:none;border-left:1px solid rgba(32,30,29,.2);padding:16px">
+      <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);letter-spacing:.06em">INGRESOS DEL MES</div>
+      <div style="display:flex;align-items:baseline;gap:6px;margin-top:6px">
+        <span style="font:800 22px/1 Archivo,sans-serif">{{ revenue }}</span>
+        <button type="button" onClick="{{ toggleRevenue }}" style="background:transparent;border:0;padding:0;cursor:pointer;color:#ec3013">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid rgba(32,30,29,.2);font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);text-align:center">
+    <div style="padding:7px 0">dom</div><div style="padding:7px 0">lun</div><div style="padding:7px 0">mar</div><div style="padding:7px 0">mié</div><div style="padding:7px 0">jue</div><div style="padding:7px 0">vie</div><div style="padding:7px 0">sáb</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:2px solid rgba(32,30,29,.4)">
+    <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
+      <button type="button" onClick="{{ c.onClick }}" style="{{ c.style }}">
+        <span>{{ c.n }}</span>
+        <sc-if value="{{ c.dot }}" hint-placeholder-val="{{ false }}"><span style="{{ c.dotStyle }}"></span></sc-if>
+      </button>
+    </sc-for>
+  </div>
+  <div style="padding:14px 16px 10px">
+    <div style="font:800 16px/1.2 Archivo,sans-serif">{{ agendaTitle }}</div>
+    <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);margin-top:4px;letter-spacing:.06em">{{ agendaCount }}</div>
+  </div>
+  <sc-for list="{{ agenda }}" as="a" hint-placeholder-count="2">
+    <div style="display:flex;gap:14px;padding:12px 16px;border-top:1px solid rgba(32,30,29,.2)">
+      <div style="width:52px;flex:none;font:800 14px Archivo,sans-serif;color:#ae1800">{{ a.t }}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font:800 14px/1.2 Archivo,sans-serif">{{ a.who }}</div>
+        <div style="font:400 12px Archivo,sans-serif;color:rgba(32,30,29,.6);margin-top:2px">{{ a.service }}</div>
+      </div>
+      <span style="{{ a.tagStyle }}">{{ a.status }}</span>
+    </div>
+  </sc-for>
+  <sc-if value="{{ agendaEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;gap:12px;align-items:center;padding:18px 16px;border-top:1px solid rgba(32,30,29,.2)">
+      <div style="width:64px;height:64px;flex:none;border:1px solid rgba(32,30,29,.4);background:repeating-linear-gradient(45deg,#eae9e9 0 6px,#f3f2f2 6px 12px);display:flex;align-items:flex-end;padding:3px;font:600 7px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.5)">DINO</div>
+      <div style="font:400 13px/1.5 Archivo,sans-serif;color:rgba(32,30,29,.6)"><span style="font-weight:800;color:#201e1d">No hay citas este día.</span><br>Dino descansa. Bloquéalo si no quieres reservas.</div>
+    </div>
+  </sc-if>
+  <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:2px solid rgba(32,30,29,.4);font:800 12px Archivo,sans-serif">
+    <span style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55)">BLOQUEAR CITAS:</span>
+    <button type="button" style="background:transparent;border:1px solid rgba(32,30,29,.4);font:inherit;padding:6px 10px;cursor:pointer" style-hover="background:rgba(32,30,29,.07)">Hoy</button>
+    <button type="button" style="background:transparent;border:1px solid rgba(32,30,29,.4);font:inherit;padding:6px 10px;cursor:pointer" style-hover="background:rgba(32,30,29,.07)">Período</button>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="2d"><div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Mi Agenda — franja semanal + línea de tiempo</div>
+<div class="dv-card" style="width:390px;background:#f3f2f2;color:#201e1d;font-family:Archivo,sans-serif">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font:600 12px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);border-bottom:1px solid rgba(32,30,29,.15)"><span>9:41</span><span style="letter-spacing:.1em">PANEL</span></div>
+  <div style="padding:16px;border-bottom:2px solid rgba(32,30,29,.4);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+    <div>
+      <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55);letter-spacing:.08em">SEMANA 13–19 SEP</div>
+      <h1 style="font:800 30px/1 Archivo,sans-serif;letter-spacing:-.03em;margin:6px 0 0">Mi Agenda</h1>
+    </div>
+    <div style="text-align:left">
+      <div style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.55)">INGRESOS</div>
+      <div style="font:800 20px/1 Archivo,sans-serif;color:#ec3013;margin-top:4px">{{ revenue }}</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:2px solid rgba(32,30,29,.4)">
+    <sc-for list="{{ week }}" as="w" hint-placeholder-count="7">
+      <button type="button" onClick="{{ w.onClick }}" style="{{ w.style }}">
+        <span style="font:600 10px ui-monospace,Menlo,monospace;opacity:.65">{{ w.dow }}</span>
+        <span style="font:800 17px/1 Archivo,sans-serif;margin-top:4px">{{ w.n }}</span>
+        <span style="{{ w.barStyle }}"></span>
+      </button>
+    </sc-for>
+  </div>
+  <div style="position:relative;height:576px;overflow:hidden">
+    <sc-for list="{{ hours }}" as="h" hint-placeholder-count="7">
+      <div style="{{ h.style }}"><span style="font:600 10px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.45);padding-left:16px">{{ h.label }}</span></div>
+    </sc-for>
+    <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="2">
+      <div style="{{ b.style }}">
+        <div style="font:800 13px/1.2 Archivo,sans-serif">{{ b.who }}</div>
+        <div style="font:400 11px/1.3 Archivo,sans-serif;opacity:.75;margin-top:2px">{{ b.service }}</div>
+        <div style="font:600 10px ui-monospace,Menlo,monospace;margin-top:auto;opacity:.8">{{ b.range }}</div>
+      </div>
+    </sc-for>
+    <sc-if value="{{ agendaEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:64px;right:16px;top:230px;border:1px solid rgba(32,30,29,.4);background:#f3f2f2;padding:12px;display:flex;gap:12px;align-items:center">
+        <div style="width:56px;height:56px;flex:none;border:1px solid rgba(32,30,29,.4);background:repeating-linear-gradient(45deg,#eae9e9 0 6px,#f3f2f2 6px 12px);display:flex;align-items:flex-end;padding:3px;font:600 7px ui-monospace,Menlo,monospace;color:rgba(32,30,29,.5)">DINO</div>
+        <div style="font:400 12px/1.45 Archivo,sans-serif;color:rgba(32,30,29,.6)"><span style="font-weight:800;color:#201e1d">Día libre.</span><br>Sin citas. Dino vigila el reloj igual.</div>
+      </div>
+    </sc-if>
+  </div>
+  <div style="display:flex;border-top:2px solid rgba(32,30,29,.4)">
+    <button type="button" style="flex:1;background:transparent;border:0;border-right:1px solid rgba(32,30,29,.2);font:800 12px Archivo,sans-serif;padding:12px 16px;text-align:left;cursor:pointer" style-hover="background:rgba(32,30,29,.07)">Bloquear el día</button>
+    <button type="button" style="flex:1;background:#ec3013;color:#f3f2f2;border:0;font:800 12px Archivo,sans-serif;padding:12px 16px;text-align:left;cursor:pointer" style-hover="background:#dd2b0f">Nueva cita</button>
+  </div>
+</div></div>
+
+</div>
+<p class="dv-next">Prueba: «quédate con <a class="dv-oid" href="#2d">2d</a> y aplica su franja semanal a <a class="dv-oid" href="#2c">2c</a>» · «<a class="dv-oid" href="#2a">2a</a> pero con el rojo como campo en la cabecera» · «añade la pantalla de reserva (servicio + horarios)»</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Hoy — recreación del UI actual</span></div>
+<p class="dv-tsub">Las tres pantallas tal y como están hoy en el repo (Rails + Tailwind por defecto): navbar con dos filas de enlaces, tarjetas <code>rounded-2xl</code> con borde gris, azul <code>blue-600</code> como color de acción, avatares por categoría. Sirven de línea base para comparar con <a class="dv-oid" href="#t2">2</a>.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>providers#index — «Proveedores»</div>
+<div class="dv-card" style="width:390px;background:#fff;color:#111827;font-family:ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.5">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px;font-size:13px;font-weight:600;color:#6b7280"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#111827;display:block;border-radius:1px"></span><span style="width:5px;height:9px;background:#111827;display:block;border-radius:1px"></span><span style="width:5px;height:9px;background:#d1d5db;display:block;border-radius:1px"></span></span></div>
+  <div style="border-bottom:1px solid #e5e7eb;padding:16px 20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <span style="font-weight:700;font-size:20px">ElCitaDino</span>
+      <span style="display:flex;align-items:center;gap:4px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px"><rect width="20" height="14" fill="#AA151B"></rect><rect y="3.5" width="20" height="7" fill="#F1BF00"></rect></svg>
+      </span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:16px;font-size:14px;font-weight:500;margin-top:12px">
+      <span>Buscar</span><span>Citas</span><span>Mi cuenta</span><span>Salir</span>
+    </div>
+  </div>
+  <div style="padding:40px 20px 40px">
+    <h1 style="font-weight:700;font-size:24px;line-height:32px;margin:0 0 16px">Proveedores</h1>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:none;border:1px solid #d1d5db;border-radius:9999px;padding:12px;display:flex">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+      </div>
+      <div style="flex:1;position:relative;display:flex;align-items:center;border:1px solid #d1d5db;border-radius:9999px;box-shadow:0 1px 2px 0 rgba(0,0,0,.05);padding:12px 40px 12px 44px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:16px"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <span style="color:#9ca3af">¿Qué servicio necesitas?</span>
+      </div>
+    </div>
+    <div style="border:1px solid #e5e7eb;border-radius:16px;margin-top:16px;padding:16px;display:flex;align-items:center;gap:8px;font-weight:500">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      Buscar por ubicación
+    </div>
+    <div style="display:grid;gap:16px;margin-top:24px">
+      <div style="display:flex;align-items:center;gap:16px;border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="width:56px;height:56px;flex:none;border-radius:9999px;background:#fce7f3;color:#db2777;display:flex;align-items:center;justify-content:center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3.5 12 6l2.5-2.5M7 9l10 10M17 9 7 19M9 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm12 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"></path></svg>
+        </div>
+        <div style="min-width:0">
+          <h2 style="font-weight:700;font-size:16px;margin:0">Peluquería Marisol</h2>
+          <p style="font-size:14px;color:#6b7280;margin:0">Belleza · Alicante</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="width:56px;height:56px;flex:none;border-radius:9999px;background:#d1fae5;color:#059669;display:flex;align-items:center;justify-content:center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.9 9.3 2.2 6 5.3 6c1.9 0 3.2 1 3.7 2 .5-1 1.8-2 3.7-2 1.9 0 3.2 1 3.7 2 .5-1 1.8-2 3.7-2 3.1 0 4.4 3.3 2.8 6.5C19 16.65 12 21 12 21Z"></path></svg>
+        </div>
+        <div style="min-width:0">
+          <h2 style="font-weight:700;font-size:16px;margin:0">Centro Zen Alicante</h2>
+          <p style="font-size:14px;color:#6b7280;margin:0">Bienestar · Alicante</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="width:56px;height:56px;flex:none;border-radius:9999px;background:#ffedd5;color:#ea580c;display:flex;align-items:center;justify-content:center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M2 9.5v5M22 9.5v5M6.5 12h11"></path></svg>
+        </div>
+        <div style="min-width:0">
+          <h2 style="font-weight:700;font-size:16px;margin:0">Box Cronos</h2>
+          <p style="font-size:14px;color:#6b7280;margin:0">Fitness · Elche</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="width:56px;height:56px;flex:none;border-radius:9999px;background:#e0e7ff;color:#4f46e5;display:flex;align-items:center;justify-content:center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 9l10 5 10-5-10-5ZM6 11.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"></path></svg>
+        </div>
+        <div style="min-width:0">
+          <h2 style="font-weight:700;font-size:16px;margin:0">Academia Sáez</h2>
+          <p style="font-size:14px;color:#6b7280;margin:0">Educación · Alicante</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb;padding:24px 0;text-align:center;font-size:12px;color:#9ca3af">Creado con orgullo por The IT Works - Todos los derechos reservados 2026</div>
+</div></div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>appointments#index — «Citas»</div>
+<div class="dv-card" style="width:390px;background:#fff;color:#111827;font-family:ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.5">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px;font-size:13px;font-weight:600;color:#6b7280"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#111827;display:block;border-radius:1px"></span><span style="width:5px;height:9px;background:#111827;display:block;border-radius:1px"></span><span style="width:5px;height:9px;background:#d1d5db;display:block;border-radius:1px"></span></span></div>
+  <div style="border-bottom:1px solid #e5e7eb;padding:16px 20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <span style="font-weight:700;font-size:20px">ElCitaDino</span>
+      <span style="display:flex;align-items:center;gap:4px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px"><rect width="20" height="14" fill="#AA151B"></rect><rect y="3.5" width="20" height="7" fill="#F1BF00"></rect></svg>
+      </span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:16px;font-size:14px;font-weight:500;margin-top:12px">
+      <span>Panel</span><span>Citas</span><span>Mi cuenta</span><span>Salir</span>
+    </div>
+  </div>
+  <div style="padding:40px 20px 40px">
+    <h1 style="font-weight:700;font-size:36px;line-height:40px;margin:0 0 24px">Citas</h1>
+    <h2 style="font-weight:700;font-size:20px;line-height:28px;margin:0 0 16px">Mis citas</h2>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:40px">
+      <div style="border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">
+          <p style="font-weight:500;margin:0">Centro Zen Alicante</p>
+          <span style="flex:none;font-size:12px;font-weight:500;padding:2px 8px;border-radius:9999px;background:#eff6ff;color:#1d4ed8">Confirmada</span>
+        </div>
+        <p style="font-size:14px;color:#6b7280;margin:0 0 12px">Masaje descontracturante · 16 sept 2026 18:30</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+          <span style="border-radius:9999px;padding:8px;background:#dc2626;color:#fff;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+          <span style="border-radius:9999px;padding:8px;background:#f3f4f6;color:#374151;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg></span>
+        </div>
+      </div>
+      <span style="align-self:stretch;text-align:center;border-radius:6px;padding:10px 14px;background:#f3f4f6;font-weight:500;font-size:14px">Ver</span>
+    </div>
+    <h2 style="font-weight:700;font-size:20px;line-height:28px;margin:0 0 16px">Citas de mis clientes</h2>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">
+          <p style="font-weight:500;margin:0">Nuria Sáez</p>
+          <span style="flex:none;font-size:12px;font-weight:500;padding:2px 8px;border-radius:9999px;background:#fefce8;color:#a16207">Pendiente</span>
+        </div>
+        <p style="font-size:14px;color:#6b7280;margin:0 0 12px">Manicura · 13 sept 2026 12:00</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+          <span style="border-radius:9999px;padding:8px;background:#dc2626;color:#fff;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+          <span style="border-radius:9999px;padding:8px;background:#f3f4f6;color:#374151;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg></span>
+          <span style="border-radius:9999px;padding:8px 14px 8px 10px;background:#2563eb;color:#fff;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8a2 2 0 0 1-1.92 1.44H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path></svg>Confirmar</span>
+          <span style="border-radius:9999px;padding:8px 14px 8px 10px;background:#16a34a;color:#fff;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Completar</span>
+        </div>
+      </div>
+      <span style="align-self:stretch;text-align:center;border-radius:6px;padding:10px 14px;background:#f3f4f6;font-weight:500;font-size:14px">Ver</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb;padding:24px 0;text-align:center;font-size:12px;color:#9ca3af">Creado con orgullo por The IT Works - Todos los derechos reservados 2026</div>
+</div></div>
+
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>dashboard#show — «Mi Agenda»</div>
+<div class="dv-card" style="width:390px;background:#fff;color:#111827;font-family:ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.5">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px;font-size:13px;font-weight:600;color:#6b7280"><span>9:41</span><span style="display:flex;gap:3px"><span style="width:5px;height:9px;background:#111827;display:block;border-radius:1px"></span><span style="width:5px;height:9px;background:#111827;display:block;border-radius:1px"></span><span style="width:5px;height:9px;background:#d1d5db;display:block;border-radius:1px"></span></span></div>
+  <div style="border-bottom:1px solid #e5e7eb;padding:16px 20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <span style="font-weight:700;font-size:20px">ElCitaDino</span>
+      <span style="display:flex;align-items:center;gap:4px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <svg width="20" height="14" viewBox="0 0 20 14" style="border-radius:2px"><rect width="20" height="14" fill="#AA151B"></rect><rect y="3.5" width="20" height="7" fill="#F1BF00"></rect></svg>
+      </span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:16px;font-size:14px;font-weight:500;margin-top:12px">
+      <span>Panel</span><span>Citas</span><span>Mi cuenta</span><span>Salir</span>
+    </div>
+  </div>
+  <div style="padding:40px 20px 40px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <h1 style="font-weight:700;font-size:30px;line-height:36px;margin:0">Mi Agenda</h1>
+      <div style="text-align:right">
+        <p style="font-size:12px;color:#6b7280;margin:0">Ingresos del mes</p>
+        <div style="display:flex;align-items:center;gap:6px;justify-content:flex-end">
+          <p style="font-weight:700;font-size:18px;margin:0">••••••</p>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid #e5e7eb;border-radius:16px;padding:16px;margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        <p style="font-weight:500;margin:0">septiembre 2026</p>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;color:#9ca3af;margin-bottom:4px">
+        <div>dom</div><div>lun</div><div>mar</div><div>mié</div><div>jue</div><div>vie</div><div>sáb</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:4px;text-align:center;font-size:14px">
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#d1d5db">30</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#d1d5db">31</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">1</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">2</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">3</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">4</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">5</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">6</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">7</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">8</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">9</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">10</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">11</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">12</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:#2563eb;color:#fff;font-weight:700;position:relative">13<span style="position:absolute;bottom:2px;width:4px;height:4px;border-radius:9999px;background:#fff"></span></span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px;position:relative">14<span style="position:absolute;bottom:2px;width:4px;height:4px;border-radius:9999px;background:#2563eb"></span></span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">15</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px;position:relative">16<span style="position:absolute;bottom:2px;width:4px;height:4px;border-radius:9999px;background:#2563eb"></span></span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">17</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">18</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px;color:#9ca3af;text-decoration:line-through">19</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">20</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">21</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px;position:relative">22<span style="position:absolute;bottom:2px;width:4px;height:4px;border-radius:9999px;background:#2563eb"></span></span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">23</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">24</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">25</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">26</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">27</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">28</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">29</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9999px">30</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#d1d5db">1</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#d1d5db">2</span>
+        <span style="margin:0 auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#d1d5db">3</span>
+      </div>
+    </div>
+    <h2 style="font-weight:700;font-size:18px;line-height:28px;margin:0 0 12px">domingo, 13 de septiembre de 2026</h2>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
+      <div style="border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">
+          <p style="font-weight:500;margin:0">Nuria Sáez</p>
+          <span style="flex:none;font-size:12px;font-weight:500;padding:2px 8px;border-radius:9999px;background:#fefce8;color:#a16207">Pendiente</span>
+        </div>
+        <p style="font-size:14px;color:#6b7280;margin:0 0 12px">Manicura · 13 sept 2026 12:00</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+          <span style="border-radius:9999px;padding:8px;background:#dc2626;color:#fff;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+          <span style="border-radius:9999px;padding:8px;background:#f3f4f6;color:#374151;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg></span>
+          <span style="border-radius:9999px;padding:8px 14px 8px 10px;background:#2563eb;color:#fff;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500">Confirmar</span>
+          <span style="border-radius:9999px;padding:8px 14px 8px 10px;background:#16a34a;color:#fff;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500">Completar</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;font-size:14px;margin-top:12px">
+      <span style="color:#6b7280">Bloquear citas:</span>
+      <span style="color:#2563eb;font-weight:500">Hoy</span>
+      <span style="color:#d1d5db">|</span>
+      <span style="color:#2563eb;font-weight:500">Período</span>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;padding:10px 16px;background:#f3f4f6;font-weight:500;font-size:14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Editar mi perfil y servicios</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb;padding:24px 0;text-align:center;font-size:12px;color:#9ca3af">Creado con orgullo por The IT Works - Todos los derechos reservados 2026</div>
+</div></div>
+
+</div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1720,&quot;height&quot;:1200}}">
+const TAG = {
+  Pendiente: "background:#fff2ef;color:#ae1800;border:1px solid #ec3013",
+  Confirmada: "background:#201e1d;color:#f3f2f2",
+  Completada: "background:transparent;color:#201e1d;border:1px solid rgba(32,30,29,.4)",
+  Cancelada: "background:rgba(32,30,29,.1);color:rgba(32,30,29,.6)"
+};
+const tagStyle = s => "flex:none;padding:3px 7px;font:800 10px ui-monospace,Menlo,monospace;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;" + TAG[s];
+const TAG_AZUL = {
+  Pendiente: "background:#fff6e6;color:#b45309",
+  Confirmada: "background:#e7eeff;color:#1653d9",
+  Completada: "background:#e7f4ec;color:#15803d",
+  Cancelada: "background:#eef1f6;color:#5b6b85"
+};
+const tagAzul = s => "flex:none;padding:4px 9px;border-radius:999px;font:800 10px Archivo,sans-serif;letter-spacing:.02em;white-space:nowrap;" + TAG_AZUL[s];
+const PANEL_TABS = [
+  { label: "Agenda", icon: "M7 3v3M17 3v3M4 8h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z" },
+  { label: "Citas", icon: "M12 7.5V12l3.5 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" },
+  { label: "Clientes", icon: "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 10a8 8 0 0 0-16 0" },
+  { label: "Perfil", icon: "M4 6h16M4 12h16M4 18h16" }
+];
+const tabStyle = (t, on) => ({
+  label: t.label, icon: t.icon,
+  style: "display:flex;flex-direction:column;align-items:center;color:" + (on ? "#1653d9" : "#5b6b85")
+});
+const tagGris = s => "flex:none;padding:4px 8px;border-radius:4px;font:800 10px Archivo,sans-serif;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;" + TAG_AZUL[s];
+const tabGris = (t, on) => ({
+  label: t.label, icon: t.icon,
+  style: "display:flex;flex-direction:column;align-items:center;color:" + (on ? "#1546c6" : "#67718a")
+});
+const DAY_NAMES = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+const DOW = ["D","L","M","X","J","V","S"];
+
+const APPTS = {
+  13: [{ t: "12:00", d: 45, who: "Nuria Sáez", service: "Manicura", status: "Pendiente" }],
+  14: [
+    { t: "10:00", d: 60, who: "Marisol Ferrer", service: "Corte y barba", status: "Confirmada" },
+    { t: "11:30", d: 45, who: "Pau Llorens", service: "Manicura", status: "Confirmada" },
+    { t: "16:00", d: 90, who: "Hugo Navarro", service: "Color y mechas", status: "Pendiente" }
+  ],
+  16: [
+    { t: "09:30", d: 60, who: "Clara Beltrán", service: "Masaje descontracturante", status: "Confirmada" },
+    { t: "18:30", d: 60, who: "Iván Ortiz", service: "Masaje descontracturante", status: "Confirmada" }
+  ],
+  22: [{ t: "17:00", d: 45, who: "Lucía Ramos", service: "Corte y barba", status: "Completada" }]
+};
+
+class Component extends DCLogic {
+  state = { day: 13, tab: 0, revenueShown: false };
+
+  renderVals() {
+    const day = this.state.day;
+    const list = APPTS[day] || [];
+
+    const base = [{ n: 30, dim: true }, { n: 31, dim: true }];
+    for (let i = 1; i <= 30; i++) base.push({ n: i, dim: false });
+    base.push({ n: 1, dim: true }, { n: 2, dim: true }, { n: 3, dim: true });
+
+    const cells = base.map((c, i) => {
+      const sel = !c.dim && c.n === day;
+      const has = !c.dim && !!APPTS[c.n];
+      return {
+        n: c.n,
+        dot: has,
+        dotStyle: "display:block;width:5px;height:5px;margin-top:3px;background:" + (sel ? "#f3f2f2" : "#ec3013"),
+        style: [
+          "display:flex;flex-direction:column;align-items:center;justify-content:center;height:46px;border:0;font:800 14px Archivo,sans-serif;cursor:pointer",
+          "border-right:" + (i % 7 === 6 ? "0" : "1px solid rgba(32,30,29,.15)"),
+          "border-bottom:" + (i < 28 ? "1px solid rgba(32,30,29,.15)" : "0"),
+          "background:" + (sel ? "#ec3013" : "transparent"),
+          "color:" + (c.dim ? "#bab6b6" : sel ? "#f3f2f2" : "#201e1d")
+        ].join(";"),
+        onClick: c.dim ? () => {} : () => this.setState({ day: c.n })
+      };
+    });
+
+    const week = [13, 14, 15, 16, 17, 18, 19].map((n, i) => {
+      const sel = n === day;
+      const has = !!APPTS[n];
+      return {
+        n, dow: DOW[(n - 13) % 7],
+        style: [
+          "display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;border:0;cursor:pointer",
+          "border-right:" + (i === 6 ? "0" : "1px solid rgba(32,30,29,.15)"),
+          "background:" + (sel ? "#201e1d" : "transparent"),
+          "color:" + (sel ? "#f3f2f2" : "#201e1d")
+        ].join(";"),
+        barStyle: "display:block;width:16px;height:3px;margin-top:6px;background:" + (has ? (sel ? "#ec3013" : "#ec3013") : "transparent"),
+        onClick: () => this.setState({ day: n })
+      };
+    });
+
+    const hours = [9, 11, 13, 15, 17, 19].map((h, i) => ({
+      label: (h < 10 ? "0" + h : h) + ":00",
+      style: "position:absolute;left:0;right:0;top:" + i * 96 + "px;height:96px;border-bottom:1px solid rgba(32,30,29,.15);display:flex;align-items:flex-start;padding-top:4px"
+    }));
+
+    const blocks = list.map(a => {
+      const [hh, mm] = a.t.split(":").map(Number);
+      const top = ((hh - 9) * 60 + mm) * (96 / 120);
+      const h = Math.max(62, a.d * (96 / 120));
+      const endM = hh * 60 + mm + a.d;
+      const end = String(Math.floor(endM / 60)).padStart(2, "0") + ":" + String(endM % 60).padStart(2, "0");
+      return {
+        who: a.who, service: a.service, range: a.t + "–" + end,
+        style: [
+          "position:absolute;left:64px;right:16px;display:flex;flex-direction:column;padding:8px 10px;box-sizing:border-box;overflow:hidden",
+          "top:" + top + "px", "height:" + h + "px",
+          a.status === "Pendiente"
+            ? "background:#fff2ef;border:1px solid #ec3013;color:#201e1d"
+            : "background:#201e1d;color:#f3f2f2"
+        ].join(";")
+      };
+    });
+
+    const past = [
+      { d: "22", m: "AGO", t: "17:00", who: "Peluquería Marisol", service: "Corte y barba", status: "Completada", pay: false },
+      { d: "04", m: "AGO", t: "11:00", who: "Centro Zen Alicante", service: "Masaje descontracturante", status: "Cancelada", pay: false }
+    ];
+    const upcoming = [
+      { d: "13", m: "SEP", t: "12:00", who: "Nuria Sáez", service: "Manicura", status: "Pendiente", pay: true },
+      { d: "16", m: "SEP", t: "18:30", who: "Centro Zen Alicante", service: "Masaje descontracturante", status: "Confirmada", pay: false },
+      { d: "22", m: "SEP", t: "17:00", who: "Academia Sáez", service: "Clase de refuerzo", status: "Confirmada", pay: false }
+    ];
+    const citas = (this.state.tab === 0 ? upcoming : past).map(c => ({ ...c, tagStyle: tagStyle(c.status) }));
+
+    return {
+      cells, week, hours, blocks,
+      agendaTitle: DAY_NAMES[(day - 13) % 7].charAt(0).toUpperCase() + DAY_NAMES[(day - 13) % 7].slice(1) + ", " + day + " de septiembre",
+      agendaCount: list.length === 0 ? "SIN CITAS" : list.length === 1 ? "1 CITA" : list.length + " CITAS",
+      todayCount: String((APPTS[13] || []).length),
+      agenda: list.map(a => ({ ...a, tagStyle: tagStyle(a.status) })),
+      agendaEmpty: list.length === 0,
+      revenue: this.state.revenueShown ? "1.840 €" : "••••••",
+      toggleRevenue: () => this.setState(s => ({ revenueShown: !s.revenueShown })),
+      citas, citasEmpty: citas.length === 0,
+      citasTabs: ["Próximas", "Pasadas"].map((label, i) => ({
+        label,
+        style: [
+          "flex:1;border:0;font:inherit;padding:11px 14px;text-align:left;cursor:pointer",
+          "border-right:" + (i === 0 ? "1px solid rgba(32,30,29,.25)" : "0"),
+          "background:" + (this.state.tab === i ? "#201e1d" : "transparent"),
+          "color:" + (this.state.tab === i ? "#f3f2f2" : "#201e1d")
+        ].join(";"),
+        onClick: () => this.setState({ tab: i })
+      })),
+      cellsAzul: base.map(c => {
+        const sel = !c.dim && c.n === day;
+        const has = !c.dim && !!APPTS[c.n];
+        return {
+          n: c.n,
+          dot: has,
+          dotStyle: "display:block;width:5px;height:5px;border-radius:999px;margin-top:2px;background:" + (sel ? "#ffffff" : "#1aa64b"),
+          style: [
+            "display:flex;flex-direction:column;align-items:center;justify-content:center;width:38px;height:38px;margin:0 auto;border:0;border-radius:12px;font:700 14px Archivo,sans-serif;cursor:pointer",
+            "background:" + (sel ? "#1653d9" : "transparent"),
+            "color:" + (c.dim ? "#aebbd2" : sel ? "#ffffff" : "#101a2e")
+          ].join(";"),
+          onClick: c.dim ? () => {} : () => this.setState({ day: c.n })
+        };
+      }),
+      agendaAzul: list.map(a => ({ ...a, tagStyle: tagAzul(a.status) })),
+      citasAzul: (this.state.tab === 0 ? upcoming : past).map(c => ({ ...c, tagStyle: tagAzul(c.status) })),
+      citasTabsAzul: ["Próximas", "Pasadas"].map((label, i) => ({
+        label,
+        style: [
+          "border:0;border-radius:999px;font:800 12px Archivo,sans-serif;padding:8px 16px;cursor:pointer",
+          this.state.tab === i ? "background:#ffffff;color:#0e3aa3" : "background:rgba(255,255,255,.16);color:#ffffff"
+        ].join(";"),
+        onClick: () => this.setState({ tab: i })
+      })),
+      cellsGris: base.map((c, i) => {
+        const sel = !c.dim && c.n === day;
+        const has = !c.dim && !!APPTS[c.n];
+        return {
+          n: c.n,
+          dot: has,
+          dotStyle: "display:block;width:6px;height:3px;margin-top:3px;background:" + (sel ? "#ffffff" : "#157f3c"),
+          style: [
+            "display:flex;flex-direction:column;align-items:center;justify-content:center;height:44px;border:0;font:700 14px Archivo,sans-serif;cursor:pointer",
+            "border-right:" + (i % 7 === 6 ? "0" : "1px solid #d8dce5"),
+            "border-bottom:" + (i < 28 ? "1px solid #d8dce5" : "0"),
+            "background:" + (sel ? "#1546c6" : "#ffffff"),
+            "color:" + (c.dim ? "#a7afc0" : sel ? "#ffffff" : "#0d1626")
+          ].join(";"),
+          onClick: c.dim ? () => {} : () => this.setState({ day: c.n })
+        };
+      }),
+      citasGris: (this.state.tab === 0 ? upcoming : past).map(c => ({ ...c, tagStyle: tagGris(c.status) })),
+      agendaGris: list.map(a => ({ ...a, tagStyle: tagGris(a.status) })),
+      citasTabsGris: ["Próximas", "Pasadas"].map((label, i) => ({
+        label,
+        style: [
+          "border:0;font:800 12px Archivo,sans-serif;padding:9px 18px;cursor:pointer;border-radius:6px",
+          this.state.tab === i ? "background:#ffffff;color:#0b2f87" : "background:rgba(255,255,255,.14);color:#ffffff"
+        ].join(";"),
+        onClick: () => this.setState({ tab: i })
+      })),
+      tabsGrisCitas: PANEL_TABS.map((t, i) => tabGris(t, i === 1)),
+      tabsGrisPanel: PANEL_TABS.map((t, i) => tabGris(t, i === 0)),
+      tabsCitas: PANEL_TABS.map((t, i) => tabStyle(t, i === 1)),
+      tabsPanel: PANEL_TABS.map((t, i) => tabStyle(t, i === 0)),
+      providers: [
+        { name: "Peluquería Marisol", meta: "BELLEZA · ALICANTE", next: "HOY 17:30", service: "Corte y barba · 45 min · 18 €" },
+        { name: "Centro Zen Alicante", meta: "BIENESTAR · ALICANTE", next: "MAÑANA 09:30", service: "Masaje · 60 min · 40 €" },
+        { name: "Box Cronos", meta: "FITNESS · ELCHE", next: "HOY 20:00", service: "Sesión guiada · 60 min · 15 €" },
+        { name: "Academia Sáez", meta: "EDUCACIÓN · ALICANTE", next: "MIÉ 16:00", service: "Clase de refuerzo · 60 min · 22 €" }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

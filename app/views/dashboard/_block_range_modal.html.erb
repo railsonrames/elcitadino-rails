@@ -1,12 +1,12 @@
 <%# locals: selected_date %>
-<div data-controller="modal">
-  <button type="button" data-action="modal#open" class="text-sm text-blue-600 hover:underline cursor-pointer">
+<div data-controller="modal" class="inline-block">
+  <button type="button" data-action="modal#open" class="rounded-[6px] border border-[#c3cad8] bg-white hover:bg-[#eef1f6] font-extrabold text-xs px-3 py-2 cursor-pointer">
     <%= t("dashboard.day_agenda.block_range.trigger") %>
   </button>
 
-  <dialog data-modal-target="dialog" class="rounded-2xl p-6 max-w-sm w-[90vw] m-auto backdrop:bg-black/40">
+  <dialog data-modal-target="dialog" class="rounded-[8px] p-6 max-w-sm w-[90vw] m-auto backdrop:bg-black/40">
     <h3 class="font-bold text-lg mb-3"><%= t("dashboard.day_agenda.block_range.title") %></h3>
-    <p class="text-sm text-gray-500 mb-4"><%= t("dashboard.day_agenda.block_range.help") %></p>
+    <p class="text-sm text-ink-2 mb-4"><%= t("dashboard.day_agenda.block_range.help") %></p>
 
     <%= form_with url: provider_profile_time_offs_path, method: :post, class: "space-y-3" do |form| %>
       <div>

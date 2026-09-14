@@ -1,5 +1,6 @@
+<% variant ||= "light" %>
 <details class="relative">
-  <summary class="list-none cursor-pointer p-1.5 rounded-full hover:bg-gray-100 [&::-webkit-details-marker]:hidden" aria-label="<%= locale_name(I18n.locale) %>">
+  <summary class="list-none cursor-pointer p-1.5 rounded-full [&::-webkit-details-marker]:hidden <%= variant == "dark" ? "hover:bg-white/15" : "hover:bg-gray-100" %>" aria-label="<%= locale_name(I18n.locale) %>">
     <%= render "shared/locale_flag", locale: I18n.locale %>
   </summary>
 

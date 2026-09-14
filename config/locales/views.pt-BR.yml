@@ -34,6 +34,7 @@ pt-BR:
       location_unsupported: "Seu navegador não suporta localização."
       location_not_configured: "A busca por mapa ainda não está disponível."
       location_loading: "Obtendo sua localização..."
+      view_availability: "Ver horários"
     show:
       back: "Voltar"
       services: "Serviços"
@@ -76,7 +77,12 @@ pt-BR:
       none_found: "Nenhum agendamento encontrado."
       my_appointments: "Meus agendamentos"
       client_appointments: "Agendamentos dos meus clientes"
+      history_link: "Ver o histórico completo"
+      tabs:
+        upcoming: "Próximos"
+        past: "Anteriores"
     card:
+      view: "Ver agendamento"
       confirm: "Confirmar"
       complete: "Concluir"
       reschedule: "Remarcar"
@@ -214,6 +220,7 @@ pt-BR:
       title: "Minha Agenda"
       monthly_revenue: "Receita do mês"
       toggle_revenue: "Mostrar/ocultar valor"
+      appointments_today: "Agendamentos hoje"
       edit_profile: "Editar meu perfil e serviços"
       settings: "Configurações"
     calendar:
@@ -246,6 +253,12 @@ pt-BR:
     destroy:
       unblocked: "Dia desbloqueado com sucesso."
   shared:
+    tab_bar:
+      agenda: "Agenda"
+      my_appointments: "Meus agendamentos"
+      clients: "Clientes"
+      messages: "Mensagens"
+      profile: "Perfil"
     weekly_hours_grid:
       repeat_modal:
         title: "Repetir horário?"

@@ -15,6 +15,10 @@ class DashboardController < ApplicationController
     @monthly_revenue = @provider_profile.appointments.confirmed
       .where(scheduled_at: Date.current.beginning_of_month..Date.current.end_of_month)
       .joins(:service).sum("services.price")
+
+    # "Citas hoy" no cabeçalho — sempre o dia de hoje, independente do dia selecionado
+    # no calendário (@day_appointments acima é o dia selecionado, pode ser outro).
+    @today_appointments_count = @provider_profile.appointments.active.for_date(Date.current).count
   end
 
   private

@@ -5,6 +5,23 @@ module ApplicationHelper
     LOCALE_NAMES.fetch(locale.to_s, locale.to_s)
   end
 
+  # Whether to render the new blue app header + bottom tab bar (tema azul+gris) instead
+  # of the plain navbar/footer. True for every signed-in page, and also for the public
+  # Buscar screen (providers#index is the root_path — signed-out visitors land there too).
+  def app_shell?
+    user_signed_in? || (controller_name == "providers" && action_name == "index")
+  end
+
+  # Uppercases only the first character, unlike CSS/String#capitalize which lowercases
+  # (or, for `capitalize` the CSS text-transform, uppercases) every word — wrong for
+  # localized long dates like "domingo, 13 de septiembre" (would also capitalize "de").
+  def capitalize_first(str)
+    str = str.to_s
+    return str if str.empty?
+
+    str[0].upcase + str[1..]
+  end
+
   # A provider account can also be the client on someone else's booking, so
   # the viewer's perspective on a given appointment comes from their
   # relationship to it, never from their account's own role.
