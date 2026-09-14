@@ -23,7 +23,42 @@
   </head>
 
   <body class="<%= app_shell? ? "bg-ground text-ink font-sans" : "" %>">
-    <%= render app_shell? ? "layouts/app_header" : "layouts/navbar" %>
+    <% if app_shell? %>
+      <%# No mobile isso é só o fluxo normal da página (o design é esse, já aprovado).
+          A partir de lg:, o app fica "emoldurado": um cartão de largura fixa,
+          centralizado, com altura de viewport e rolagem interna — como
+          WhatsApp Web/Slack — em vez de uma barra azul esticando full-width
+          enquanto o conteúdo fica numa coluna estreita solta no meio da tela.
+          Não existe referência de design pra desktop (fora de escopo do handoff);
+          isto é um tratamento razoável até termos uma. %>
+      <div class="lg:min-h-screen lg:flex lg:items-center lg:justify-center lg:bg-[#d7dae1] lg:py-8">
+        <%# bg-ground aqui (não bg-surface): no mobile isso é exatamente o fundo do
+            body, invisível — os vãos cinza entre os blocos brancos continuam iguais.
+            No desktop, é o "miolo" do cartão; só o entorno (acima) é um tom mais
+            escuro pra separar visualmente o cartão do fundo da página. %>
+        <div class="w-full max-w-[430px] lg:max-w-[480px] mx-auto bg-ground lg:h-[calc(100vh-4rem)] lg:flex lg:flex-col lg:rounded-[20px] lg:border lg:border-line lg:shadow-xl lg:overflow-hidden">
+          <%= render "layouts/app_header" %>
+
+          <main class="w-full px-3 pt-3 pb-24 lg:flex-1 lg:overflow-y-auto lg:pb-3">
+            <%= yield %>
+          </main>
+
+          <% if user_signed_in? %>
+            <%= render "shared/tab_bar" %>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <%= render "layouts/navbar" %>
+
+      <main class="container mx-auto mt-10 px-5 pb-10">
+        <%= yield %>
+      </main>
+
+      <footer class="border-t border-gray-200">
+        <p class="text-center text-xs text-gray-400 py-6"><%= t("layouts.footer.copyright", year: Time.zone.now.year) %></p>
+      </footer>
+    <% end %>
 
     <div class="fixed top-4 inset-x-0 z-50 flex flex-col items-center gap-2 px-4 pointer-events-none">
       <% if notice.present? %>
@@ -33,19 +68,5 @@
         <div data-controller="toast" class="pointer-events-auto transition-opacity duration-300 py-2 px-4 bg-red-50 text-red-700 font-medium rounded-lg shadow-lg border border-red-200"><%= alert %></div>
       <% end %>
     </div>
-
-    <main class="<%= app_shell? ? "mx-auto w-full max-w-[430px] px-3 pt-3 pb-24" : "container mx-auto mt-10 px-5 pb-10" %>">
-      <%= yield %>
-    </main>
-
-    <% if app_shell? %>
-      <% if user_signed_in? %>
-        <%= render "shared/tab_bar" %>
-      <% end %>
-    <% else %>
-      <footer class="border-t border-gray-200">
-        <p class="text-center text-xs text-gray-400 py-6"><%= t("layouts.footer.copyright", year: Time.zone.now.year) %></p>
-      </footer>
-    <% end %>
   </body>
 </html>

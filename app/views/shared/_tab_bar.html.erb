@@ -29,7 +29,10 @@
     ]
   end
 %>
-<nav class="fixed bottom-0 inset-x-0 z-40 grid grid-cols-4 bg-surface border-t border-line pt-2.5 pb-3.5 mx-auto w-full max-w-[430px]">
+<%# Mobile: fixa na base da viewport (o app É a tela inteira). A partir de lg:,
+    vive dentro do cartão emoldurado do layout como um filho flex normal, no
+    fundo do cartão — não da janela. %>
+<nav class="fixed lg:relative lg:shrink-0 bottom-0 inset-x-0 z-40 grid grid-cols-4 bg-surface border-t border-line pt-2.5 pb-3.5 w-full max-w-[430px] lg:max-w-none mx-auto lg:mx-0">
   <% tabs.each do |tab| %>
     <% classes = "flex flex-col items-center gap-1 #{tab[:active] ? "text-brand" : "text-ink-3"}" %>
     <% if tab[:path] %>
